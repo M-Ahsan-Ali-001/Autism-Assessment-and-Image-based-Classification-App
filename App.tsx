@@ -64,39 +64,27 @@ function App(): JSX.Element {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+
+      <View
+        style={{
+          backgroundColor: '#1a6864',
+        }}>
+        <Section title="Autism Launchpad">
+          <Text style={styles.primaryColor}>
+            An app to help children with autism
+          </Text>
+        </Section>
+        
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  primaryColor: {
+    backgroundColor: '#1a6864',
+  },
+
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
