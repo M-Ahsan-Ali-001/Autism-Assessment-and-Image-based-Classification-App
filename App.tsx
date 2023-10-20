@@ -7,6 +7,7 @@
 
 import React from 'react';
 import type {PropsWithChildren} from 'react';
+import Svg, { Circle } from 'react-native-svg';
 import {
   SafeAreaView,
   ScrollView,
@@ -29,6 +30,10 @@ type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
+interface test {
+
+  hold:String
+}
 function Section({children, title}: SectionProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
@@ -62,6 +67,16 @@ function App(): JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+
+  const MySvgComponent = () => (
+    <Svg height="60" width="60">
+      <Circle cx="25" cy="25" r="25" fill="blue" />
+    </Svg>
+  );
+  
+
+
+
   return (
     <SafeAreaView style={backgroundStyle}>
 
@@ -71,9 +86,14 @@ function App(): JSX.Element {
         }}>
         <Section title="Autism Launchpad">
           <Text style={styles.primaryColor}>
-            An app to help children with autism
+            An apaarp to help children with autism aafds 
           </Text>
         </Section>
+        <MySvgComponent/>
+
+
+        
+
         
       </View>
     </SafeAreaView>
