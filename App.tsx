@@ -6,7 +6,8 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+import type { PropsWithChildren } from 'react';
+
 import {
   SafeAreaView,
   ScrollView,
@@ -17,6 +18,8 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+
 
 import {
   Colors,
@@ -25,96 +28,75 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-
+import { startMapper } from 'react-native-reanimated';
+import Svg, { Path } from 'react-native-svg'
+import SvgComponent from './component/SvgComonent';
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-interface test {
 
-  hold:String
-}
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+
+
+
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
 
 
-  const MySvgComponent = () => (
-    <Svg height="60" width="60">
-      <Circle cx="25" cy="25" r="25" fill="blue" />
-    </Svg>
-  );
-  
 
 
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <View
-        style={{
-          backgroundColor: '#1a6864',
-        }}>
-        <Section title="Autism Launchpad">
-          <Text style={styles.primaryColor}>
-            An apaarp to help children with autism aafds 
-          </Text>
-        </Section>
-        
+
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ marginTop: 90 }}></View>
+      <View style={{ flex: 0.5, }}></View>
+      <View style={{ flex: 0.9, }}></View>
+
+
+
+
+      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+        <SvgComponent />
+        <View style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        ><Text style={style.textBottom}> SUiiiiiiiiiiiiiiiiii </Text></View>
+
+
       </View>
-    </SafeAreaView>
+
+
+
+
+
+
+    </View>
+
   );
 }
 
-const styles = StyleSheet.create({
-  primaryColor: {
-    backgroundColor: '#1a6864',
-  },
 
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+const style = StyleSheet.create({
+
+  textBottom: {
+    fontSize: 25,
+    color: 'white'
+    , fontWeight: 'bold'
+
+
+
+  }
+
+
+
+})
+
 
 export default App;
