@@ -89,7 +89,7 @@ function App(): JSX.Element {
             An apaarp to help children with autism aafds 
           </Text>
         </Section>
-        
+        <MySvgComponent/>
       </View>
     </SafeAreaView>
   );
