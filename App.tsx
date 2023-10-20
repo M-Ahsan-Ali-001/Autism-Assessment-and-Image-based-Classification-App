@@ -7,12 +7,12 @@
 
 import React from 'react';
 import type {PropsWithChildren} from 'react';
-import Svg, { Circle } from 'react-native-svg';
 import {
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
+  Image,
   Text,
   useColorScheme,
   View,
@@ -79,7 +79,6 @@ function App(): JSX.Element {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-
       <View
         style={{
           backgroundColor: '#1a6864',
@@ -89,11 +88,6 @@ function App(): JSX.Element {
             An apaarp to help children with autism aafds 
           </Text>
         </Section>
-        <MySvgComponent/>
-
-
-        
-
         
       </View>
     </SafeAreaView>
