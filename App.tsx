@@ -7,6 +7,7 @@
 
 import React from 'react';
 import type {PropsWithChildren} from 'react';
+import Svg,{Circle} from 'react-native-svg'
 import {
   SafeAreaView,
   ScrollView,
@@ -88,6 +89,7 @@ function App(): JSX.Element {
             An apaarp to help children with autism aafds 
           </Text>
         </Section>
+        <MySvgComponent/>
         
       </View>
     </SafeAreaView>
