@@ -27,27 +27,12 @@ import SvgComponent from "../components/SvgComponent";
 import SvgComponent1 from "../components/SvgComponent1";
 
 
-function IntroScreen({navigation}) {
+function IntroScreen2({navigation}) {
 
-  const [textFooter, changeTextFooter] = React.useState('An App for Early intervetion of ASD')
+  const [textFooter, changeTextFooter] = React.useState('AQ 10 question')
   const [shapeCond, setShapeCond] = React.useState(false);
-  const svg = <SvgComponent1 />
-  const svg1 = <SvgComponent />
+ 
 
-  function shape() {
-    return (
-
-      svg1
-    )
-  }
-
-
-  function shape1() {
-    return (
-
-      svg
-    )
-  }
 
   const handleGesture = (evt) => {
     const { nativeEvent } = evt;
@@ -55,22 +40,21 @@ function IntroScreen({navigation}) {
     if (nativeEvent.velocityX > 0) {
       console.log('Swipe right');
 
-      changeTextFooter("this is asd detection app!")
-      setShapeCond(true)
+      navigation.navigate('Home')
+
     }
 
 
     if (nativeEvent.velocityX < 0) {
       console.log('Swipe rleft');
-      navigation.navigate('Details')
 
-      //changeTextFooter("changed text")
-      
+      changeTextFooter("changed text")
+      setShapeCond(false)
     }
   };
 
   return (
-    <GestureHandlerRootView style={{ backgroundColor: 'white', flex: 1,height:'100%',width:'100%' }}>
+    <GestureHandlerRootView style={{ backgroundColor: 'white', flex: 1 }}>
       <PanGestureHandler onGestureEvent={handleGesture}>
         <View style={{ backgroundColor: 'white', flex: 1 }}>
           <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 90 }}>
@@ -81,8 +65,8 @@ function IntroScreen({navigation}) {
           <View style={{ flex: 1, justifyContent: 'flex-end' }}>
             <View>
               {/* {shapeCond ?(<SvgComponent1/>): (<SvgComponent/>)} */}
-              {/* <SvgComponent/> */}
-              <Image source={require('../assets/test1.png')}
+              {/* <SvgComponent1/> */}
+              <Image source={require('../assets/test2.png')}
               style={{
                 width:'100%'
                 ,height:'90%'
@@ -90,7 +74,6 @@ function IntroScreen({navigation}) {
             
             
             }></Image>
-            
 
               <View style={{
                  position: 'absolute',
@@ -101,7 +84,7 @@ function IntroScreen({navigation}) {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-                <Text style={{ fontWeight: '900', fontSize: 18, color: 'black' }}>{textFooter}</Text>
+                <Text style={{ fontWeight: '900', fontSize: 18, color: 'white' }}>{textFooter}</Text>
               </View>
 
               <View
@@ -118,8 +101,8 @@ function IntroScreen({navigation}) {
                 }}
               >
 
+                <RadioButton ></RadioButton>
                 <RadioButton status="checked"></RadioButton>
-                <RadioButton></RadioButton>
                 <RadioButton></RadioButton>
               </View>
 
@@ -141,4 +124,4 @@ function IntroScreen({navigation}) {
   )
 }
 
-export default IntroScreen;
+export default IntroScreen2;
