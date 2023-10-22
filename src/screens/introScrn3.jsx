@@ -26,7 +26,7 @@ import { RadioButton } from 'react-native-paper';
 
 
 
-function IntroScreen({ navigation }) {
+function IntroScreen3({ navigation }) {
 
   const [textFooter, changeTextFooter] = React.useState('AQ 10 question')
   const [shapeCond, setShapeCond] = React.useState(false);
@@ -38,18 +38,18 @@ function IntroScreen({ navigation }) {
 
     if (nativeEvent.velocityX > 0) {
       console.log('Swipe right');
-
-
+      navigation.navigate('Details')
+     // navigation.navigate('Home')
 
     }
 
 
     if (nativeEvent.velocityX < 0) {
       console.log('Swipe rleft');
+    
 
-      //changeTextFooter("changed text")
-      //setShapeCond(false)
-      navigation.navigate('Details')
+      changeTextFooter("changed text")
+      setShapeCond(false)
     }
   };
 
@@ -63,22 +63,22 @@ function IntroScreen({ navigation }) {
 
 
           <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-            <View style={{ justifyContent: 'flex-end' }}>
+            <View style={{  justifyContent: 'flex-end' }}>
               {/* {shapeCond ?(<SvgComponent1/>): (<SvgComponent/>)} */}
               {/* <SvgComponent1/> */}
               <View style={{ justifyContent: 'flex-end' }}>
 
-                <Image source={require('../assets/wave1.png')}
+                <Image source={require('../assets/wave3.png')}
                   style={{
                     width: '100%'
                     , height: '90%',
                     margin: 0,
                     padding: 0,
-                    top: 15,
+                    top:15,
                     justifyContent: 'flex-end',
-                    resizeMode: 'contain'
-
-
+                resizeMode:'contain'
+                
+                 
 
 
                   }
@@ -103,7 +103,7 @@ function IntroScreen({ navigation }) {
 
                 style={{
                   position: 'absolute',
-                  top: 250,
+                  top: 150,
                   left: 0,
                   right: 0,
                   bottom: 0,
@@ -113,9 +113,9 @@ function IntroScreen({ navigation }) {
                 }}
               >
 
-                <RadioButton status="checked" ></RadioButton>
-                <RadioButton></RadioButton>
-                <RadioButton></RadioButton>
+                <RadioButton ></RadioButton>
+                <RadioButton ></RadioButton>
+                <RadioButton status="checked"></RadioButton>
               </View>
 
 
@@ -136,4 +136,4 @@ function IntroScreen({ navigation }) {
   )
 }
 
-export default IntroScreen;
+export default IntroScreen3;

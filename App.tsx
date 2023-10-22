@@ -30,6 +30,7 @@ import IntroScreen from './src/screens/IntroScrn';
 import IntroScreen2 from './src/screens/introScrn2';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import IntroScreen3 from './src/screens/introScrn3';
 
 
 function App(): JSX.Element {
@@ -48,9 +49,10 @@ function App(): JSX.Element {
   
 
     >
-        <Stack.Screen name="Home" component={IntroScreen} options={{ animation:"none" }} // Disable animation for this screen
+        <Stack.Screen name="Home" component={IntroScreen} options={{ animation:"slide_from_right" }} // Disable animation for this screen
  />
-        <Stack.Screen name="Details" component={IntroScreen2} options={{ animation:"none" }} />
+        <Stack.Screen name="Details" component={IntroScreen2} options={{ animation:"slide_from_right" }} />
+        <Stack.Screen name="Screen3" component={IntroScreen3} options={{ animation:"slide_from_right" }} />
       </Stack.Navigator>
     </NavigationContainer>
  
