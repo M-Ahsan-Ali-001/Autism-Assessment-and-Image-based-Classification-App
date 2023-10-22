@@ -1,4 +1,4 @@
-import React, { State } from "react";
+import React, {State} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -11,8 +11,6 @@ import {
   Alert,
 } from 'react-native';
 
-
-
 import {
   Colors,
   DebugInstructions,
@@ -21,119 +19,55 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-handler';
-import { RadioButton } from 'react-native-paper';
+import {
+  GestureHandlerRootView,
+  PanGestureHandler,
+} from 'react-native-gesture-handler';
+import {RadioButton} from 'react-native-paper';
+import LogoIntroScreen from '../components/LogoIntroScree';
+import RadioButtonIntro from '../components/RadioButtonIntro';
+import TextIntroScreen from '../components/TextIntroScreen';
+import WaveShape from '../components/WaveShape';
 
-
-
-function IntroScreen({ navigation }) {
-
-  const [textFooter, changeTextFooter] = React.useState('AQ 10 question')
+function IntroScreen({navigation}) {
+  const [textFooter, changeTextFooter] = React.useState('AQ 10 question');
   const [shapeCond, setShapeCond] = React.useState(false);
 
-
-
-  const handleGesture = (evt) => {
-    const { nativeEvent } = evt;
+  const handleGesture = evt => {
+    const {nativeEvent} = evt;
 
     if (nativeEvent.velocityX > 0) {
       console.log('Swipe right');
-
-
-
     }
-
 
     if (nativeEvent.velocityX < 0) {
       console.log('Swipe rleft');
 
       //changeTextFooter("changed text")
       //setShapeCond(false)
-      navigation.navigate('Details')
+      navigation.navigate('Details');
     }
   };
 
   return (
-    <GestureHandlerRootView style={{ backgroundColor: 'white', flex: 1 }}>
+    <GestureHandlerRootView style={{backgroundColor: 'white', flex: 1}}>
       <PanGestureHandler onGestureEvent={handleGesture}>
-        <View style={{ backgroundColor: 'white', flex: 1 }}>
-          <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 90 }}>
-            <Image source={require('../assets/Logo.png')} style={{ height: 250, width: 250, resizeMode: 'contain' }}></Image>
-          </View>
+        <View style={{backgroundColor: 'white', flex: 1}}>
+          <LogoIntroScreen pageN={1} h={250} w={250} />
 
+          <View style={{flex: 1, justifyContent: 'flex-end'}}>
+            <View style={{justifyContent: 'flex-end'}}>
+              <WaveShape shapeN={1} />
 
-          <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-            <View style={{ justifyContent: 'flex-end' }}>
-              {/* {shapeCond ?(<SvgComponent1/>): (<SvgComponent/>)} */}
-              {/* <SvgComponent1/> */}
-              <View style={{ justifyContent: 'flex-end' }}>
+              <TextIntroScreen tFooter="An App for early intervention of ASD using AI" l={0} r={0} b={0} t={30} />
 
-                <Image source={require('../assets/wave1.png')}
-                  style={{
-                    width: '100%'
-                    , height: '90%',
-                    margin: 0,
-                    padding: 0,
-                    top: 15,
-                    justifyContent: 'flex-end',
-                    resizeMode: 'contain'
-
-
-
-
-                  }
-
-
-                  }></Image>
-              </View>
-
-              <View style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 30,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-                <Text style={{ fontWeight: '900', fontSize: 18, color: 'black' }}>{textFooter}</Text>
-              </View>
-
-              <View
-
-                style={{
-                  position: 'absolute',
-                  top: 250,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexDirection: 'row'
-                }}
-              >
-
-                <RadioButton status="checked" ></RadioButton>
-                <RadioButton></RadioButton>
-                <RadioButton></RadioButton>
-              </View>
-
-
-
+              <RadioButtonIntro nmb={1} />
             </View>
           </View>
-
-
         </View>
-
       </PanGestureHandler>
-
     </GestureHandlerRootView>
-
-
-
-
-  )
+  );
 }
 
 export default IntroScreen;
