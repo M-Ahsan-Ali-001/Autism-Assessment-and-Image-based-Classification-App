@@ -32,6 +32,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import IntroScreen3 from './src/screens/introScrn3';
 import LoginScreen from './src/screens/LoginScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
 
 function App(): JSX.Element {
   const Stack = createNativeStackNavigator();
@@ -61,7 +62,8 @@ function App(): JSX.Element {
     //   </Stack.Navigator>
     // </NavigationContainer>
 
-    <LoginScreen />
+    // <LoginScreen />
+    <SignUpScreen />
 
   );
 }
