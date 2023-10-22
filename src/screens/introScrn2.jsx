@@ -68,7 +68,7 @@ function IntroScreen2({navigation}) {
               {/* <SvgComponent1/> */}
               <View style={{justifyContent: 'flex-end'}}>
                 <Image
-                  source={require('../assets/wave2.png')}
+                  source={require('../assets/images/wave2.png')}
                   style={{
                     width: '100%',
                     height: '90%',

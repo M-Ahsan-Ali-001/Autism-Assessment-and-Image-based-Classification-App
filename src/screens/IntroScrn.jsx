@@ -56,7 +56,7 @@ function IntroScreen({navigation}) {
               marginTop: 90,
             }}>
             <Image
-              source={require('../assets/Logo.png')}
+              source={require('../assets/images/Logo.png')}
               style={{height: 250, width: 250, resizeMode: 'contain'}}></Image>
           </View>
 
@@ -66,7 +66,7 @@ function IntroScreen({navigation}) {
               {/* <SvgComponent1/> */}
               <View style={{justifyContent: 'flex-end'}}>
                 <Image
-                  source={require('../assets/wave1.png')}
+                  source={require('../assets/images/wave1.png')}
                   style={{
                     width: '100%',
                     height: '90%',
