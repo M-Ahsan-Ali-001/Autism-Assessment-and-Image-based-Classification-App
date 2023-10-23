@@ -40,7 +40,7 @@ function ButtonIntro(prop)
 
         <Text  style={styles.buttonS}  onPress={()=>{
 
-           
+          prop.navi.navigate('Dashboard')
 
 
 

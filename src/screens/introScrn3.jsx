@@ -67,6 +67,7 @@ function IntroScreen3({navigation}) {
                r={0}
                b={30}
                t={60}
+               navi={navigation}
              />
 
               <RadioButtonIntro nmb={3} />
