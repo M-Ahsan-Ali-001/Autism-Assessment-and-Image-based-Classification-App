@@ -62,8 +62,8 @@ function App(): JSX.Element {
     //   </Stack.Navigator>
     // </NavigationContainer>
 
-    // <LoginScreen />
-    <SignUpScreen />
+    <LoginScreen />
+    // <SignUpScreen />
 
   );
 }
