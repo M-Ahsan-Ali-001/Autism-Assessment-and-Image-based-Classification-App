@@ -32,6 +32,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import IntroScreen3 from './src/screens/introScrn3';
 import Dashboard from './src/screens/dashboard';
+import AQ_10 from './src/screens/AQ_10';
 
 
 function App(): JSX.Element {
@@ -50,11 +51,12 @@ function App(): JSX.Element {
 
 
       >
-        <Stack.Screen name="Home" component={IntroScreen} options={{ animation: "slide_from_right" }} // Disable animation for this screen
+        <Stack.Screen name="Home" component={AQ_10} options={{ animation: "slide_from_right" }} // Disable animation for this screen
         />
         <Stack.Screen name="Details" component={IntroScreen2} options={{ animation: "slide_from_right" }} />
         <Stack.Screen name="Screen3" component={IntroScreen3} options={{ animation: "slide_from_right" }} />
         <Stack.Screen name="Dashboard" component={Dashboard} options={{ animation: "slide_from_right" }} />
+        <Stack.Screen name="AQ_10" component={AQ_10} options={{ animation: "slide_from_right" }} />
       </Stack.Navigator>
     </NavigationContainer>
 
