@@ -14,16 +14,19 @@ import Animated, {
   FadeInLeft,
   FadeInRight,
 } from 'react-native-reanimated';
-import SpecialButton from '../components/specialButton';
-import {Button} from 'react-native-paper';
-import {black} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
+import SpecialButton from '../components/SpecialButton';
 
 const {height, width} = Dimensions.get('window');
 
-export default function LoginScreen() {
+export default function LoginScreen({navigation}) {
   const logo = require('../assets/images/Logo.png');
   const topRight = require('../assets/images/topRight.png');
   const bottomLeft = require('../assets/images/bottomLeft.png');
+
+  const handleSignUpPress = () => {
+    // Navigate to the SignUp screen
+    navigation.navigate('SignUp');
+  };
 
   return (
     <View style={styles.container}>
@@ -34,6 +37,7 @@ export default function LoginScreen() {
       />
       <Animated.Image
         entering={FadeInLeft.delay(400).duration(1000)}
+        exiting={FadeInLeft.delay(400).duration(1000)}
         source={bottomLeft}
         style={styles.bottomLeftImage}
       />
@@ -56,14 +60,18 @@ export default function LoginScreen() {
       />
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <Text
-          style={{color: 'white', marginTop: height * 0.015, marginRight: 20}}>
+          style={{color: 'white', marginTop: height * 0.015, marginRight: 55}}>
           Forgot Password?
         </Text>
-        <Text
-          style={{color: 'white', marginTop: height * 0.015, marginLeft: 20}}>
-          Don't have an Account?
-        </Text>
+        <TouchableOpacity onPress={handleSignUpPress}>
+          <Text
+            style={{color: 'white', marginTop: height * 0.015, marginLeft: 55}}>
+            Sign Up
+          </Text>
+        </TouchableOpacity>
       </View>
+
+      <SpecialButton buttonText="LOGIN" />
     </View>
   );
 }

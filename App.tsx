@@ -41,9 +41,9 @@ function App(): JSX.Element {
     // <NavigationContainer>
     //   <Stack.Navigator
     //     initialRouteName="Home"
-    //     screenOptions={{
-    //       headerShown: false, // Hide the header for all screens in this stack
-    //     }}>
+    // screenOptions={{
+    //   headerShown: false, // Hide the header for all screens in this stack
+    // }}>
     //     <Stack.Screen
     //       name="Home"
     //       component={IntroScreen}
@@ -62,9 +62,24 @@ function App(): JSX.Element {
     //   </Stack.Navigator>
     // </NavigationContainer>
 
-    <LoginScreen />
-    // <SignUpScreen />
-
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Login"
+        screenOptions={{
+          headerShown: false, // Hide the header for all screens in this stack
+        }}>
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{animation: 'slide_from_bottom'}}
+        />
+        <Stack.Screen
+          name="SignUp"
+          component={SignUpScreen}
+          options={{animation: 'slide_from_bottom'}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

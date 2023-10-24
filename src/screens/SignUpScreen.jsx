@@ -6,6 +6,7 @@ import {
   View,
   TextInput,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import Animated, {
   FadeIn,
@@ -13,13 +14,19 @@ import Animated, {
   FadeInLeft,
   FadeInRight,
 } from 'react-native-reanimated';
+import SpecialButton from '../components/SpecialButton';
 
 const {height, width} = Dimensions.get('window');
 
-export default function SignUpScreen() {
+export default function SignUpScreen({navigation}) {
   const logo = require('../assets/images/Logo.png');
   const topRight = require('../assets/images/topRight.png');
   const bottomLeft = require('../assets/images/bottomLeft.png');
+
+  const handleSignUpPress = () => {
+    // Navigate to the SignUp screen
+    navigation.navigate('Login');
+  };
 
   return (
     <View style={styles.container}>
@@ -46,13 +53,28 @@ export default function SignUpScreen() {
       />
       <TextInput
         style={styles.input}
+        placeholder="Email"
+        placeholderTextColor="#ffffff"
+      />
+      <TextInput
+        style={styles.input}
         placeholder="Password"
         placeholderTextColor="#ffffff"
         secureTextEntry={true}
       />
-      <Text style={{color: 'white', marginTop: height * 0.02, alignContent}}>
-        Forgot Password?
-      </Text>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        {/* <Text
+          style={{color: 'white', marginTop: height * 0.015, marginRight: 55}}>
+          Forgot Password?
+        </Text> */}
+        <TouchableOpacity onPress={handleSignUpPress}>
+          <Text style={{color: 'white', marginTop: height * 0.015}}>
+            Alreay have an account? Login!
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      <SpecialButton buttonText="Sign Up!" />
     </View>
   );
 }
@@ -102,10 +124,19 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     left: 0,
-    height: height * 0.3,
-    width: height * 0.3,
+    height: height * 0.25,
+    width: height * 0.25,
     resizeMode: 'contain',
     zIndex: -1,
     // opacity: 0.8,
+  },
+  loginButton: {
+    backgroundColor: 'white', // You can customize the color
+    // padding: 1,
+    color: 'black',
+    fontSize: 25,
+    borderRadius: 69,
+    alignItems: 'center',
+    marginVertical: 10,
   },
 });
