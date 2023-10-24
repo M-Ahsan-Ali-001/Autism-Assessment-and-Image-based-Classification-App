@@ -6,6 +6,7 @@ import {
   View,
   TextInput,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import Animated, {
   FadeIn,
@@ -13,6 +14,9 @@ import Animated, {
   FadeInLeft,
   FadeInRight,
 } from 'react-native-reanimated';
+import SpecialButton from '../components/specialButton';
+import {Button} from 'react-native-paper';
+import {black} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 
 const {height, width} = Dimensions.get('window');
 
@@ -50,9 +54,16 @@ export default function LoginScreen() {
         placeholderTextColor="#ffffff"
         secureTextEntry={true}
       />
-      <Text style={{color: 'white', marginTop: height * 0.02}}>
-        Forgot Password?
-      </Text>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <Text
+          style={{color: 'white', marginTop: height * 0.015, marginRight: 20}}>
+          Forgot Password?
+        </Text>
+        <Text
+          style={{color: 'white', marginTop: height * 0.015, marginLeft: 20}}>
+          Don't have an Account?
+        </Text>
+      </View>
     </View>
   );
 }
@@ -107,5 +118,14 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     zIndex: -1,
     // opacity: 0.8,
+  },
+  loginButton: {
+    backgroundColor: 'white', // You can customize the color
+    // padding: 1,
+    color: 'black',
+    fontSize: 25,
+    borderRadius: 69,
+    alignItems: 'center',
+    marginVertical: 10,
   },
 });
