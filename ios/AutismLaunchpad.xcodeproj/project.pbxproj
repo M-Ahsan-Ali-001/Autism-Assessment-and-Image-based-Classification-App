@@ -14,6 +14,12 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-AutismLaunchpad-AutismLaunchpadTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-AutismLaunchpad-AutismLaunchpadTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		859F26FB8F7D48088EF0BA65 /* SpaceMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5EBB4C9A82A74FDFA93EAC54 /* SpaceMono-Bold.ttf */; };
+		53B6AC00CAD34FB0B699A386 /* SpaceMono-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7F237EDD9674F5B9CF06E13 /* SpaceMono-BoldItalic.ttf */; };
+		3E23852E75E9490CBA3EEE2E /* SpaceMono-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DE56F3BD4B9A480FB58FB964 /* SpaceMono-Italic.ttf */; };
+		F9450A7A32AF401A9D4DD431 /* SpaceMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5EE885FC404D43BD90D4FA53 /* SpaceMono-Regular.ttf */; };
+		68C75EB1D4804E1BBE478BC9 /* EBGaramond-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A66D48EF856F4676AC7B8476 /* EBGaramond-Italic-VariableFont_wght.ttf */; };
+		79243881E1BD41DEAEDB3605 /* EBGaramond-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A5E8CD64A6D4F4DAE555E4A /* EBGaramond-VariableFont_wght.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +50,12 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = AutismLaunchpad/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-AutismLaunchpad-AutismLaunchpadTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AutismLaunchpad-AutismLaunchpadTests.release.xcconfig"; path = "Target Support Files/Pods-AutismLaunchpad-AutismLaunchpadTests/Pods-AutismLaunchpad-AutismLaunchpadTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		5EBB4C9A82A74FDFA93EAC54 /* SpaceMono-Bold.ttf */ = {isa = PBXFileReference; name = "SpaceMono-Bold.ttf"; path = "../src/assets/fonts/SpaceMono-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B7F237EDD9674F5B9CF06E13 /* SpaceMono-BoldItalic.ttf */ = {isa = PBXFileReference; name = "SpaceMono-BoldItalic.ttf"; path = "../src/assets/fonts/SpaceMono-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DE56F3BD4B9A480FB58FB964 /* SpaceMono-Italic.ttf */ = {isa = PBXFileReference; name = "SpaceMono-Italic.ttf"; path = "../src/assets/fonts/SpaceMono-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5EE885FC404D43BD90D4FA53 /* SpaceMono-Regular.ttf */ = {isa = PBXFileReference; name = "SpaceMono-Regular.ttf"; path = "../src/assets/fonts/SpaceMono-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A66D48EF856F4676AC7B8476 /* EBGaramond-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "EBGaramond-Italic-VariableFont_wght.ttf"; path = "../src/assets/fonts/EBGaramond-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1A5E8CD64A6D4F4DAE555E4A /* EBGaramond-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "EBGaramond-VariableFont_wght.ttf"; path = "../src/assets/fonts/EBGaramond-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +134,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				F2DE954B7EC8408F9E9DDDBA /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -147,6 +160,20 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		F2DE954B7EC8408F9E9DDDBA /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				5EBB4C9A82A74FDFA93EAC54 /* SpaceMono-Bold.ttf */,
+				B7F237EDD9674F5B9CF06E13 /* SpaceMono-BoldItalic.ttf */,
+				DE56F3BD4B9A480FB58FB964 /* SpaceMono-Italic.ttf */,
+				5EE885FC404D43BD90D4FA53 /* SpaceMono-Regular.ttf */,
+				A66D48EF856F4676AC7B8476 /* EBGaramond-Italic-VariableFont_wght.ttf */,
+				1A5E8CD64A6D4F4DAE555E4A /* EBGaramond-VariableFont_wght.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -244,6 +271,12 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				859F26FB8F7D48088EF0BA65 /* SpaceMono-Bold.ttf in Resources */,
+				53B6AC00CAD34FB0B699A386 /* SpaceMono-BoldItalic.ttf in Resources */,
+				3E23852E75E9490CBA3EEE2E /* SpaceMono-Italic.ttf in Resources */,
+				F9450A7A32AF401A9D4DD431 /* SpaceMono-Regular.ttf in Resources */,
+				68C75EB1D4804E1BBE478BC9 /* EBGaramond-Italic-VariableFont_wght.ttf in Resources */,
+				79243881E1BD41DEAEDB3605 /* EBGaramond-VariableFont_wght.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
