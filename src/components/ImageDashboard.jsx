@@ -20,13 +20,13 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 function ImageButtonDashboard(props) {
-  const arrowPath = '../assets/arrowPng.png';
-  const hamBurgerPath = '../assets/hamburger.png';
-  const userPath = '../assets/user.png';
-  const Questionnair1 = '../assets/Q1.png';
+  const arrowPath = '../assets/images/arrowPng.png';
+  const hamBurgerPath = '../assets/images/hamburger.png';
+  const userPath = '../assets/images/user.png';
+  const Questionnair1 = '../assets/images/Q1.png';
 
-  const Questionnair2 = '../assets/Q2.png';
-  const ScanImage = '../assets/faceScan.png';
+  const Questionnair2 = '../assets/images/Q2.png';
+  const ScanImage = '../assets/images/faceScan.png';
 
   return (
     <View>

@@ -30,9 +30,13 @@ import IntroScreen from './src/screens/IntroScrn';
 import IntroScreen2 from './src/screens/introScrn2';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+// screens:
 import IntroScreen3 from './src/screens/introScrn3';
 import Dashboard from './src/screens/dashboard';
 import AQ_10 from './src/screens/AQ_10';
+import LoginScreen from './src/screens/LoginScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
 
 
 function App(): JSX.Element {
@@ -51,10 +55,12 @@ function App(): JSX.Element {
 
 
       >
-        <Stack.Screen name="Home" component={AQ_10} options={{ animation: "slide_from_right" }} // Disable animation for this screen
+        <Stack.Screen name="Home" component={IntroScreen} options={{ animation: "slide_from_right" }} // Disable animation for this screen
         />
         <Stack.Screen name="Details" component={IntroScreen2} options={{ animation: "slide_from_right" }} />
         <Stack.Screen name="Screen3" component={IntroScreen3} options={{ animation: "slide_from_right" }} />
+        <Stack.Screen name="Login" component={LoginScreen} options={{ animation: "slide_from_right" }} />
+        <Stack.Screen name="Signup" component={SignUpScreen} options={{ animation: "slide_from_right" }} />
         <Stack.Screen name="Dashboard" component={Dashboard} options={{ animation: "slide_from_right" }} />
         <Stack.Screen name="AQ_10" component={AQ_10} options={{ animation: "slide_from_right" }} />
       </Stack.Navigator>

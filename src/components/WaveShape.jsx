@@ -20,15 +20,15 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 function WaveShape(prop) {
-  const path1 = '../assets/wave1.png';
-  const path2 = '../assets/wave2.png';
-  const path3 = '../assets/wave3.png';
+  const path1 = '../assets/images/wave1.png';
+  const path2 = '../assets/images/wave2.png';
+  const path3 = '../assets//images/wave3.png';
 
   return (
     <View style={{justifyContent: 'flex-end'}}>
       {prop.shapeN === 1 ? (
         <Image
-          source={require('../assets/wave1.png')}
+          source={require('../assets/images/wave1.png')}
           style={{
             width: '100%',
             height: '90%',
@@ -40,7 +40,7 @@ function WaveShape(prop) {
           }}></Image>
       ) : prop.shapeN === 2 ? (
         <Image
-          source={require('../assets/wave2.png')}
+          source={require('../assets/images/wave2.png')}
           style={{
             width: '100%',
             height: '90%',
@@ -52,7 +52,7 @@ function WaveShape(prop) {
           }}></Image>
       ) : prop.shapeN === 3 ? (
         <Image
-          source={require('../assets/wave3.png')}
+          source={require('../assets/images/wave3.png')}
           style={{
             width: '100%',
             height: '90%',

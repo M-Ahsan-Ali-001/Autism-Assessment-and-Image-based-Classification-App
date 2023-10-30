@@ -21,13 +21,9 @@ import {
 
 import {Button} from 'react-native-paper';
 
-function ButtonIntro(prop)
-{
-
-   
-    return(
-
-        <View
+function ButtonIntro(prop) {
+  return (
+    <View
       style={{
         position: 'absolute',
         top: prop.t,
@@ -37,37 +33,30 @@ function ButtonIntro(prop)
         justifyContent: 'center',
         alignItems: 'center',
       }}>
+      <Text
+        style={styles.buttonS}
+        onPress={() => {
+          prop.navi.navigate('Login');
 
-        <Text  style={styles.buttonS}  onPress={()=>{
-
-          prop.navi.navigate('Dashboard')
-
-
-
-            console.log("suiiiii")
-        }}> Get Started</Text>
+          console.log('suiiiii');
+        }}>
+        {' '}
+        Get Started
+      </Text>
     </View>
-    )
-
+  );
 }
 
-const styles =  StyleSheet.create({
-
-
-    buttonS:{
-
-        backgroundColor:'white',
-        color:'black'
-        ,
-        fontSize:23,
-        borderRadius:69,
-        padding:10,
-        borderWidth: 2,
-        borderColor:'black'        
-
-
-
-    }
-})
+const styles = StyleSheet.create({
+  buttonS: {
+    backgroundColor: 'white',
+    color: 'black',
+    fontSize: 23,
+    borderRadius: 69,
+    padding: 10,
+    borderWidth: 2,
+    borderColor: 'black',
+  },
+});
 
 export default ButtonIntro;

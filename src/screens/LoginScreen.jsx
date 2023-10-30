@@ -25,7 +25,7 @@ export default function LoginScreen({navigation}) {
 
   const handleSignUpPress = () => {
     // Navigate to the SignUp screen
-    navigation.navigate('SignUp');
+    navigation.navigate('Signup');
   };
 
   return (
@@ -71,7 +71,7 @@ export default function LoginScreen({navigation}) {
         </TouchableOpacity>
       </View>
 
-      <SpecialButton buttonText="LOGIN" />
+      <SpecialButton buttonText="LOGIN"  navi={navigation}/>
     </View>
   );
 }
