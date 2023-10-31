@@ -21,7 +21,7 @@ import {
 import ImageButtonDashboard from '../components/ImageDashboard';
 import CardMenu from '../components/cardMenu';
 
-function Dashboard(props) {
+function Dashboard({navigation}) {
   return (
     <View style={styles.fullPage}>
       <View style={styles.header}>
@@ -36,8 +36,8 @@ function Dashboard(props) {
 
       <View style={styles.cardMenu}>
         <ScrollView horizontal={true}>
-          <CardMenu imgNmb={4} textCard={'AQ 10'} textCard2={'Questionnair'} cardDesign={styles.card1} />
-          <CardMenu imgNmb={5} textCard={'ADHD'} textCard2={'Questionnair'} cardDesign={styles.card1} />
+          <CardMenu imgNmb={4} textCard={'AQ 10'} nav={navigation} textCard2={'Questionnaire'} cardDesign={styles.card1} />
+          <CardMenu imgNmb={5} textCard={'ADHD'}  textCard2={'Questionnaire'} cardDesign={styles.card1} />
           <CardMenu imgNmb={6} textCard={'Scan'} textCard2={'Face'} cardDesign={styles.card1} />
         </ScrollView>
       </View>

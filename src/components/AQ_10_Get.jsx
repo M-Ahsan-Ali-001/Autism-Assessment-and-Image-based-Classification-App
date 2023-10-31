@@ -9,7 +9,6 @@ import {
   useColorScheme,
   View,
   Alert,
-  ActivityIndicator
 } from 'react-native';
 
 import {
@@ -22,22 +21,16 @@ import {
 import AQtest from '../components/AQ_10.json';
 import {RadioButton} from 'react-native-paper';
 
-function AQ_10() {
-  //console.log(AQtest['1a'])
-  const list = ['a', 'b', 'c', 'd'];
-  let correctAns = Array(3).fill(0);
-  // console.log(correctAns)
-  const [selectedKeys, setSelectedKeys] = React.useState({});
- const AQ_test = lazy(()=>import('../components/AQ_10_Get'))
- 
 
-  return (
-    <View style={{flex: 1, backgroundColor: 'black', padding: 12}}>
-      <Suspense fallback={<ActivityIndicator size="large"
-      
-      color="#00ff00" style={{marginTop:'100%'}} />}>
-        <AQ_test/>
-      {/* <ScrollView>
+function AQ_10_Get(){
+//console.log(AQtest['1a'])
+const list = ['a', 'b', 'c', 'd'];
+let correctAns = Array(10).fill(0);
+// console.log(correctAns)
+const [selectedKeys, setSelectedKeys] = React.useState({});
+    return(
+
+        <ScrollView>
         {correctAns.map((items, idx) => (
           <View key={idx}>
             <Text>{idx + 1 + '). ' + AQtest[String(idx + 1) + 'a']['Q']}</Text>
@@ -67,9 +60,9 @@ function AQ_10() {
             ))}
           </View>
         ))}
-      </ScrollView> */}
-      </Suspense>
-    </View>
-  );
+      </ScrollView>
+    )
+
 }
-export default AQ_10;
+
+export default AQ_10_Get;

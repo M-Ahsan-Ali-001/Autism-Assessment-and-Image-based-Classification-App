@@ -17,7 +17,7 @@ function SpecialButton(props) {
     <AnimatedTouchable
       entering={BounceInDown.delay(200).duration(1000)}
       onPress={() => {
-        props.navi.navigate('Login');
+        props.navi.navigate('Dashboard');
       }}>
       <Text style={styles.buttonS}>{buttonText}</Text>
     </AnimatedTouchable>
