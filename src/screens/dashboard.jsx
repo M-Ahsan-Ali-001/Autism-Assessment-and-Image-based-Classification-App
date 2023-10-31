@@ -20,13 +20,31 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import ImageButtonDashboard from '../components/ImageDashboard';
 import CardMenu from '../components/cardMenu';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 function Dashboard({navigation}) {
   return (
     <View style={styles.fullPage}>
       <View style={styles.header}>
-        <ImageButtonDashboard nmb={1} styl={styles.arrowImage} />
-        <ImageButtonDashboard nmb={2} styl={styles.hamburgerImage} />
+      <GestureHandlerRootView>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Login');
+              console.log('back');
+            }}>
+            <ImageButtonDashboard nmb={1} styl={styles.arrowImage} />
+          </TouchableOpacity>
+        </GestureHandlerRootView>
+
+        <GestureHandlerRootView>
+          <TouchableOpacity
+            onPress={() => {
+              console.log('drawer');
+            }}>
+            <ImageButtonDashboard nmb={2} styl={styles.hamburgerImage} />
+          </TouchableOpacity>
+        </GestureHandlerRootView>
       </View>
 
       <View style={styles.textDiv}>

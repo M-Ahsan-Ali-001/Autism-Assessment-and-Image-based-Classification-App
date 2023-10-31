@@ -32,10 +32,10 @@ function AQ_10() {
  
 
   return (
-    <View style={{flex: 1, backgroundColor: 'black', padding: 12}}>
+    <View style={{flex: 1, backgroundColor: '#1a6864', padding: 12}}>
       <Suspense fallback={<ActivityIndicator size="large"
       
-      color="#00ff00" style={{marginTop:'100%'}} />}>
+      color="white" style={{marginTop:'100%'}} />}>
         <AQ_test/>
       {/* <ScrollView>
         {correctAns.map((items, idx) => (
@@ -72,4 +72,7 @@ function AQ_10() {
     </View>
   );
 }
+
+
+
 export default AQ_10;
