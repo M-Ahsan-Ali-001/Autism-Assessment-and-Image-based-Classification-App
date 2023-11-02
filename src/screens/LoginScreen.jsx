@@ -7,6 +7,7 @@ import {
   TextInput,
   Dimensions,
   TouchableOpacity,
+  KeyboardAvoidingView
 } from 'react-native';
 import Animated, {
   FadeIn,

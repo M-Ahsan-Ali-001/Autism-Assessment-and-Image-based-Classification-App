@@ -53,7 +53,7 @@ function IntroScreen({navigation}) {
     <GestureHandlerRootView style={{backgroundColor: 'white', flex: 1}}>
       <PanGestureHandler onGestureEvent={handleGesture}>
         <View style={{backgroundColor: 'white', flex: 1}}>
-          <LogoIntroScreen pageN={1} h={250} w={250} />
+          <LogoIntroScreen pageN={1} h={270} w={270} />
 
           <View style={{flex: 1, justifyContent: 'flex-end'}}>
             <View style={{justifyContent: 'flex-end'}}>

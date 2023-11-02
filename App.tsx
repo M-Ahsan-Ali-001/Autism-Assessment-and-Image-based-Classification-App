@@ -37,6 +37,8 @@ import Dashboard from './src/screens/dashboard';
 import AQ_10 from './src/screens/AQ_10';
 import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
+import { OrientationLocker,PORTRAIT,LANDSCAPE } from 'react-native-orientation-locker';
+
 
 
 function App(): JSX.Element {
@@ -48,6 +50,9 @@ function App(): JSX.Element {
 
   return (
     <NavigationContainer>
+      <OrientationLocker
+      orientation={PORTRAIT}
+      />
       <Stack.Navigator initialRouteName="Home"
         screenOptions={{
           headerShown: false, // Hide the header for all screens in this stack
@@ -63,6 +68,7 @@ function App(): JSX.Element {
         <Stack.Screen name="Signup" component={SignUpScreen} options={{ animation: "slide_from_right" }} />
         <Stack.Screen name="Dashboard" component={Dashboard} options={{ animation: "slide_from_right" }} />
         <Stack.Screen name="AQ_10" component={AQ_10} options={{ animation: "slide_from_right" }} />
+       
       </Stack.Navigator>
     </NavigationContainer>
 

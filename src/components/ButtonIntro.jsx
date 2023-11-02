@@ -25,7 +25,7 @@ function ButtonIntro(prop) {
   return (
     <View
       style={{
-        position: 'absolute',
+        position: prop.pos,
         top: prop.t,
         left: prop.l,
         right: prop.r,
@@ -33,16 +33,29 @@ function ButtonIntro(prop) {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <Text
-        style={styles.buttonS}
-        onPress={() => {
-          prop.navi.navigate('Login');
+      {prop.numb === 1 ? (
+        <Text
+          style={styles.buttonS}
+          onPress={() => {
+            prop.navi.navigate('Login');
 
-          console.log('suiiiii');
-        }}>
-        {' '}
-        Get Started
-      </Text>
+            console.log('suiiiii');
+          }}>
+          {' '}
+          Get Started
+        </Text>
+      ) : prop.numb === 2 ? (
+        <Text
+          style={styles.buttonS}
+          onPress={() => {
+            prop.navi.navigate('Login');
+
+            console.log('suiiiii');
+          }}>
+          {' '}
+          {prop.text}
+        </Text>
+      ) : null}
     </View>
   );
 }

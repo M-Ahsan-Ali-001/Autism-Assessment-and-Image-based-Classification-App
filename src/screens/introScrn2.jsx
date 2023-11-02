@@ -27,6 +27,7 @@ import {RadioButton} from 'react-native-paper';
 import RadioButtonIntro from '../components/RadioButtonIntro';
 import TextIntroScreen from '../components/TextIntroScreen';
 import WaveShape from '../components/WaveShape';
+import LogoIntroScreen from '../components/LogoIntroScree';
 
 function IntroScreen2({navigation}) {
   const [textFooter, changeTextFooter] = React.useState('AQ 10 question');
@@ -54,17 +55,8 @@ function IntroScreen2({navigation}) {
     <GestureHandlerRootView style={{backgroundColor: 'white', flex: 1}}>
       <PanGestureHandler onGestureEvent={handleGesture}>
         <View style={{backgroundColor: 'white', flex: 1}}>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: 90,
-              height: 250,
-              width: 250,
-            }}>
-            {/* <Image source={require('../assets/Logo.png')} style={{ height: 250, width: 250, resizeMode: 'contain' }}></Image> */}
-            {/* <LogoIntroScreen pageN={1} h={250} w={250}/> */}
-          </View>
+         
+          <LogoIntroScreen pageN={2} h={270} w={270}/>
 
           <View style={{flex: 1, justifyContent: 'flex-end'}}>
             <View style={{justifyContent: 'flex-end'}}>

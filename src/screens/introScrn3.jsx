@@ -55,20 +55,22 @@ function IntroScreen3({navigation}) {
     <GestureHandlerRootView style={{backgroundColor: 'white', flex: 1}}>
       <PanGestureHandler onGestureEvent={handleGesture}>
         <View style={{backgroundColor: 'white', flex: 1}}>
-          <LogoIntroScreen pageN={3} h={250} w={250} />
+          <LogoIntroScreen pageN={3} h={270} w={270} />
 
           <View style={{flex: 1, justifyContent: 'flex-end'}}>
             <View style={{justifyContent: 'flex-end'}}>
               <WaveShape shapeN={3} />
               {/* <TextIntroScreen tFooter="Yes ! " l={0} r={0} b={30} t={0} /> */}
 
-             <ButtonIntro
-               l={0}
-               r={0}
-               b={30}
-               t={60}
-               navi={navigation}
-             />
+              <ButtonIntro
+                l={0}
+                r={0}
+                b={30}
+                t={60}
+                pos={'absolute'}
+                navi={navigation}
+                numb={1}
+              />
 
               <RadioButtonIntro nmb={3} />
             </View>

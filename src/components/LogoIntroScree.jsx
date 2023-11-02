@@ -21,9 +21,9 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 function LogoIntroScreen(prop) {
-  const path1 = '../assets/images/Logo.png';
-  const path2 = '../assets/images/wave1.png';
-  const path3 = '../assets/images/wave2.png';
+  const path1 = '../assets/images/intro1.jpg';
+  const path2 = '../assets/images/questionnaire.jpg';
+  const path3 = '../assets/images/intro3.png';
 
   return (
     <View
