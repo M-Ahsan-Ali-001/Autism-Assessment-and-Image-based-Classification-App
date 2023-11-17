@@ -14,7 +14,7 @@ import Animated, {
   FadeInLeft,
   FadeInRight,
 } from 'react-native-reanimated';
-import SpecialButton from '../components/SpecialButton';
+import AuthenticationButton from '../components/SpecialButton';
 
 const {height, width} = Dimensions.get('window');
 
@@ -74,7 +74,7 @@ export default function SignUpScreen({navigation}) {
         </TouchableOpacity>
       </View>
 
-      <SpecialButton buttonText="Sign Up!" />
+      <AuthenticationButton buttonText="Sign Up!" />
     </View>
   );
 }

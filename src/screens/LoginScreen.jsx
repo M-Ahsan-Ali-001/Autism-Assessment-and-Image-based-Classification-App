@@ -6,135 +6,133 @@ import {
   View,
   TextInput,
   Dimensions,
-  TouchableOpacity,
-  KeyboardAvoidingView
 } from 'react-native';
-import Animated, {
-  FadeIn,
-  FadeInUp,
-  FadeInLeft,
-  FadeInRight,
-} from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 import SpecialButton from '../components/SpecialButton';
 
 const {height, width} = Dimensions.get('window');
 
-export default function LoginScreen({navigation}) {
+const LoginScreen = ({navigation}) => {
   const logo = require('../assets/images/Logo.png');
-  const topRight = require('../assets/images/topRight.png');
-  const bottomLeft = require('../assets/images/bottomLeft.png');
 
   const handleSignUpPress = () => {
-    // Navigate to the SignUp screen
     navigation.navigate('Signup');
   };
 
   return (
     <View style={styles.container}>
-      <Animated.Image
-        entering={FadeInRight.delay(200).duration(1000)}
-        source={topRight}
-        style={styles.topRightImage}
-      />
-      <Animated.Image
-        entering={FadeInLeft.delay(400).duration(1000)}
-        exiting={FadeInLeft.delay(400).duration(1000)}
-        source={bottomLeft}
-        style={styles.bottomLeftImage}
-      />
-      <Animated.Image
-        entering={FadeInUp.delay(400).duration(800).springify().damping(3)}
-        source={logo}
-        style={styles.logo}
-      />
-      <Text style={styles.title}>Autism Launchpad</Text>
+      <View style={styles.logoContainer}>
+        <Image source={logo} style={styles.logo} />
+        <Text style={styles.titleText}>
+          <Text style={styles.autismText}>Autism</Text>{' '}
+          <Text style={styles.launchpadText}>Launchpad</Text>
+        </Text>
+      </View>
+
+      <Text style={styles.signInText}>Sign In!</Text>
+      <Text style={styles.tagText}>
+        Lets continue with us for a better experience
+      </Text>
+
+      <Text style={styles.inputTitle}>User Name*</Text>
       <TextInput
         style={styles.input}
         placeholder="Username"
-        placeholderTextColor="#ffffff"
+        placeholderTextColor="gray"
       />
+
+      <Text style={styles.inputTitle}>Password*</Text>
       <TextInput
         style={styles.input}
         placeholder="Password"
-        placeholderTextColor="#ffffff"
+        placeholderTextColor="gray"
         secureTextEntry={true}
       />
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <Text
-          style={{color: 'white', marginTop: height * 0.015, marginRight: 55}}>
-          Forgot Password?
-        </Text>
-        <TouchableOpacity onPress={handleSignUpPress}>
-          <Text
-            style={{color: 'white', marginTop: height * 0.015, marginLeft: 55}}>
-            Sign Up
-          </Text>
-        </TouchableOpacity>
-      </View>
 
-      <SpecialButton buttonText="LOGIN"  navi={navigation}/>
+      <View style={styles.buttonContainer}>
+        <SpecialButton buttonText="Sign in" navi={navigation} />
+      </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a6864',
+    backgroundColor: '#FDFDFD',
+  },
+  logoContainer: {
+    marginBottom: 60,
     alignItems: 'center',
   },
   logo: {
-    flexGrow: 0.4,
-    height: height * 0.15,
-    width: height * 0.15,
+    height: 60,
+    width: 60,
     resizeMode: 'contain',
     marginTop: height * 0.1,
   },
-  title: {
+  autismText: {
     fontSize: height * 0.04,
-    color: 'white',
+    color: 'black',
     fontVariant: ['small-caps'],
-    fontFamily: 'EBGaramond-VariableFont_wght',
+  },
+  launchpadText: {
+    fontSize: height * 0.04,
+    color: '#F59481',
+    fontVariant: ['small-caps'],
+  },
+  titleText: {
+    alignSelf: 'center',
   },
   input: {
-    height: height * 0.05,
-    width: width * 0.8,
+    height: height * 0.06,
+    width: width * 0.78,
     borderColor: 'white',
     borderWidth: 0.5,
-    marginTop: height * 0.02,
-    paddingLeft: 10,
-    color: 'white',
-    borderRadius: 10,
-    backgroundColor: 'darkslategrey',
-  },
+    marginBottom: 20,
+    padding: 10,
+    color: 'gray',
+    borderRadius: 8,
+    backgroundColor: '#FFFFFF',
+    alignSelf: 'center',
 
-  topRightImage: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    height: height * 0.3,
-    width: height * 0.3,
-    resizeMode: 'contain',
-    // opacity: 0.8,
-  },
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0,
+    shadowRadius: 1.41,
 
-  bottomLeftImage: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    height: height * 0.3,
-    width: height * 0.3,
-    resizeMode: 'contain',
-    zIndex: -1,
-    // opacity: 0.8,
+    elevation: 1,
   },
-  loginButton: {
-    backgroundColor: 'white', // You can customize the color
-    // padding: 1,
-    color: 'black',
-    fontSize: 25,
-    borderRadius: 69,
+  buttonContainer: {
     alignItems: 'center',
-    marginVertical: 10,
+  },
+  inputTitle: {
+    paddingLeft: 8,
+    textAlign: 'justify',
+    color: '#202020',
+    fontSize: 14,
+    fontFamily: 'Inter',
+    fontWeight: '500',
+    marginBottom: 8,
+  },
+  signInText: {
+    padding: 8,
+    color: '#2C2C2C',
+    fontSize: 28,
+    fontFamily: 'Inter',
+    fontWeight: '700',
+  },
+  tagText: {
+    color: '#2C2C2C',
+    fontSize: 16,
+    paddingLeft: 8,
+    paddingRight: 8,
+    marginBottom: 32,
+    color: '#707070',
   },
 });
+
+export default LoginScreen;

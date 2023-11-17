@@ -9,7 +9,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 // button for Login / Sign Up screens
-function SpecialButton(props) {
+function AuthenticationButton(props) {
   const {buttonText, onPress} = props;
   const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -26,28 +26,26 @@ function SpecialButton(props) {
 
 const styles = StyleSheet.create({
   buttonS: {
-    backgroundColor: 'white',
-    color: 'black',
+    backgroundColor: '#F59481',
+    color: 'white',
     fontSize: 20,
-    borderRadius: 15,
-    width: 120,
-    height: 50,
+    borderRadius: 8,
+    width: 310,
+    height: 40,
     textAlign: 'center',
     textAlignVertical: 'center',
-    borderWidth: 2,
-    borderColor: 'darkslategrey',
     fontVariant: ['small-caps'],
     fontFamily: 'monospace',
-    marginTop: 20,
-    shadowColor: 'black',
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.0,
-    elevation: 24,
+    marginTop: 40,
+    // shadowColor: 'black',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 12,
+    // },
+    // shadowOpacity: 0.58,
+    // shadowRadius: 16.0,
+    // elevation: 24,
   },
 });
 
-export default SpecialButton;
+export default AuthenticationButton;
