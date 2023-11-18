@@ -8,7 +8,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import {Animated, FadeInDown} from 'react-native-reanimated';
+import Animated, {FadeIn, FadeInDown, FadeInUp, FadeOut} from 'react-native-reanimated';
 import SpecialButton from '../components/SpecialButton';
 
 const {height, width} = Dimensions.get('window');
@@ -23,14 +23,17 @@ const LoginScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Animated.Image source={logo} style={styles.logo} 
-          entering={FadeInDown.delay(150).duration(600)}
-        
+        <Animated.Image
+          entering={FadeInDown.delay(150).duration(900)}
+          source={logo}
+          style={styles.logo}
         />
-        <Text style={styles.titleText}>
+        <Animated.Text
+          entering={FadeInUp.delay(200).duration(900)}
+          style={styles.titleText}>
           <Text style={styles.autismText}>Autism</Text>{' '}
           <Text style={styles.launchpadText}>Launchpad</Text>
-        </Text>
+        </Animated.Text>
       </View>
 
       <Text style={styles.signInText}>Sign In!</Text>
@@ -64,12 +67,14 @@ const LoginScreen = ({navigation}) => {
         </Text>
       </TouchableOpacity>
 
-      <View style={styles.termsAndServicesContainer}>
+      <Animated.View style={styles.termsAndServicesContainer}
+        entering={FadeIn.delay(200).duration(900)}
+      >
         <Text style={styles.termsAndServices}>
           <Text style={{color: 'gray'}}>By continuing, you agree to</Text>{' '}
           <Text style={{color: '#F59481'}}>Terms and conditions</Text>
         </Text>
-      </View>
+      </Animated.View>
     </View>
   );
 };
@@ -92,18 +97,15 @@ const styles = StyleSheet.create({
     marginBottom: height * 0.01, // equal to 8
   },
   autismText: {
-    fontFamily: 'Rajdhani',
+    fontFamily: 'Rajdhani-Bold',
     fontSize: 24,
-    fontWeight: 'bold',
-
     textAlign: 'center',
 
     color: 'black',
   },
   launchpadText: {
-    fontFamily: 'Rajdhani',
+    fontFamily: 'Rajdhani-Bold',
     fontSize: 24,
-    fontWeight: 'bold',
     textAlign: 'center',
     color: '#F59481',
   },
@@ -151,8 +153,9 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
     color: '#202020',
     fontSize: 14,
-    fontFamily: 'Inter',
-    fontWeight: '500',
+    fontFamily: "Inter",
+   
+    // fontWeight: '500',
   },
   signInText: {
     fontFamily: 'Inter',
@@ -177,16 +180,15 @@ const styles = StyleSheet.create({
     marginLeft: 25,
   },
   signUpText: {
+    fontFamily: 'Inter',
     marginTop: 16,
     textAlign: 'center',
     fontSize: 12,
-    color: 'rgba(0, 0, 0, 0.5)',
   },
   termsAndServices: {
     marginTop: 16,
     textAlign: 'center',
     alignItems: 'center',
-    color: 'rgba(0, 0, 0, 0.5)',
     fontFamily: 'Inter',
     fontSize: 12,
     fontStyle: 'normal',

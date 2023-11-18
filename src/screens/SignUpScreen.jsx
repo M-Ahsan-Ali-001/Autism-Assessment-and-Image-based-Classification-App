@@ -10,133 +10,203 @@ import {
 } from 'react-native';
 import Animated, {
   FadeIn,
+  FadeInDown,
   FadeInUp,
-  FadeInLeft,
-  FadeInRight,
+  FadeOut,
 } from 'react-native-reanimated';
-import AuthenticationButton from '../components/SpecialButton';
+import SpecialButton from '../components/SpecialButton';
 
 const {height, width} = Dimensions.get('window');
 
-export default function SignUpScreen({navigation}) {
+const LoginScreen = ({navigation}) => {
   const logo = require('../assets/images/Logo.png');
-  const topRight = require('../assets/images/topRight.png');
-  const bottomLeft = require('../assets/images/bottomLeft.png');
 
   const handleSignUpPress = () => {
-    // Navigate to the SignUp screen
     navigation.navigate('Login');
   };
 
   return (
     <View style={styles.container}>
-      <Animated.Image
-        entering={FadeInRight.delay(200).duration(1000)}
-        source={topRight}
-        style={styles.topRightImage}
-      />
-      <Animated.Image
-        entering={FadeInLeft.delay(400).duration(1000)}
-        source={bottomLeft}
-        style={styles.bottomLeftImage}
-      />
-      <Animated.Image
-        entering={FadeInUp.delay(400).duration(800).springify().damping(3)}
-        source={logo}
-        style={styles.logo}
-      />
-      <Text style={styles.title}>Autism Launchpad</Text>
+      <View style={styles.logoContainer}>
+        <Animated.Image
+          entering={FadeInDown.delay(150).duration(900)}
+          source={logo}
+          style={styles.logo}
+        />
+        <Animated.Text
+          entering={FadeInUp.delay(200).duration(900)}
+          style={styles.titleText}>
+          <Text style={styles.autismText}>Autism</Text>{' '}
+          <Text style={styles.launchpadText}>Launchpad</Text>
+        </Animated.Text>
+      </View>
+      <Text style={styles.signInText}>Sign Up!</Text>
+      <Text style={styles.tagText}>
+        Lets continue with us for a better experience
+      </Text>
+      <Text style={styles.inputTitle}>User Name</Text>
       <TextInput
         style={styles.input}
-        placeholder="Username"
-        placeholderTextColor="#ffffff"
+        placeholder="Enter your Username"
+        placeholderTextColor="gray"
       />
+      <Text style={styles.inputTitle}>Email*</Text>
       <TextInput
         style={styles.input}
-        placeholder="Email"
-        placeholderTextColor="#ffffff"
+        placeholder="Enter your Email"
+        placeholderTextColor="gray"
       />
+      <Text style={styles.inputTitle}>Password*</Text>
       <TextInput
         style={styles.input}
-        placeholder="Password"
-        placeholderTextColor="#ffffff"
+        placeholder="Enter your Password"
+        placeholderTextColor="gray"
         secureTextEntry={true}
       />
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        {/* <Text
-          style={{color: 'white', marginTop: height * 0.015, marginRight: 55}}>
-          Forgot Password?
-        </Text> */}
-        <TouchableOpacity onPress={handleSignUpPress}>
-          <Text style={{color: 'black', marginTop: height * 0.015}}>
-            Alreay have an account? Login!
-          </Text>
-        </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <SpecialButton buttonText="Sign in" navi={navigation} />
       </View>
-
-      <AuthenticationButton buttonText="Sign Up!" />
+      <TouchableOpacity onPress={handleSignUpPress}>
+        <Text style={styles.signUpText}>
+          <Text style={{color: 'gray'}}>Already have an account?</Text>{' '}
+          <Text style={{color: '#F59481'}}>Sign In</Text>
+        </Text>
+      </TouchableOpacity>
+      <Animated.View
+        style={styles.termsAndServicesContainer}
+        entering={FadeIn.delay(200).duration(900)}>
+        <Text style={styles.termsAndServices}>
+          <Text style={{color: 'gray'}}>By continuing, you agree to</Text>{' '}
+          <Text style={{color: '#F59481'}}>Terms and conditions</Text>
+        </Text>
+      </Animated.View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a6864',
+    justifyContent: 'flex-start',
+    backgroundColor: '#fdfdfd',
+  },
+  logoContainer: {
+    marginBottom: 60,
     alignItems: 'center',
   },
   logo: {
-    flexGrow: 0.4,
-    height: height * 0.15,
-    width: height * 0.15,
+    height: 60,
+    width: 60,
     resizeMode: 'contain',
-    marginTop: height * 0.1,
+    marginTop: height * 0.04,
+    marginBottom: height * 0.01, // equal to 8
   },
-  title: {
-    fontSize: height * 0.04,
-    color: 'white',
-    fontVariant: ['small-caps'],
-    fontFamily: 'EBGaramond-VariableFont_wght',
+  autismText: {
+    fontFamily: 'Rajdhani-Bold',
+    fontSize: 24,
+    textAlign: 'center',
+
+    color: 'black',
+  },
+  launchpadText: {
+    fontFamily: 'Rajdhani-Bold',
+    fontSize: 24,
+    textAlign: 'center',
+    color: '#F59481',
+  },
+  titleText: {
+    alignSelf: 'center',
   },
   input: {
-    height: height * 0.05,
-    width: width * 0.8,
-    borderColor: 'white',
-    borderWidth: 0.5,
-    marginTop: height * 0.02,
-    paddingLeft: 10,
-    color: 'white',
-    borderRadius: 10,
-    backgroundColor: 'darkslategrey',
+    fontFamily: 'Inter',
+    fontSize: 12,
+    fontWeight: '500',
+    fontStyle: 'normal',
+    lineHeight: 12,
+    color: '#202020',
+
+    marginTop: 8,
+    marginBottom: 20,
+    marginLeft: 25,
+
+    textAlign: 'justify',
+    paddingLeft: 16,
+
+    width: width * 0.85,
+    height: 44,
+    borderRadius: 8,
+    backgroundColor: '#FFFFFF',
+
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 50,
+    elevation: 1,
   },
 
-  topRightImage: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    height: height * 0.3,
-    width: height * 0.3,
-    resizeMode: 'contain',
-    // opacity: 0.8,
-  },
-
-  bottomLeftImage: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    height: height * 0.25,
-    width: height * 0.25,
-    resizeMode: 'contain',
-    zIndex: -1,
-    // opacity: 0.8,
-  },
-  loginButton: {
-    backgroundColor: 'white', // You can customize the color
-    // padding: 1,
-    color: 'black',
-    fontSize: 25,
-    borderRadius: 69,
+  buttonContainer: {
     alignItems: 'center',
-    marginVertical: 10,
+    marginTop: 0,
+  },
+  inputTitle: {
+    marginLeft: 25,
+    marginBottom: 8,
+
+    textAlign: 'justify',
+    color: '#202020',
+    fontSize: 14,
+    fontFamily: 'Inter',
+
+    // fontWeight: '500',
+  },
+  signInText: {
+    fontFamily: 'Inter',
+    fontSize: 28,
+    fontWeight: '700',
+    fontStyle: 'normal',
+    color: '#2C2C2C',
+    marginTop: 8,
+    marginBottom: 2,
+    marginLeft: 25,
+  },
+  tagText: {
+    fontFamily: 'Inter',
+    fontSize: 11,
+    fontWeight: '500',
+    fontStyle: 'normal',
+    lineHeight: 11,
+    color: '#707070',
+
+    marginTop: 2,
+    marginBottom: 32,
+    marginLeft: 25,
+  },
+  signUpText: {
+    fontFamily: 'Inter',
+    marginTop: 16,
+    textAlign: 'center',
+    fontSize: 12,
+  },
+  termsAndServices: {
+    marginTop: 16,
+    textAlign: 'center',
+    alignItems: 'center',
+    fontFamily: 'Inter',
+    fontSize: 12,
+    fontStyle: 'normal',
+    fontWeight: '500',
+  },
+
+  termsAndServicesContainer: {
+    marginTop: 16,
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 16,
   },
 });
+
+export default LoginScreen;

@@ -53,12 +53,20 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>SpaceMono-Bold.ttf</string>
-		<string>SpaceMono-BoldItalic.ttf</string>
-		<string>SpaceMono-Italic.ttf</string>
-		<string>SpaceMono-Regular.ttf</string>
-		<string>EBGaramond-Italic-VariableFont_wght.ttf</string>
-		<string>EBGaramond-VariableFont_wght.ttf</string>
+		<string>Rajdhani-Bold.ttf</string>
+		<string>Rajdhani-Light.ttf</string>
+		<string>Rajdhani-Medium.ttf</string>
+		<string>Rajdhani-Regular.ttf</string>
+		<string>Rajdhani-SemiBold.ttf</string>
+		<string>Inter-Black.ttf</string>
+		<string>Inter-Bold.ttf</string>
+		<string>Inter-ExtraBold.ttf</string>
+		<string>Inter-ExtraLight.ttf</string>
+		<string>Inter-Light.ttf</string>
+		<string>Inter-Medium.ttf</string>
+		<string>Inter-Regular.ttf</string>
+		<string>Inter-SemiBold.ttf</string>
+		<string>Inter-Thin.ttf</string>
 	</array>
 </dict>
 </plist>
