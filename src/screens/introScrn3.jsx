@@ -28,6 +28,9 @@ import LogoIntroScreen from '../components/LogoIntroScree';
 import RadioButtonIntro from '../components/RadioButtonIntro';
 import TextIntroScreen from '../components/TextIntroScreen';
 import WaveShape from '../components/WaveShape';
+import SpecialButton from '../components/SpecialButton';
+
+
 import ButtonIntro from '../components/ButtonIntro';
 
 function IntroScreen3({navigation}) {
@@ -52,33 +55,36 @@ function IntroScreen3({navigation}) {
   };
 
   return (
-    <GestureHandlerRootView style={{backgroundColor: 'white', flex: 1}}>
+    <GestureHandlerRootView style={{backgroundColor: '#FDFDFD', flex: 1}}>
       <PanGestureHandler onGestureEvent={handleGesture}>
-        <View style={{backgroundColor: 'white', flex: 1}}>
-          <LogoIntroScreen pageN={3} h={270} w={270} />
-
-          <View style={{flex: 1, justifyContent: 'flex-end'}}>
-            <View style={{justifyContent: 'flex-end'}}>
-              <WaveShape shapeN={3} />
-              {/* <TextIntroScreen tFooter="Yes ! " l={0} r={0} b={30} t={0} /> */}
-
-              <ButtonIntro
-                l={0}
-                r={0}
-                b={30}
-                t={60}
-                pos={'absolute'}
-                navi={navigation}
-                numb={1}
-              />
-
-              <RadioButtonIntro nmb={3} />
-            </View>
-          </View>
+        <View style={styles.container}>
+          <LogoIntroScreen pageN={3} h={262} w={285} />
+          <TextIntroScreen tFooter="Graph for Visualization" />
+          <Text style={styles.tagText}>
+          Visualize your results in graphical form.
+          </Text>
+          <SpecialButton buttonText="Lets go Nigga!"></SpecialButton>
+          <RadioButtonIntro nmb={3} />
         </View>
       </PanGestureHandler>
     </GestureHandlerRootView>
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+
+  tagText: {
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    fontFamily: 'Inter',
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#000000',
+  },
+});
 export default IntroScreen3;

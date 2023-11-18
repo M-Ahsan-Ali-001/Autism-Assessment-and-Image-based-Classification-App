@@ -1,48 +1,25 @@
 import React, {State} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Image,
-  Text,
-  useColorScheme,
-  View,
-  Alert,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {StyleSheet, Text, View} from 'react-native';
 
 function TextIntroScreen(prop) {
   return (
     <View
       style={{
-        position: 'absolute',
-        top: prop.t,
-        left: prop.l,
-        right: prop.r,
-        bottom: prop.b,
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <Text
-        style={{
-          fontWeight: '900',
-          fontSize: 18,
-          color: 'white',
-          justifyContent: 'center',
-          textAlign:'center'
-        }}>
-        {prop.tFooter}
-      </Text>
+      <Text style={styles.introTitle}>{prop.tFooter}</Text>
     </View>
   );
 }
 
+const styles = StyleSheet.create({
+  introTitle: {
+    width: 192,
+    fontFamily: 'Rajdhani-Bold',
+    fontSize: 25,
+    textAlign: 'center',
+    color: '#4F4A4A',
+  },
+});
 export default TextIntroScreen;

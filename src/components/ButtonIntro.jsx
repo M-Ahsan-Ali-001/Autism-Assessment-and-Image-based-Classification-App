@@ -25,11 +25,11 @@ function ButtonIntro(prop) {
   return (
     <View
       style={{
-        position: prop.pos,
-        top: prop.t,
-        left: prop.l,
-        right: prop.r,
-        bottom: prop.b,
+        // position: prop.pos,
+        // top: prop.t,
+        // left: prop.l,
+        // right: prop.r,
+        // bottom: prop.b,
         justifyContent: 'center',
         alignItems: 'center',
       }}>
@@ -62,13 +62,13 @@ function ButtonIntro(prop) {
 
 const styles = StyleSheet.create({
   buttonS: {
-    backgroundColor: 'white',
-    color: 'black',
+    backgroundColor: 'black',
+    color: 'white',
     fontSize: 23,
     borderRadius: 69,
     padding: 10,
     borderWidth: 2,
-    borderColor: 'black',
+
   },
 });
 

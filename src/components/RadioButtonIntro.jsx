@@ -1,39 +1,17 @@
 import React, {State} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Image,
-  Text,
-  useColorScheme,
-  View,
-  Alert,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
+import {StyleSheet, View} from 'react-native';
 import {RadioButton} from 'react-native-paper';
+
 function RadioButtonIntro(prop) {
   return (
     <View
       style={{
-        position: 'absolute',
-        top: 250,
-        left: 0,
-        right: 0,
-        bottom: 0,
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
       }}>
       <RadioButton
+        style={styles.shape}
         color="black"
         disabled={true}
         status={prop.nmb === 1 ? 'checked' : 'unchecked'}
@@ -51,9 +29,10 @@ function RadioButtonIntro(prop) {
 }
 
 const styles = StyleSheet.create({
-  radioButton: {
-    color: 'red',
+  shape: {
+
   },
+
 });
 
 export default RadioButtonIntro;

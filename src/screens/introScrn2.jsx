@@ -52,31 +52,36 @@ function IntroScreen2({navigation}) {
   };
 
   return (
-    <GestureHandlerRootView style={{backgroundColor: 'white', flex: 1}}>
+    <GestureHandlerRootView style={{backgroundColor: '#FDFDFD', flex: 1}}>
       <PanGestureHandler onGestureEvent={handleGesture}>
-        <View style={{backgroundColor: 'white', flex: 1}}>
-         
-          <LogoIntroScreen pageN={2} h={270} w={270}/>
-
-          <View style={{flex: 1, justifyContent: 'flex-end'}}>
-            <View style={{justifyContent: 'flex-end'}}>
-              <WaveShape shapeN={2} />
-
-              <TextIntroScreen
-                tFooter="Questionnaires for easy initial Screening."
-                l={0}
-                r={0}
-                b={0}
-                t={0}
-              />
-
-              <RadioButtonIntro nmb={2}></RadioButtonIntro>
-            </View>
-          </View>
+        <View style={styles.container}>
+          <LogoIntroScreen pageN={2} h={223} w={293} />
+          <TextIntroScreen tFooter="Built-In Questionnaire" />
+          <Text style={styles.tagText}>
+            Standardized Questionnaires for easy screening of ASD and ADHD.
+          </Text>
+          <RadioButtonIntro nmb={2} />
         </View>
       </PanGestureHandler>
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+
+  tagText: {
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    fontFamily: 'Inter',
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#000000',
+  },
+});
 
 export default IntroScreen2;
