@@ -8,7 +8,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import Animated, {FadeIn, FadeInDown, FadeInUp, FadeOut} from 'react-native-reanimated';
+import Animated, {FadeIn, FadeInDown, FadeInUp} from 'react-native-reanimated';
 import SpecialButton from '../components/SpecialButton';
 
 const {height, width} = Dimensions.get('window');
@@ -67,9 +67,9 @@ const LoginScreen = ({navigation}) => {
         </Text>
       </TouchableOpacity>
 
-      <Animated.View style={styles.termsAndServicesContainer}
-        entering={FadeIn.delay(200).duration(900)}
-      >
+      <Animated.View
+        style={styles.termsAndServicesContainer}
+        entering={FadeIn.delay(200).duration(900)}>
         <Text style={styles.termsAndServices}>
           <Text style={{color: 'gray'}}>By continuing, you agree to</Text>{' '}
           <Text style={{color: '#F59481'}}>Terms and conditions</Text>
@@ -133,13 +133,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
 
     shadowColor: '#000000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 50,
-    elevation: 1,
+
+    elevation: 2,
   },
 
   buttonContainer: {
@@ -153,8 +148,8 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
     color: '#202020',
     fontSize: 14,
-    fontFamily: "Inter",
-   
+    fontFamily: 'Inter',
+
     // fontWeight: '500',
   },
   signInText: {

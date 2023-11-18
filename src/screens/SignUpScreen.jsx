@@ -18,7 +18,7 @@ import SpecialButton from '../components/SpecialButton';
 
 const {height, width} = Dimensions.get('window');
 
-const LoginScreen = ({navigation}) => {
+const SigUpScreen = ({navigation}) => {
   const logo = require('../assets/images/Logo.png');
 
   const handleSignUpPress = () => {
@@ -209,4 +209,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default SigUpScreen;
