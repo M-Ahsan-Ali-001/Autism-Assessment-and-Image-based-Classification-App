@@ -27,24 +27,21 @@ function AuthenticationButton(props) {
 const styles = StyleSheet.create({
   buttonS: {
     backgroundColor: '#F59481',
-    color: 'white',
-    fontSize: 20,
+
     borderRadius: 8,
     width: 310,
     height: 40,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    fontVariant: ['small-caps'],
-    fontFamily: 'monospace',
+
     marginTop: 40,
-    // shadowColor: 'black',
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 12,
-    // },
-    // shadowOpacity: 0.58,
-    // shadowRadius: 16.0,
-    // elevation: 24,
+
+    fontFamily: 'Inter',
+    textAlignVertical: 'center',
+    fontSize: 16,
+    fontWeight: '600',
+    fontStyle: 'normal',
+    lineHeight: 16,
+    textAlign: 'center',
+    color: '#FFFFFF',
   },
 });
 

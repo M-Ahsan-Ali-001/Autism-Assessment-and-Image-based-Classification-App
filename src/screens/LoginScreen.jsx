@@ -37,14 +37,14 @@ const LoginScreen = ({navigation}) => {
       <Text style={styles.inputTitle}>User Name*</Text>
       <TextInput
         style={styles.input}
-        placeholder="Username"
+        placeholder="Enter your Username"
         placeholderTextColor="gray"
       />
 
       <Text style={styles.inputTitle}>Password*</Text>
       <TextInput
         style={styles.input}
-        placeholder="Password"
+        placeholder="Enter your Password"
         placeholderTextColor="gray"
         secureTextEntry={true}
       />
@@ -59,7 +59,7 @@ const LoginScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FDFDFD',
+    backgroundColor: '#fdfdfd',
   },
   logoContainer: {
     marginBottom: 60,
@@ -85,29 +85,39 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   input: {
-    height: height * 0.06,
-    width: width * 0.78,
-    borderColor: 'white',
-    borderWidth: 0.5,
+    fontFamily: 'Inter',
+    fontSize: 12,
+    fontWeight: '500',
+    fontStyle: 'normal',
+    lineHeight: 12,
+    color: '#202020',
+
+    marginTop: 8,
     marginBottom: 20,
-    padding: 10,
-    color: 'gray',
+    marginLeft: 25,
+    marginRight: 25,
+
+    textAlign: 'justify',
+    paddingLeft: 16,
+
+    width: 310,
+    height: 44,
     borderRadius: 8,
     backgroundColor: '#FFFFFF',
-    alignSelf: 'center',
 
-    shadowColor: '#000',
+    shadowColor: '#000000',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 0,
     },
-    shadowOpacity: 0,
-    shadowRadius: 1.41,
-
+    shadowOpacity: 1,
+    shadowRadius: 1,
     elevation: 1,
   },
+
   buttonContainer: {
     alignItems: 'center',
+    marginTop: 0,
   },
   inputTitle: {
     paddingLeft: 8,
