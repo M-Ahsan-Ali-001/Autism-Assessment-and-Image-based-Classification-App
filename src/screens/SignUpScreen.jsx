@@ -64,7 +64,7 @@ const LoginScreen = ({navigation}) => {
         secureTextEntry={true}
       />
       <View style={styles.buttonContainer}>
-        <SpecialButton buttonText="Sign in" navi={navigation} />
+        <SpecialButton buttonText="Sign up" navi={navigation} />
       </View>
       <TouchableOpacity onPress={handleSignUpPress}>
         <Text style={styles.signUpText}>
