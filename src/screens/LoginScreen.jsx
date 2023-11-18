@@ -6,8 +6,9 @@ import {
   View,
   TextInput,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
-import Animated from 'react-native-reanimated';
+import {Animated, FadeInDown} from 'react-native-reanimated';
 import SpecialButton from '../components/SpecialButton';
 
 const {height, width} = Dimensions.get('window');
@@ -22,7 +23,10 @@ const LoginScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Image source={logo} style={styles.logo} />
+        <Animated.Image source={logo} style={styles.logo} 
+          entering={FadeInDown.delay(150).duration(600)}
+        
+        />
         <Text style={styles.titleText}>
           <Text style={styles.autismText}>Autism</Text>{' '}
           <Text style={styles.launchpadText}>Launchpad</Text>
@@ -52,6 +56,20 @@ const LoginScreen = ({navigation}) => {
       <View style={styles.buttonContainer}>
         <SpecialButton buttonText="Sign in" navi={navigation} />
       </View>
+
+      <TouchableOpacity onPress={handleSignUpPress}>
+        <Text style={styles.signUpText}>
+          <Text style={{color: 'gray'}}>Don't have an account?</Text>{' '}
+          <Text style={{color: '#F59481'}}>Sign up</Text>
+        </Text>
+      </TouchableOpacity>
+
+      <View style={styles.termsAndServicesContainer}>
+        <Text style={styles.termsAndServices}>
+          <Text style={{color: 'gray'}}>By continuing, you agree to</Text>{' '}
+          <Text style={{color: '#F59481'}}>Terms and conditions</Text>
+        </Text>
+      </View>
     </View>
   );
 };
@@ -59,6 +77,7 @@ const LoginScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'flex-start',
     backgroundColor: '#fdfdfd',
   },
   logoContainer: {
@@ -69,17 +88,24 @@ const styles = StyleSheet.create({
     height: 60,
     width: 60,
     resizeMode: 'contain',
-    marginTop: height * 0.1,
+    marginTop: height * 0.04,
+    marginBottom: height * 0.01, // equal to 8
   },
   autismText: {
-    fontSize: height * 0.04,
+    fontFamily: 'Rajdhani',
+    fontSize: 24,
+    fontWeight: 'bold',
+
+    textAlign: 'center',
+
     color: 'black',
-    fontVariant: ['small-caps'],
   },
   launchpadText: {
-    fontSize: height * 0.04,
+    fontFamily: 'Rajdhani',
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
     color: '#F59481',
-    fontVariant: ['small-caps'],
   },
   titleText: {
     alignSelf: 'center',
@@ -95,12 +121,11 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 20,
     marginLeft: 25,
-    marginRight: 25,
 
     textAlign: 'justify',
     paddingLeft: 16,
 
-    width: 310,
+    width: width * 0.85,
     height: 44,
     borderRadius: 8,
     backgroundColor: '#FFFFFF',
@@ -108,10 +133,10 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,
-      height: 0,
+      height: 2,
     },
     shadowOpacity: 1,
-    shadowRadius: 1,
+    shadowRadius: 50,
     elevation: 1,
   },
 
@@ -120,28 +145,60 @@ const styles = StyleSheet.create({
     marginTop: 0,
   },
   inputTitle: {
-    paddingLeft: 8,
+    marginLeft: 25,
+    marginBottom: 8,
+
     textAlign: 'justify',
     color: '#202020',
     fontSize: 14,
     fontFamily: 'Inter',
     fontWeight: '500',
-    marginBottom: 8,
   },
   signInText: {
-    padding: 8,
-    color: '#2C2C2C',
-    fontSize: 28,
     fontFamily: 'Inter',
+    fontSize: 28,
     fontWeight: '700',
+    fontStyle: 'normal',
+    color: '#2C2C2C',
+    marginTop: 8,
+    marginBottom: 2,
+    marginLeft: 25,
   },
   tagText: {
-    color: '#2C2C2C',
-    fontSize: 16,
-    paddingLeft: 8,
-    paddingRight: 8,
-    marginBottom: 32,
+    fontFamily: 'Inter',
+    fontSize: 11,
+    fontWeight: '500',
+    fontStyle: 'normal',
+    lineHeight: 11,
     color: '#707070',
+
+    marginTop: 2,
+    marginBottom: 32,
+    marginLeft: 25,
+  },
+  signUpText: {
+    marginTop: 16,
+    textAlign: 'center',
+    fontSize: 12,
+    color: 'rgba(0, 0, 0, 0.5)',
+  },
+  termsAndServices: {
+    marginTop: 16,
+    textAlign: 'center',
+    alignItems: 'center',
+    color: 'rgba(0, 0, 0, 0.5)',
+    fontFamily: 'Inter',
+    fontSize: 12,
+    fontStyle: 'normal',
+    fontWeight: '500',
+  },
+
+  termsAndServicesContainer: {
+    marginTop: 16,
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 16,
   },
 });
 

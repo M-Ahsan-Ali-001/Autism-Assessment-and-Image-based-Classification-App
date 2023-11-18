@@ -15,7 +15,7 @@ function AuthenticationButton(props) {
 
   return (
     <AnimatedTouchable
-      entering={BounceInDown.delay(200).duration(1000)}
+      entering={FadeInDown.delay(150).duration(600)}
       onPress={() => {
         props.navi.navigate('Dashboard');
       }}>
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 40,
 
-    marginTop: 40,
+    marginTop: 25,
 
     fontFamily: 'Inter',
     textAlignVertical: 'center',

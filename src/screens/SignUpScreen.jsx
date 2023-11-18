@@ -68,7 +68,7 @@ export default function SignUpScreen({navigation}) {
           Forgot Password?
         </Text> */}
         <TouchableOpacity onPress={handleSignUpPress}>
-          <Text style={{color: 'white', marginTop: height * 0.015}}>
+          <Text style={{color: 'black', marginTop: height * 0.015}}>
             Alreay have an account? Login!
           </Text>
         </TouchableOpacity>
