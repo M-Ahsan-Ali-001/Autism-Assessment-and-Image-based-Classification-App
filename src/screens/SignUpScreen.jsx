@@ -201,7 +201,8 @@ const styles = StyleSheet.create({
   },
 
   termsAndServicesContainer: {
-    marginTop: 16,
+    display:'flex-end',
+  
     alignItems: 'center',
     flex: 1,
     justifyContent: 'flex-end',

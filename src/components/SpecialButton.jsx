@@ -17,7 +17,7 @@ function AuthenticationButton(props) {
     <AnimatedTouchable
       entering={FadeInDown.delay(150).duration(600)}
       onPress={() => {
-        props.navi.navigate('Dashboard');
+        props.navi.navigate('Login');
       }}>
       <Text style={styles.buttonS}>{buttonText}</Text>
     </AnimatedTouchable>

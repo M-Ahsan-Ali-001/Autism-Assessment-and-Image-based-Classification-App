@@ -28,6 +28,7 @@ import RadioButtonIntro from '../components/RadioButtonIntro';
 import TextIntroScreen from '../components/TextIntroScreen';
 import WaveShape from '../components/WaveShape';
 import LogoIntroScreen from '../components/LogoIntroScree';
+import ProGressBar from '../components/progressBAR';
 
 function IntroScreen2({navigation}) {
   const [textFooter, changeTextFooter] = React.useState('AQ 10 question');
@@ -60,7 +61,7 @@ function IntroScreen2({navigation}) {
           <Text style={styles.tagText}>
             Standardized Questionnaires for easy screening of ASD and ADHD.
           </Text>
-          <RadioButtonIntro nmb={2} />
+          <ProGressBar select={2}></ProGressBar>
         </View>
       </PanGestureHandler>
     </GestureHandlerRootView>
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     color: '#000000',
+    maxWidth:300
   },
 });
 

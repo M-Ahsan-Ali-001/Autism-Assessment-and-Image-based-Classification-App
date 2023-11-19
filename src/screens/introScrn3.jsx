@@ -32,6 +32,8 @@ import SpecialButton from '../components/SpecialButton';
 
 
 import ButtonIntro from '../components/ButtonIntro';
+import ArrowButton from '../components/arrowButton';
+import ProGressBar from '../components/progressBAR';
 
 function IntroScreen3({navigation}) {
   const [textFooter, changeTextFooter] = React.useState('AQ 10 question');
@@ -63,8 +65,9 @@ function IntroScreen3({navigation}) {
           <Text style={styles.tagText}>
           Visualize your results in graphical form.
           </Text>
-          <SpecialButton buttonText="Lets go Nigga!"></SpecialButton>
-          <RadioButtonIntro nmb={3} />
+          {/* <SpecialButton navi={navigation}buttonText="Lets go Nigga!"></SpecialButton> */}
+          <ArrowButton w={60} h={60} navi={navigation}></ArrowButton>
+          <ProGressBar select={3}></ProGressBar>
         </View>
       </PanGestureHandler>
     </GestureHandlerRootView>
@@ -85,6 +88,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     color: '#000000',
+    maxWidth:300
   },
 });
 export default IntroScreen3;
