@@ -23,8 +23,8 @@ function ImageButtonDashboard(props) {
   const arrowPath = '../assets/images/arrowPng.png';
   const hamBurgerPath = '../assets/images/hamburger.png';
   const userPath = '../assets/images/user.png';
+  
   const Questionnair1 = '../assets/images/Q1.png';
-
   const Questionnair2 = '../assets/images/Q2.png';
   const ScanImage = '../assets/images/faceScan.png';
 

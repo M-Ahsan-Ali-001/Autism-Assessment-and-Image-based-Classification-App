@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,6 +6,7 @@ import {
   View,
   TextInput,
   Dimensions,
+  Alert,
   TouchableOpacity,
 } from 'react-native';
 import Animated, {
@@ -14,24 +15,53 @@ import Animated, {
   FadeInUp,
   FadeOut,
 } from 'react-native-reanimated';
-import SpecialButton from '../components/SpecialButton';
+import AuthenticationButton from '../components/AuthenticationButton';
+
+import Realm from 'realm';
+import {useApp} from '@realm/react';
 
 const {height, width} = Dimensions.get('window');
 
-const SigUpScreen = ({navigation}) => {
-  const logo = require('../assets/images/Logo.png');
+const SignUpScreen = ({navigation}: any) => {
+  const realmApp = useApp();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleSignUpPress = () => {
-    navigation.navigate('Login');
+  const SignUp = useCallback(
+    async (newEmail: string, newPassword: string) => {
+      try {
+        // Attempt to register the user
+        const newUser = await realmApp.emailPasswordAuth.registerUser({
+          email: newEmail,
+          password: newPassword,
+        });
+
+        // Optional: You may want to perform additional actions here, such as sending a confirmation email.
+        console.log('Successfully registered and signed in user!', newUser);
+
+        navigation.navigate('Signin');
+      } catch (signUpError: any) {
+        console.error('Error signing up:', signUpError);
+
+        Alert.alert('ERROR', signUpError.message);
+      }
+    },
+    [realmApp],
+  );
+
+  const goToSignIn = () => {
+    navigation.navigate('Signin');
   };
+
+  const logo = require('../assets/images/Logo.png');
 
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Animated.Image
+          style={styles.logo as any}
           entering={FadeInDown.delay(150).duration(900)}
           source={logo}
-          style={styles.logo}
         />
         <Animated.Text
           entering={FadeInUp.delay(200).duration(900)}
@@ -44,17 +74,21 @@ const SigUpScreen = ({navigation}) => {
       <Text style={styles.tagText}>
         Lets continue with us for a better experience
       </Text>
-      <Text style={styles.inputTitle}>User Name</Text>
+      {/* <Text style={styles.inputTitle}>User Name</Text>
       <TextInput
         style={styles.input}
         placeholder="Enter your Username"
         placeholderTextColor="gray"
-      />
+      /> */}
       <Text style={styles.inputTitle}>Email*</Text>
       <TextInput
         style={styles.input}
         placeholder="Enter your Email"
         placeholderTextColor="gray"
+        textContentType="emailAddress"
+        onChangeText={setUsername}
+        autoCapitalize="none"
+        value={username}
       />
       <Text style={styles.inputTitle}>Password*</Text>
       <TextInput
@@ -62,11 +96,16 @@ const SigUpScreen = ({navigation}) => {
         placeholder="Enter your Password"
         placeholderTextColor="gray"
         secureTextEntry={true}
+        onChangeText={setPassword}
+        value={password}
       />
       <View style={styles.buttonContainer}>
-        <SpecialButton buttonText="Sign up" navi={navigation} />
+        <AuthenticationButton
+          buttonText="Sign up"
+          onPress={() => SignUp(username, password)}
+        />
       </View>
-      <TouchableOpacity onPress={handleSignUpPress}>
+      <TouchableOpacity onPress={goToSignIn}>
         <Text style={styles.signUpText}>
           <Text style={{color: 'gray'}}>Already have an account?</Text>{' '}
           <Text style={{color: '#F59481'}}>Sign In</Text>
@@ -201,8 +240,7 @@ const styles = StyleSheet.create({
   },
 
   termsAndServicesContainer: {
-    display:'flex-end',
-  
+    display: 'flex',
     alignItems: 'center',
     flex: 1,
     justifyContent: 'flex-end',
@@ -210,4 +248,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SigUpScreen;
+export default SignUpScreen;

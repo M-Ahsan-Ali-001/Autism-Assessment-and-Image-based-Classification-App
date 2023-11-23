@@ -1,4 +1,4 @@
-import React, {State} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -11,77 +11,90 @@ import {
   Alert,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import ImageButtonDashboard from '../components/ImageDashboard';
 import CardMenu from '../components/cardMenu';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+
+import Animated, {FadeInLeft, FadeInRight} from 'react-native-reanimated';
 
 function Dashboard({navigation}) {
+  const [pressedCard, setPressedCard] = useState(null);
+
+  const handleCardPress = cardNumber => {
+    setPressedCard(cardNumber);
+  };
+
   return (
     <View style={styles.fullPage}>
-      <View style={styles.header}>
-      <GestureHandlerRootView>
+      {/* <View style={styles.header}>
+        <GestureHandlerRootView>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Login');
+              navigation.navigate('Signin');
               console.log('back');
             }}>
             <ImageButtonDashboard nmb={1} styl={styles.arrowImage} />
           </TouchableOpacity>
         </GestureHandlerRootView>
+      </View> */}
 
-        <GestureHandlerRootView>
-          <TouchableOpacity
-            onPress={() => {
-              console.log('drawer');
-            }}>
-            <ImageButtonDashboard nmb={2} styl={styles.hamburgerImage} />
-          </TouchableOpacity>
-        </GestureHandlerRootView>
-      </View>
-
-      <View style={styles.textDiv}>
+      <View style={styles.greetTextContainer}>
+        <Text>
+          <Text style={styles.greetText}>Hey, </Text>
+          <Text style={[styles.greetText, styles.pinkColor]}>Aizen</Text>
+        </Text>
+        <Text style={styles.greetText}>Welcome Back!</Text>
         <ImageButtonDashboard nmb={3} styl={styles.userImage} />
-        <Text style={styles.greetText}> Welcome Back,User!</Text>
       </View>
 
+      <Text style={styles.cardMenuTitle}>Services</Text>
       <View style={styles.cardMenu}>
-        <ScrollView horizontal={true}>
-          <CardMenu imgNmb={4} textCard={'AQ 10'} nav={navigation} textCard2={'Questionnaire'} cardDesign={styles.card1} />
-          <CardMenu imgNmb={5} textCard={'ADHD'}  textCard2={'Questionnaire'} cardDesign={styles.card1} />
-          <CardMenu imgNmb={6} textCard={'Scan'} textCard2={'Face'} cardDesign={styles.card1} />
-        </ScrollView>
-      </View>
-
-
-      <View style={styles.GraphVisuals}>
-        <Text>TODO: Add bar or pie graph</Text>
-
-
+        <Animated.View
+          entering={FadeInLeft.delay(150).duration(900)}
+          style={styles.indicatorLeft(pressedCard === 4 || pressedCard === 5)}
+        />
+        <CardMenu
+          imgNmb={4}
+          textCard={'AQ 10'}
+          nav={navigation}
+          imgIcon={styles.card1}
+          onPress={() => handleCardPress(4)}
+        />
+        <CardMenu
+          imgNmb={5}
+          textCard={'ADHD'}
+          imgIcon={styles.card1}
+          onPress={() => handleCardPress(5)}
+        />
+        <CardMenu
+          imgNmb={6}
+          textCard={'Scan'}
+          imgIcon={styles.card1}
+          onPress={() => handleCardPress(6)}
+        />
+        <Animated.View
+          entering={FadeInRight.delay(150).duration(900)}
+          style={styles.indicatorRight(pressedCard === 6 || pressedCard === 5)}
+        />
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  pinkColor: {
+    color: '#F59481',
+  },
+
   fullPage: {
-    backgroundColor: 'white',
+    backgroundColor: '#FDFDFD',
     flex: 1,
   },
-  header: {
-    flexDirection: 'row',
-
-    justifyContent: 'space-between',
-    padding: 15,
-    marginTop: 30,
-  },
+  // header: {
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-between',
+  //   padding: 15,
+  //   marginTop: 30,
+  // },
   arrowImage: {
     height: 30,
     width: 50,
@@ -93,10 +106,10 @@ const styles = StyleSheet.create({
     width: 50,
     resizeMode: 'contain',
   },
-  textDiv: {
-    flexDirection: 'row',
+  greetTextContainer: {
+    // flexDirection: 'row',
     margin: 50,
-    alignItems: 'center',
+    alignItems: 'Justify',
   },
   greetText: {
     fontSize: 22,
@@ -105,50 +118,58 @@ const styles = StyleSheet.create({
   },
 
   userImage: {
-    height: 40,
-    width: 40,
-    resizeMode: 'contain',
-    borderRadius: 100,
-  },
-
-  cardMenu: {
-    backgroundColor: '#328B7B',
-    flex: 0.25,
-    margin: 9,
-    borderRadius: 35,
-    borderWidth: 1.5,
-    borderColor: 'black',
-    alignItems: 'center',
-    
-  },
-
-  card1: {
     height: 50,
     width: 50,
     resizeMode: 'contain',
-    backgroundColor: 'white',
-    borderRadius: 8,
+    // borderRadius: 100,
+    alignSelf: 'flex-end',
+    marginTop: -50,
   },
-  GraphVisuals:{
 
+  cardMenuTitle: {
+    // marginHorizontal: 14,
+    marginLeft: 30,
+    marginBottom: 8,
+    fontSize: 22,
+    // fontStyle: 'italic',
+    color: 'black',
+    textAlign: 'justify',
+    justifyContent: 'flex-start',
+    // marginBottom: 10,
+  },
 
-    flex:0.5,
-    backgroundColor:"#328B7B",
-    height:300,
-    width:300,
-    alignItems:'center',
-    justifyContent:'center',
-    alignSelf:'center',
-    borderRadius: 35,
-    borderWidth: 1.5,
-    borderColor: 'black',
-    marginTop:20
+  cardMenu: {
+    // marginHorizontal: 14,
+    marginTop: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    // borderWidth: 1,
+  },
 
+  card1: {
+    height: 20,
+    width: 18,
+    resizeMode: 'cover',
+    // alignSelf: 'center',
+  },
 
-    
+  indicatorLeft: isSelected => ({
+    width: 15,
+    height: 85,
+    backgroundColor: isSelected ? '#F59481' : '#F2F2F2',
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
+    marginTop: -40,
+  }),
 
-
-  }
+  indicatorRight: isSelected => ({
+    width: 15,
+    height: 85,
+    backgroundColor: isSelected ? '#F59481' : '#F2F2F2',
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
+    marginTop: -40,
+  }),
 });
 
 export default Dashboard;

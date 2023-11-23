@@ -1,4 +1,4 @@
-import React, {State} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -9,7 +9,7 @@ import {
   useColorScheme,
   View,
   Alert,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
 import {
@@ -20,49 +20,72 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import ImageButtonDashboard from './ImageDashboard';
-import {
-  GestureHandlerRootView,
-  TouchableWithoutFeedback,
-} from 'react-native-gesture-handler';
+// import {
+//   GestureHandlerRootView,
+//   TouchableWithoutFeedback,
+// } from 'react-native-gesture-handler';
 
 function CardMenu(props) {
-  const prtMessgae = () => {
-    console.log('test');
-    props.nav.navigate("AQ_10")
+  const [isPressed, setIsPressed] = useState(false);
+
+  const onPressInHandler = () => {
+    props.onPress();
+    setIsPressed(true);
   };
+
+  const onPressOutHandler = () => {
+    // props.onPress();
+    setIsPressed(false);
+  };
+
+  const onPressHandler = () => {
+    props.nav.navigate('AQ_10');
+  };
+
   return (
     <View style={styles.cardStyle}>
-      <GestureHandlerRootView style={{ flex: 1}}>
-    
-     <TouchableOpacity onPress={prtMessgae}>
-
-     <ImageButtonDashboard nmb={props.imgNmb} styl={props.cardDesign} />
-
-<Text style={styles.textStyle}>{props.textCard}</Text>
-<Text style={styles.textStyle1}>{props.textCard2}</Text>
-     </TouchableOpacity>
-        </GestureHandlerRootView>
+      <TouchableWithoutFeedback
+        onPressIn={onPressInHandler}
+        onPressOut={onPressOutHandler}
+        onPress={onPressHandler}>
+        <View
+          style={[
+            styles.cardInner,
+            {backgroundColor: isPressed ? '#F59481' : '#F2F2F2'},
+          ]}>
+          <ImageButtonDashboard nmb={props.imgNmb} styl={props.imgIcon} />
+          <Text style={styles.textStyle}>{props.textCard}</Text>
+        </View>
+      </TouchableWithoutFeedback>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  cardStyle: {
-    margin: 10,
-    marginTop: '7%',
+  cardInner: {
+    width: 100,
+    height: 36,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    padding: 10,
+    // backgroundColor: '#F2F2F2',
+    borderRadius: 8,
   },
   textStyle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  textStyle1: {
+    fontFamily: 'Inter',
     fontSize: 12,
-    textAlign: 'center',
-
-    fontWeight: 'bold',
+    fontWeight: '600',
+    fontStyle: 'normal',
+    color: '#0E161F',
   },
- 
-
+  indicatorLeft: {
+    width: 10,
+    height: 85,
+    backgroundColor: '#F59481',
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
+  },
 });
 
 export default CardMenu;

@@ -16,14 +16,14 @@ function ArrowButton(props) {
   const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
   const onClick1=()=>{
 
-    props.navi.navigate('Login')
+    props.navi.navigate('Signin')
   }
 
 
   return ( <AnimatedTouchable
     entering={FadeInDown.delay(150).duration(600)}
     onPress={() => {
-      props.navi.navigate('Login');
+      props.navi.navigate('Signin');
     }}>
     <Image source={arrowImagePath} style={{height: props.h, width: props.w, resizeMode: 'contain'}}
     onClick={onClick1}

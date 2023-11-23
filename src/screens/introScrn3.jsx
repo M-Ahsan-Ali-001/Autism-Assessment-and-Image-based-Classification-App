@@ -28,7 +28,7 @@ import LogoIntroScreen from '../components/LogoIntroScree';
 import RadioButtonIntro from '../components/RadioButtonIntro';
 import TextIntroScreen from '../components/TextIntroScreen';
 import WaveShape from '../components/WaveShape';
-import SpecialButton from '../components/SpecialButton';
+import SpecialButton from '../components/AuthenticationButton';
 
 
 import ButtonIntro from '../components/ButtonIntro';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,19 +6,67 @@ import {
   View,
   TextInput,
   Dimensions,
+  Alert,
   TouchableOpacity,
 } from 'react-native';
 import Animated, {FadeIn, FadeInDown, FadeInUp} from 'react-native-reanimated';
-import SpecialButton from '../components/SpecialButton';
+import AuthenticationButton from '../components/AuthenticationButton';
+
+import Realm from 'realm';
+import {useApp} from '@realm/react';
 
 const {height, width} = Dimensions.get('window');
 
-const LoginScreen = ({navigation}) => {
-  const logo = require('../assets/images/Logo.png');
+const SignInScreen = ({navigation}: any) => {
+  const realmApp = useApp();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleSignUpPress = () => {
+  const login = useCallback(
+    async (newEmail: string, newPassword: string) => {
+      const credentials = Realm.Credentials.emailPassword(
+        newEmail,
+        newPassword,
+      );
+
+      try {
+        // Attempt to sign in
+        const user = await realmApp.logIn(credentials);
+        console.log('Successfully logged in:', user.id);
+        navigation.navigate('Dashboard');
+      } catch (signInError: any) {
+        // If sign in fails, handle the error
+        console.log('Sign In Error:', signInError);
+        Alert.alert('ERROR', signInError.message);
+
+        // if (signInError.statusCode === 4401) {
+        //   // 4401 indicates that the user doesn't exist
+        //   // Display an alert to prompt the user to sign up
+        //   Alert.alert(
+        //     'User Not Found',
+        //     'The provided email does not exist. Please sign up.',
+        //     [{text: 'Sign Up', onPress: () => navigation.navigate('Signup')}],
+        //     {cancelable: false},
+        //   );
+        // } else {
+        //   // Handle other errors (e.g., incorrect password)
+        //   Alert.alert(
+        //     'Sign In Failed',
+        //     'Error signing in. Please check your credentials.',
+        //     [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+        //     {cancelable: false},
+        //   );
+        // }
+      }
+    },
+    [realmApp],
+  );
+
+  const goToSignUpScreen = () => {
     navigation.navigate('Signup');
   };
+
+  const logo = require('../assets/images/Logo.png');
 
   return (
     <View style={styles.container}>
@@ -41,11 +89,15 @@ const LoginScreen = ({navigation}) => {
         Lets continue with us for a better experience
       </Text>
 
-      <Text style={styles.inputTitle}>User Name*</Text>
+      <Text style={styles.inputTitle}>Email*</Text>
       <TextInput
         style={styles.input}
-        placeholder="Enter your Username"
+        placeholder="Enter your email"
         placeholderTextColor="gray"
+        textContentType="emailAddress"
+        onChangeText={setUsername}
+        autoCapitalize="none"
+        value={username}
       />
 
       <Text style={styles.inputTitle}>Password*</Text>
@@ -54,13 +106,18 @@ const LoginScreen = ({navigation}) => {
         placeholder="Enter your Password"
         placeholderTextColor="gray"
         secureTextEntry={true}
+        onChangeText={setPassword}
+        value={password}
       />
 
       <View style={styles.buttonContainer}>
-        <SpecialButton buttonText="Sign in" navi={navigation} />
+        <AuthenticationButton
+          buttonText="Sign In"
+          onPress={() => login(username, password)}
+        />
       </View>
 
-      <TouchableOpacity onPress={handleSignUpPress}>
+      <TouchableOpacity onPress={goToSignUpScreen}>
         <Text style={styles.signUpText}>
           <Text style={{color: 'gray'}}>Don't have an account?</Text>{' '}
           <Text style={{color: '#F59481'}}>Sign up</Text>
@@ -199,4 +256,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default SignInScreen;
