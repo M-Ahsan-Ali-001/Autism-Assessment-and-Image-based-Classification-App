@@ -162,6 +162,7 @@ function Dashboard({navigation}) {
               {/* Graph button Area  */}
 
               <Text>{graphButtonT} </Text>
+              <Image source={require("../assets/images/downArrow.png")}/>
             </View>
             </Shadow>
           </TouchableOpacity>
@@ -342,6 +343,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection:'row'
    
  
   },
