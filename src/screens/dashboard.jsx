@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -9,18 +9,68 @@ import {
   useColorScheme,
   View,
   Alert,
+  TouchableOpacity,
 } from 'react-native';
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart
+} from "react-native-chart-kit";
 
+import { Shadow } from 'react-native-shadow-2';
 import ImageButtonDashboard from '../components/ImageDashboard';
 import CardMenu from '../components/cardMenu';
-
+import HomeSVG from '../assets/images/homeSVG';
 import Animated, {FadeInLeft, FadeInRight} from 'react-native-reanimated';
+import ProfileScreen from './ProfileScreen';
+import HistoryScreen from './HistoryScreen';
+
 
 function Dashboard({navigation}) {
   const [pressedCard, setPressedCard] = useState(null);
+  const [graphButtonT, setGraphButtonT] = useState('AQ_10');
+  const [listDisp, setListDisp] = useState('none');
+  const [buttSelector, setbuttSelector] = useState(1);
+  const [selectScreen,setScreen] = useState(1);
+  const [Disindex,setDisindx] = useState(10);
+  const chartConfig = {
+
+    backgroundGradientFrom: "#DDCAE3",
+    backgroundGradientFromOpacity: 20,
+    backgroundGradientTo: "#DDCAE3",
+    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+    strokeWidth: 2, // optional, default 3
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false // optional
+  };
+
+
+
+  const data = {
+    labels: ["Jan", "Feb", "March", "April", "May", "June"],
+    datasets: [
+      {
+        data: [20, 45, 28, 80, 99, 43],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+        strokeWidth: 2 // optional
+      }
+    ],
+    legend: [graphButtonT] // optional
+  };
 
   const handleCardPress = cardNumber => {
     setPressedCard(cardNumber);
+  };
+
+  const handlePressList = () => {
+    if (listDisp === 'none') {
+      setListDisp('block');
+    } else {
+      setListDisp('none');
+    }
   };
 
   return (
@@ -37,8 +87,12 @@ function Dashboard({navigation}) {
         </GestureHandlerRootView>
       </View> */}
 
-      <View style={styles.greetTextContainer}>
-        <Text>
+     <View style={styles.upperBody}>
+    {selectScreen===1?(
+
+<View>
+<View style={styles.greetTextContainer}>
+      <Text>
           <Text style={styles.greetText}>Hey, </Text>
           <Text style={[styles.greetText, styles.pinkColor]}>Aizen</Text>
         </Text>
@@ -76,6 +130,125 @@ function Dashboard({navigation}) {
           style={styles.indicatorRight(pressedCard === 6 || pressedCard === 5)}
         />
       </View>
+     <View>
+
+     <View style={styles.graphCont}>
+        {/* Graph Starts here */}
+        <Shadow distance={5} offset={[0, 3]}>
+        <LineChart
+  data={data}
+  width={300}
+  height={220}
+  borderRadius={300}
+  chartConfig={chartConfig}
+
+  style={styles.graph}
+/></Shadow>
+
+
+
+   
+   
+      </View>
+     <View style={styles.History_Area}>
+        {/* History and button Area  */}
+
+        <Text style={styles.cardMenuTitle}>History</Text>
+
+        <View>
+          <TouchableOpacity onPress={handlePressList}>
+          <Shadow distance={1} offset={[1, 2]}>
+            <View style={styles.buttonGraph}>
+              {/* Graph button Area  */}
+
+              <Text>{graphButtonT} </Text>
+            </View>
+            </Shadow>
+          </TouchableOpacity>
+
+          <View
+            style={
+
+              {
+
+                display: listDisp,
+                maxHeight: 150,
+                maxWidth: 80,
+                left: 1,
+                top: 3,
+                borderRadius: 10,
+                backgroundColor: '#F2F2F2',
+                alignItems: 'center',
+                zIndex:Disindex
+              }
+            }>
+            {/* Graph button Drop Down List  */}
+
+            <Text
+              style={styles.GlistBut}
+              onPress={() => {
+                setGraphButtonT('AQ_10');
+                handlePressList();
+              }}>
+              AQ_10
+            </Text>
+            <Text
+              style={styles.GlistBut}
+              onPress={() => {
+                setGraphButtonT('ADHD');
+                handlePressList();
+              }}>
+              ADHD
+            </Text>
+            <Text
+              style={styles.GlistBut}
+              onPress={() => {
+                setGraphButtonT('SCAN');
+                handlePressList();
+              }}>
+              SCAN
+            </Text>
+          </View>
+        </View>
+
+        
+      </View>
+
+    
+     </View>
+  </View>
+
+    ):selectScreen ===2 ?(
+
+      <ProfileScreen/>
+    ):selectScreen === 3 ?(
+
+      <HistoryScreen/>
+    ):null}
+     </View>
+     <View style={styles.bottomNAV}>
+      {/* Bottom Navigation Area  */}
+
+      <Shadow distance={5} offset={[0, 2]}>
+        <View style={ styles.bottomNAVO}>
+
+
+<HomeSVG fill={buttSelector===1 ?("#FDFDFD"):("#6B6E89")}  onPress={()=>{setbuttSelector(1);setScreen(1) } }  bColor={buttSelector===1 ?("#F59481"):("white")}   svgN={1}   margin={8} padding={0}   marginS={9} paddingS={0} h={40} w={28} />
+<HomeSVG fill={buttSelector===2 ?("#FDFDFD"):("#6B6E89")}  onPress={()=>{setbuttSelector(2);setScreen(2)}}  bColor={buttSelector===2 ?("#F59481"):("white")}   svgN={2}   margin={8} padding={0}   marginS={9} paddingS={0} h={40} w={28} />
+<HomeSVG fill={buttSelector===3 ?("#FDFDFD"):("#6B6E89")}   onPress={()=>{setbuttSelector(3);setScreen(3)}} bColor={buttSelector===3 ?("#F59481"):("white")}   svgN={3}   margin={8} padding={0}   marginS={9} paddingS={0} h={40} w={28} />
+<HomeSVG fill={buttSelector===4 ?("#FDFDFD"):("#6B6E89")}   onPress={()=>{setbuttSelector(4);
+
+navigation.navigate('Signin');
+
+}} bColor={buttSelector===4 ?("#F59481"):("white")}   svgN={4}   margin={8} padding={0}   marginS={9} paddingS={0} h={40} w={28} />
+
+
+
+        </View>
+
+      </Shadow>
+     </View>
+   
     </View>
   );
 }
@@ -153,6 +326,99 @@ const styles = StyleSheet.create({
     // alignSelf: 'center',
   },
 
+  History_Area: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginRight: 25,
+    marginTop: 70,
+  },
+  buttonGraph: {
+    position: 'relative',
+    backgroundColor: '#F59481',
+    height: 30,
+    width: 80,
+    borderRadius: 30,
+    textAlign: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+   
+ 
+  },
+
+  GlistBut: {
+    color: 'black',
+    margin: 10,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    zIndex:-1
+  },
+
+
+  
+
+  graphCont:{
+
+    zIndex:-2,
+    position:"absolute",
+    top:130,
+
+    left: '9%',
+
+
+  }
+  ,
+graph:{
+
+borderRadius:20,
+zIndex:1,
+position:"relative",
+
+}
+  ,
+  upperBody:{
+    flex:0.9,
+    height:"100%",
+  
+   
+
+  }
+  ,
+  bottomNAV:{
+flex:0.1,
+
+
+    height:50,
+    width:300,
+    borderRadius:300,
+    marginTop:0,
+    backgroundColor:'white',
+    justifyContent:'center',
+  alignSelf:'center',
+
+alignItems:'flex-end'
+
+    
+  },
+
+  bottomNAVO:{
+
+
+
+    height:60,
+    width:300,
+    borderRadius:300,
+    backgroundColor:'white',
+    display:'flex',
+    flexDirection:'row',
+    justifyContent:'space-between'
+
+
+    
+
+    
+  }
+  ,
   indicatorLeft: isSelected => ({
     width: 15,
     height: 85,
