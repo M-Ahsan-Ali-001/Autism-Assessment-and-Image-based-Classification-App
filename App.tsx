@@ -37,6 +37,7 @@ import Dashboard from './src/screens/dashboard';
 import AQ_10 from './src/screens/AQ_10';
 import SignInScreen from './src/screens/SignInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
+import ScanScreen from './src/screens/ScanScreen';
 import {
   OrientationLocker,
   PORTRAIT,
@@ -52,7 +53,7 @@ function App(): JSX.Element {
     <NavigationContainer>
       <OrientationLocker orientation={PORTRAIT} />
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="Scan"
         screenOptions={{
           headerShown: false, // Hide the header for all screens in this stack
         }}>
@@ -89,6 +90,12 @@ function App(): JSX.Element {
         <Stack.Screen
           name="AQ_10"
           component={AQ_10}
+          options={{animation: 'slide_from_right'}}
+        />
+
+<Stack.Screen
+          name="Scan"
+          component={ScanScreen}
           options={{animation: 'slide_from_right'}}
         />
       </Stack.Navigator>
