@@ -53,7 +53,7 @@ function App(): JSX.Element {
     <NavigationContainer>
       <OrientationLocker orientation={PORTRAIT} />
       <Stack.Navigator
-        initialRouteName="Scan"
+        initialRouteName="AQ_10"
         screenOptions={{
           headerShown: false, // Hide the header for all screens in this stack
         }}>

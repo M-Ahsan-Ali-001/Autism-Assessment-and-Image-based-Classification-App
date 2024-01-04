@@ -1,79 +1,111 @@
 import React, {useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Dimensions,
+} from 'react-native';
 import {RadioButton} from 'react-native-paper';
-
 import AQtest from '../components/AQ_10.json';
-import ButtonIntro from './ButtonIntro';
+import CustomButton from './CustomButton';
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 function AQ_10_Get() {
-  const list = ['a', 'b', 'c', 'd'];
-  let correctAns = Array(10).fill(0);
+  const questions = Object.keys(AQtest);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedKeys, setSelectedKeys] = useState({});
 
+  const nextQuestion = () => {
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    }
+  };
+
+  const prevQuestion = () => {
+    if (currentQuestion > 0) {
+      setCurrentQuestion(currentQuestion - 1);
+    }
+  };
+
+  const submitButton = () => {
+    console.log('Questionnaire submitted!');
+    alert('Questionnaire submitted!');
+  };
+
+  const question = AQtest[questions[currentQuestion]];
+  const isLastQuestion = currentQuestion === questions.length - 1;
+  const progress = ((currentQuestion + 1) / questions.length) * 100;
+
   return (
-    <ScrollView style={styles.container}>
-      <View>
-        <Text style={styles.heading}>Austism Qoutient Questionnaire</Text>
-        {correctAns.map((items, idx) => (
-          <View key={idx} style={styles.card}>
-            <Text style={styles.questionText}>
-              {idx + 1 + '). ' + AQtest[String(idx + 1) + 'a']['Q']}
+    <View style={styles.container}>
+      <Text style={styles.heading}>AQ-10</Text>
+      <View style={styles.progressBarContainer}>
+        <View style={[styles.progressBar, {width: `${progress}%`}]} />
+      </View>
+      <View style={styles.card}>
+        <Text style={styles.questionText}>{`${currentQuestion + 1}. ${
+          question.Q
+        }`}</Text>
+        {Object.keys(question.options).map(optionKey => (
+          <View key={optionKey} style={styles.optionContainer}>
+            <RadioButton
+              color="#DE9181"
+              uncheckedColor="#C0BFBF"
+              value={optionKey}
+              status={
+                selectedKeys[questions[currentQuestion]] === optionKey
+                  ? 'checked'
+                  : 'unchecked'
+              }
+              onPress={() => {
+                console.log('Selected Answer:', optionKey);
+                setSelectedKeys({
+                  ...selectedKeys,
+                  [questions[currentQuestion]]: optionKey,
+                });
+              }}
+            />
+            <Text
+              style={[
+                styles.optionText,
+                {
+                  backgroundColor:
+                    selectedKeys[questions[currentQuestion]] === optionKey
+                      ? '#DE9181'
+                      : '#C0BFBF',
+                },
+              ]}
+              onPress={() => {
+                console.log('Selected Answer:', optionKey);
+                isSelected = true;
+                setSelectedKeys({
+                  ...selectedKeys,
+                  [questions[currentQuestion]]: optionKey,
+                });
+              }}>
+              {question.options[optionKey]}
             </Text>
-            {list.map((item, index) => (
-              <View
-                key={String(idx + 1) + 'a' + item}
-                style={styles.optionContainer}>
-                <RadioButton
-                  style={styles.radioButton}
-                  status={
-                    selectedKeys[idx] === String(idx + 1) + 'a' + item
-                      ? 'checked'
-                      : 'unchecked'
-                  }
-                  color="#1A6864"
-                  onPress={() => {
-                    console.log(
-                      'idx:',
-                      AQtest[String(idx + 1) + 'a']['correct'],
-                    );
-                    console.log(AQtest[String(idx + 1) + 'a']['Q']);
-                    setSelectedKeys({
-                      ...selectedKeys,
-                      [idx]: String(idx + 1) + 'a' + item,
-                    });
-                  }}
-                />
-                <Text
-                  style={styles.optionText}
-                  onPress={() => {
-                    console.log(
-                      'idx:',
-                      AQtest[String(idx + 1) + 'a']['correct'],
-                    );
-                    console.log(AQtest[String(idx + 1) + 'a']['Q']);
-                    setSelectedKeys({
-                      ...selectedKeys,
-                      [idx]: String(idx + 1) + 'a' + item,
-                    });
-                  }}>
-                  {AQtest[String(idx + 1) + 'a']['options'][item]}
-                </Text>
-              </View>
-            ))}
           </View>
         ))}
-        <ButtonIntro
-          l={0}
-          r={0}
-          b={0}
-          t={0}
-          pos={'block'}
-          numb={2}
-          text={'  Submit  '}
-        />
-        <View style={{height: 29, width: 50}}></View>
       </View>
-    </ScrollView>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Back"
+          onPress={prevQuestion}
+          disabled={currentQuestion === 0}
+        />
+        {isLastQuestion && <Button title="Submit" onPress={submitButton} />}
+        <CustomButton
+          label="Next"
+          onPress={nextQuestion}
+          disabled={currentQuestion === questions.length - 1}
+        />
+      </View>
+    </View>
   );
 }
 
@@ -81,37 +113,49 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#1a6864',
+    backgroundColor: '#FDFDFD',
+    justifyContent: 'center',
   },
   heading: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
-    color: 'white',
-    textAlign: 'center',
+    color: '#1E1B1B',
+  },
+  progressBarContainer: {
+    height: 20,
+    backgroundColor: '#D9D9D9',
+    borderRadius: 10,
+    overflow: 'hidden',
+    marginBottom: 25,
+  },
+  progressBar: {
+    height: '100%',
+    backgroundColor: '#DE9181',
   },
   card: {
-    backgroundColor: 'white',
+    width: screenWidth * 0.9,
+    height: screenHeight * 0.6,
+    alignSelf: 'center',
+    backgroundColor: '#ECECEC',
     borderRadius: 8,
     padding: 16,
     marginBottom: 20,
-
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
+    shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.18,
     shadowRadius: 1.0,
-
-    elevation: 1,
+    elevation: 3,
+    justifyContent: 'space-evenly',
   },
   questionText: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
+    fontFamily: 'Inter',
     marginBottom: 8,
-    color: 'black',
+    color: '#292424',
     textAlign: 'left',
+    marginBottom: 40,
   },
   optionContainer: {
     flexDirection: 'row',
@@ -119,12 +163,25 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   radioButton: {
-    backgroundColor: 'white',
-  },
-  optionText: {
-    fontSize: 16,
     color: 'black',
   },
+  optionText: {
+    fontSize: 20,
+    color: '#FFF',
+    marginLeft: 8,
+    padding: 0,
+    textAlign: 'center',
+    paddingVertical: 5,
+    borderRadius: 20,
+    width: 250,
+    height: 40,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 16,
+  },
+
 });
 
 export default AQ_10_Get;

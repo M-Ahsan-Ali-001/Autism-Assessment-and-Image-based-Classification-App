@@ -12,16 +12,6 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import AQtest from '../components/AQ_10.json';
-import {RadioButton} from 'react-native-paper';
-
 function AQ_10() {
   //console.log(AQtest['1a'])
   const list = ['a', 'b', 'c', 'd'];
@@ -31,7 +21,7 @@ function AQ_10() {
   const AQ_test = lazy(() => import('../components/AQ_10_Get'));
 
   return (
-    <View style={{flex: 1, backgroundColor: '#1a6864', padding: 12}}>
+    <View style={{flex: 1, backgroundColor: '#FDFDFD', padding: 12}}>
       <Suspense
         fallback={
           <ActivityIndicator
