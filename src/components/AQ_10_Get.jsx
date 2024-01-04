@@ -10,6 +10,8 @@ import {
 import {RadioButton} from 'react-native-paper';
 import AQtest from '../components/AQ_10.json';
 import CustomButton from './CustomButton';
+import nextArrow from '../assets/images/arrowNext.png';
+import backArrow from '../assets/images/backArrow.png';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -93,13 +95,16 @@ function AQ_10_Get() {
         ))}
       </View>
       <View style={styles.buttonContainer}>
-        <Button
-          title="Back"
+        <CustomButton
+          label="Back"
+          isBackArrow={true}
+          imageSource={backArrow}
           onPress={prevQuestion}
           disabled={currentQuestion === 0}
         />
         {isLastQuestion && <Button title="Submit" onPress={submitButton} />}
         <CustomButton
+          imageSource={nextArrow}
           label="Next"
           onPress={nextQuestion}
           disabled={currentQuestion === questions.length - 1}
@@ -181,7 +186,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 16,
   },
-
 });
 
 export default AQ_10_Get;
