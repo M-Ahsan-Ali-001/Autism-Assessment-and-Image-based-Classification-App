@@ -20,6 +20,14 @@ function AQ_10_Get() {
   const questions = Object.keys(AQtest);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedKeys, setSelectedKeys] = useState({});
+  const [holdAns, setHoldAns] = useState(Array(10).fill(0)); 
+
+  const updateHoldAns = (index, value) => {
+    // Create a new array to avoid mutating the state directly
+    const newHoldAns = [...holdAns];
+    newHoldAns[index] = value;
+    setHoldAns(newHoldAns);
+  };
 
   const nextQuestion = () => {
     if (currentQuestion < questions.length - 1) {
@@ -35,7 +43,22 @@ function AQ_10_Get() {
 
   const submitButton = () => {
     console.log('Questionnaire submitted!');
-    alert('Questionnaire submitted!');
+    let hold=0
+    for( x=0;x<10;x++){
+      hold=hold+holdAns[x]
+
+    }
+
+    if(hold>=6){
+      alert(`Score:${hold}\n You need to visit a doctor`);
+    
+    }
+    else{
+
+      alert(`Score:${hold}\n You do not need to visit a doctor`);
+    
+    }
+    console.log(holdAns)
   };
 
   const question = AQtest[questions[currentQuestion]];
@@ -64,7 +87,41 @@ function AQ_10_Get() {
                   : 'unchecked'
               }
               onPress={() => {
-                console.log('Selected Answer:', optionKey);
+                console.log('Selected Answer1:',  optionKey);
+              
+                if(currentQuestion ===0 || currentQuestion ===4 || currentQuestion ===6|| currentQuestion ===9 ){
+                  if(optionKey ==='a' || optionKey ==='b')
+                  {
+                    console.log("INC");
+                    updateHoldAns(currentQuestion,1)
+                    console.log(holdAns) 
+                  }
+                  else{
+                    console.log("Dec");
+                    
+                    updateHoldAns(currentQuestion,0)
+                    console.log(holdAns)
+                    
+                  }
+
+                }
+                else {
+                  if(optionKey ==='c' || optionKey ==='d')
+                  {
+                    console.log("INC");
+                    updateHoldAns(currentQuestion,1)
+                    
+                    console.log(holdAns) 
+                  }
+                  else{
+                    console.log("Dec");
+                    
+                    updateHoldAns(currentQuestion,0)
+                    console.log(holdAns)
+                    
+                  }
+
+                }
                 setSelectedKeys({
                   ...selectedKeys,
                   [questions[currentQuestion]]: optionKey,
@@ -83,6 +140,39 @@ function AQ_10_Get() {
               ]}
               onPress={() => {
                 console.log('Selected Answer:', optionKey);
+                if(currentQuestion ===0 || currentQuestion ===4 || currentQuestion ===6|| currentQuestion ===9 ){
+                  if(optionKey ==='a' || optionKey ==='b')
+                  {
+                    console.log("INC");
+                    updateHoldAns(currentQuestion,1)
+                    console.log(holdAns) 
+                  }
+                  else{
+                    console.log("Dec");
+                    
+                    updateHoldAns(currentQuestion,0)
+                    console.log(holdAns)
+                    
+                  }
+
+                }
+                else {
+                  if(optionKey ==='c' || optionKey ==='d')
+                  {
+                    console.log("INC");
+                    updateHoldAns(currentQuestion,1)
+                    
+                    console.log(holdAns) 
+                  }
+                  else{
+                    console.log("Dec");
+                    
+                    updateHoldAns(currentQuestion,0)
+                    console.log(holdAns)
+                    
+                  }
+
+                }
                 isSelected = true;
                 setSelectedKeys({
                   ...selectedKeys,
@@ -102,13 +192,24 @@ function AQ_10_Get() {
           onPress={prevQuestion}
           disabled={currentQuestion === 0}
         />
-        {isLastQuestion && <Button title="Submit" onPress={submitButton} />}
-        <CustomButton
-          imageSource={nextArrow}
-          label="Next"
-          onPress={nextQuestion}
-          disabled={currentQuestion === questions.length - 1}
-        />
+        {isLastQuestion===true? (
+  // <Button   style={{backgroundColor:'red'}}   title="Submit" onPress={submitButton} />
+  <CustomButton
+  imageSource={nextArrow}
+  label="Submit"
+  onPress={submitButton}
+
+/>
+) : (
+  <CustomButton
+    imageSource={nextArrow}
+    label="Next"
+    onPress={nextQuestion}
+    disabled={currentQuestion === questions.length - 1}
+  />
+)}
+
+        
       </View>
     </View>
   );
@@ -186,6 +287,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 16,
   },
+  submitButton:{
+
+   color:'green'
+
+  }
 });
 
 export default AQ_10_Get;

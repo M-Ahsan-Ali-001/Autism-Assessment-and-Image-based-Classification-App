@@ -16,12 +16,13 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import { flags } from 'realm';
 
 function ScanScreen() {
- let a = true
- let st=0
+ 
+ const [a,Ua] = useState(true) // to  stop the animation
+ const [st,Ust] = useState(true)
   const [selectedImage, setSelectedImage] = useState(null);
   let scanLineY = new Animated.Value(0);
-  const [lineShow, setline] = useState("block");
-
+  const [lineShow, setline] = useState("none");
+const [result,SetResult]=useState("");
   let scanLineAnimation;
 
   const startScanLineAnimation = () => {
@@ -39,10 +40,11 @@ function ScanScreen() {
       }),
     ]);
   
-    if(a){
-
+ if(a)
+      {  
+   
         scanLineAnimation.start(() => startScanLineAnimation());
-    }
+      }
 
   };
   
@@ -52,14 +54,60 @@ function ScanScreen() {
 //     }
 //   };
 
+    //192.168.100.212:3000/uploadfile/
+    const webReq = async () => {
+      console.log("asd");
+    
+      if (!selectedImage) {
+        console.warn('No image selected');
+        return;
+      }
+    
+      try {
+        const formData = new FormData();
+        
+        // Append the image file to the FormData
+        formData.append('file', {
+          uri: selectedImage,
+          name: 'image.jpg',
+          type: 'image/jpeg',
+        });
+    
+        // Send the FormData in the request
+        const response = await fetch("http://192.168.100.212:3000/uploadfile/", {
+          method: 'POST',
+          headers: {
+            // No need to set 'Content-Type' for FormData, it will be set automatically
+            // Add any additional headers if needed
+            // 'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
+          },
+          body: formData,
+        });
+    
+        const rresult = await response.json();
+        console.log(rresult);
+        SetResult(rresult)
+        Ua(false)
+        setline("none");
+
+      } catch (error) {
+        console.error('Error sending image:', error);
+      }
+    };
+    
+    
   const callAnimation=  ()=>{
-   
-console.log(st)
-if(st===1)
-{  a=true;
+
+console.log(a)
+//Ust(st+1)
+console.log("DoubleClickCounter:",st)
+
+if(st)
+{  
  
-    startScanLineAnimation()
-   
+  startScanLineAnimation()
+
+  webReq()
   }
   else{
     Alert.alert("already Scanning!")
@@ -73,9 +121,10 @@ if(st===1)
 
       if (response.didCancel) {
         console.log('User cancelled image picker');
-        a=false
-        setline("none")
-        st=1
+        Ua(false)
+        
+        //setline("none")
+       // st=1
 
 
         console.log(st)
@@ -87,15 +136,15 @@ if(st===1)
         console.log('Selected Image:', selectedImageUri);
 
         
-        a=false
-        setline("none")
-        st=0
+        Ua(true)
+        setline("block")
+       // st=0
       } else {
         console.warn('No image selected');
-        a=false
+        Ua(false)
         setline("none")
 
-        st=0
+       // st=0
       }
     } catch (error) {
       console.error('Error launching image library: ', error);
@@ -141,9 +190,9 @@ if(st===1)
             </View>
             <Text style={{ color: 'white', marginBottom: 0 }}>
               {' '}
-              Predicted Class:
+              Predicted Class:{result}
             </Text>
-            <Text style={{ color: 'white', marginBottom: 0 }}> Probability:</Text>
+            <Text style={{ color: 'white', marginBottom: 0 }}> Probability:{result}</Text>
           </View>
         ) : (
           <Text style={{ color: 'white', marginBottom: 0 }}>
@@ -164,7 +213,7 @@ if(st===1)
         </View>
 
         <View style={styles.buttonBottom}>
-          <Text style={{ color: 'white', marginBottom: 0 } } onPress={()=>{ setline("block");st=st+1;callAnimation();    }}>Scan Image</Text>
+          <Text style={{ color: 'white', marginBottom: 0 } } onPress={()=>{ setline("block");callAnimation();    }}>Scan Image</Text>
         </View>
       </View>
     </View>

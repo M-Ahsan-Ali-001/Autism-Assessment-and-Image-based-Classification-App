@@ -39,7 +39,14 @@ function CardMenu(props) {
   };
 
   const onPressHandler = () => {
+   if(props.nvb===1){
     props.nav.navigate('AQ_10');
+   }
+   else if(props.nvb===3){
+    props.nav.navigate('Scan');
+   
+   }
+
   };
 
   return (

@@ -108,17 +108,22 @@ function Dashboard({navigation}) {
                 textCard={'AQ 10'}
                 nav={navigation}
                 imgIcon={styles.card1}
+                nvb={1}
                 onPress={() => handleCardPress(4)}
               />
               <CardMenu
                 imgNmb={5}
                 textCard={'ADHD'}
+                nav={navigation}
+                nvb={1}
                 imgIcon={styles.card1}
                 onPress={() => handleCardPress(5)}
               />
               <CardMenu
                 imgNmb={6}
                 textCard={'Scan'}
+                nvb={3}
+                nav={navigation}
                 imgIcon={styles.card1}
                 onPress={() => handleCardPress(6)}
               />
