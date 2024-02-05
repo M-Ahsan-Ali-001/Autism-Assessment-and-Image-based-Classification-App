@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -20,9 +20,10 @@ function ScanScreen() {
  const [a,Ua] = useState(true) // to  stop the animation
  const [st,Ust] = useState(true)
   const [selectedImage, setSelectedImage] = useState(null);
-  let scanLineY = new Animated.Value(0);
+  let scanLineY = React.useRef(new Animated.Value(50)).current;
   const [lineShow, setline] = useState("none");
 const [result,SetResult]=useState("");
+const [cache,SetCache]=useState(true);
   let scanLineAnimation;
 
   const startScanLineAnimation = () => {
@@ -43,7 +44,9 @@ const [result,SetResult]=useState("");
  if(a)
       {  
    
-        scanLineAnimation.start(() => startScanLineAnimation());
+        scanLineAnimation.start(() => {startScanLineAnimation();
+      
+        });
       }
 
   };
@@ -74,7 +77,7 @@ const [result,SetResult]=useState("");
         });
     
         // Send the FormData in the request
-        const response = await fetch("http://192.168.100.212:3000/uploadfile/", {
+        const response = await fetch("http://192.168.100.212:3001/uploadfile/", {
           method: 'POST',
           headers: {
             // No need to set 'Content-Type' for FormData, it will be set automatically
@@ -86,7 +89,9 @@ const [result,SetResult]=useState("");
     
         const rresult = await response.json();
         console.log(rresult);
+      
         SetResult(rresult)
+        SetCache(true);
         Ua(false)
         setline("none");
 
@@ -96,23 +101,21 @@ const [result,SetResult]=useState("");
     };
     
     
-  const callAnimation=  ()=>{
+    const callAnimation=   () => {
 
-console.log(a)
-//Ust(st+1)
-console.log("DoubleClickCounter:",st)
-
-if(st)
-{  
- 
-  startScanLineAnimation()
-
-  webReq()
-  }
-  else{
-    Alert.alert("already Scanning!")
-  }
-  }
+  
+if(cache === true)   
+{
+      startScanLineAnimation();
+      webReq();
+      SetCache(false);
+    
+}
+else{
+  Alert.alert("Already scanning")
+}   
+      
+    };
 
   const handleImageLibrary = async () => {
     try {
