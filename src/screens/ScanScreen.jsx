@@ -23,6 +23,7 @@ function ScanScreen() {
   let scanLineY = React.useRef(new Animated.Value(50)).current;
   const [lineShow, setline] = useState("none");
 const [result,SetResult]=useState("");
+const [probs,SetProbs]=useState("");
 const [cache,SetCache]=useState(true);
   let scanLineAnimation;
 
@@ -77,7 +78,7 @@ const [cache,SetCache]=useState(true);
         });
     
         // Send the FormData in the request
-        const response = await fetch("http://192.168.100.212:3001/uploadfile/", {
+        const response = await fetch("http://192.168.100.200:3000/uploadfile/", {
           method: 'POST',
           headers: {
             // No need to set 'Content-Type' for FormData, it will be set automatically
@@ -89,8 +90,29 @@ const [cache,SetCache]=useState(true);
     
         const rresult = await response.json();
         console.log(rresult);
-      
-        SetResult(rresult)
+        const lt= (rresult[0]).split("--[[")
+        const valuesArray = lt[1].split(" ");
+        console.log("AA"+lt[1]);
+        const prob1 = parseFloat(valuesArray[0])*100
+        
+        const prob2 = parseFloat(valuesArray[1])*100
+
+        if(prob1>prob2){
+          SetProbs(prob1)    
+
+        }
+        else{
+          
+          SetProbs(prob2) 
+          }
+
+        // Convert each substring to a float and filter out any non-numeric values
+    //    const floatValues = valuesArray.map(value => parseFloat(value)).filter(value => !isNaN(value));
+    
+    
+        SetResult(lt[0])
+       //  SetProbs(floatValues)      
+
         SetCache(true);
         Ua(false)
         setline("none");
@@ -195,7 +217,7 @@ else{
               {' '}
               Predicted Class:{result}
             </Text>
-            <Text style={{ color: 'white', marginBottom: 0 }}> Probability:{result}</Text>
+            <Text style={{ color: 'white', marginBottom: 0 }}> Probability:{probs}%</Text>
           </View>
         ) : (
           <Text style={{ color: 'white', marginBottom: 0 }}>
