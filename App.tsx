@@ -6,26 +6,8 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import Svg, {Circle} from 'react-native-svg';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Image,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {StyleSheet} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import IntroScreen from './src/screens/IntroScrn';
 import IntroScreen2 from './src/screens/introScrn2';
 import {NavigationContainer} from '@react-navigation/native';
@@ -44,7 +26,7 @@ import {
   LANDSCAPE,
 } from 'react-native-orientation-locker';
 
-import {AppProvider, RealmProvider, UserProvider} from '@realm/react';
+import {AppProvider} from '@realm/react';
 
 function App(): JSX.Element {
   const Stack = createNativeStackNavigator();
@@ -93,7 +75,7 @@ function App(): JSX.Element {
           options={{animation: 'slide_from_right'}}
         />
 
-<Stack.Screen
+        <Stack.Screen
           name="Scan"
           component={ScanScreen}
           options={{animation: 'slide_from_right'}}
@@ -107,9 +89,9 @@ function AppWrapper() {
   return (
     <AppProvider id={'asd-tvtdw'}>
       {/* <UserProvider fallback={SignInScreen}> */}
-        {/* <RealmProvider> */}
-          <App />
-        {/* </RealmProvider> */}
+      {/* <RealmProvider> */}
+      <App />
+      {/* </RealmProvider> */}
       {/* </UserProvider> */}
     </AppProvider>
   );

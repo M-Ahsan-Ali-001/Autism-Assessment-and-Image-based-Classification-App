@@ -2,7 +2,6 @@ import React, {useCallback, useState} from 'react';
 import {
   StyleSheet,
   Text,
-  Image,
   View,
   TextInput,
   Dimensions,
@@ -15,12 +14,16 @@ import AuthenticationButton from '../components/AuthenticationButton';
 import Realm from 'realm';
 import {useApp} from '@realm/react';
 
+import { MMKV } from 'react-native-mmkv'
+
 const {height, width} = Dimensions.get('window');
 
 const SignInScreen = ({navigation}: any) => {
   const realmApp = useApp();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const storage = new MMKV()
 
   const login = useCallback(
     async (newEmail: string, newPassword: string) => {
