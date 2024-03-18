@@ -147,7 +147,7 @@ function HistoryScreen(props){
 
 <View style={styles.ver}>
 
-<Text style={styles.text}>Score: {item.score}</Text>
+<Text style={styles.text}>Score: {item.score}%</Text>
   <Text style={styles.text}>Class: {item.state}</Text>
 </View>
  

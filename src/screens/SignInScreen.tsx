@@ -25,6 +25,8 @@ const SignInScreen = ({navigation}: any) => {
 
   
   useEffect(() => {
+  const check =()=>{
+
     let state =""
 
  
@@ -33,9 +35,8 @@ const SignInScreen = ({navigation}: any) => {
     {
       state=value
       console.log("abc--+"+value);
-    });
-
-    if (state === "true"){
+      
+    if (value === "true"){
 
       navigation.navigate('Dashboard');
       navigation.reset({
@@ -43,9 +44,13 @@ const SignInScreen = ({navigation}: any) => {
         routes: [{ name: 'Dashboard' }],
       });
     }
+    });
+
+  }
+  check();
 
 
-  })
+  },[])
 
 
   const login = useCallback(

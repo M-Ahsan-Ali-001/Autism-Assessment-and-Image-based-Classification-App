@@ -40,6 +40,356 @@ function Dashboard({navigation}) {
   const [AQf, setAQf] = useState([]);
   const [adhd, setAdhd] = useState([]);  
   const [Mod, setMod] = useState([]);
+  const [aqLabel, setAqLabel] = useState(['Jan', 'Feb', 'March', 'April', 'May', 'June']);
+  const [aqScore, setAqScore] = useState([20, 45, 28, 80, 99, 43]);
+ 
+  const [data1 ,setdata1] =useState({
+    labels:  ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
+    datasets: [
+      {
+        data:  [20, 45, 28, 80, 99, 43],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+        strokeWidth: 2, // optional
+      },
+    ],
+    legend: [graphButtonT + " Dummy Data"], // optional
+  })  
+  const extractDate = (fullDate) => {
+    const dateObj = new Date(fullDate);
+    return dateObj.toString().substring(4, 7); // Extracting "Sun Mar 17 2024"
+  };
+
+useEffect(()=>{
+
+const fetchAd= async ()=>{
+
+      
+  SharedPreferences.getItem("userid", async function(value){
+    console.log("abc--+"+value);
+
+    try {
+      const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_aq_10',
+      {
+        "id" : `${value}`
+      });
+      //setGet(response.data);
+      console.log(response.data)
+
+      if(response.data.length >0){
+
+        let aqLabel1=[]
+        let aqScore1=[]
+        let x= response.data
+       x.map(async (item, idx)=>{
+  
+        console.log(extractDate(item.date)+ item.score)
+        aqLabel1.push(extractDate(item.date))
+        aqScore1.push(parseFloat(item.score))
+  
+    
+  
+  
+  
+        })
+  
+        setAQf(response.data)
+  
+        setAqLabel(aqLabel1)
+        setAqScore(aqScore1)
+        console.log("aq---"+aqLabel1);
+  console.log("aq"+aqScore1);
+  
+        setdata1( {
+            labels:  aqLabel1,
+            datasets: [
+              {
+                data:  aqScore1,
+                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+                strokeWidth: 2, // optional
+              },
+            ],
+            legend: [graphButtonT], // optional
+          })
+      }
+    
+   
+
+    } catch (error) {
+     console.log(error)
+    }
+  
+  
+  })
+
+}
+
+fetchAd()
+
+},[]);
+
+
+
+const fetctAq10 = (name)=>{
+  setdata1({
+    labels:  ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
+    datasets: [
+      {
+        data:  [20, 45, 28, 80, 99, 43],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+        strokeWidth: 2, // optional
+      },
+    ],
+    legend: [name + " Dummy Data"], // optional
+  })
+
+  SharedPreferences.getItem("userid", async function(value){
+    console.log("abc--+"+value);
+
+    try {
+      const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_aq_10',
+      {
+        "id" : `${value}`
+      });
+      //setGet(response.data);
+      console.log(response.data)
+
+      if(response.data.length >0){
+
+        let aqLabel1=[]
+        let aqScore1=[]
+        let x= response.data
+       x.map(async (item, idx)=>{
+  
+        console.log(extractDate(item.date)+ item.score)
+        aqLabel1.push(extractDate(item.date))
+        aqScore1.push(parseFloat(item.score))
+  
+    
+  
+  
+  
+        })
+  
+        setAQf(response.data)
+  
+        setAqLabel(aqLabel1)
+        setAqScore(aqScore1)
+        console.log("aq---"+aqLabel1);
+  console.log("aq"+aqScore1);
+  
+        setdata1( {
+            labels:  aqLabel1,
+            datasets: [
+              {
+                data:  aqScore1,
+                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+                strokeWidth: 2, // optional
+              },
+            ],
+            legend: [name], // optional
+          })
+      }
+      else{
+        setdata1({
+          labels:  ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
+          datasets: [
+            {
+              data:  [20, 45, 28, 80, 99, 43],
+              color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+              strokeWidth: 2, // optional
+            },
+          ],
+          legend: [name + " Dummy Data"], // optional
+        })  
+      }
+    
+   
+
+    } catch (error) {
+     console.log(error)
+    }
+  
+  
+  })
+}
+
+
+// adhd
+const fetctAdhd = (name)=>{
+  setdata1({
+    labels:  ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
+    datasets: [
+      {
+        data:  [20, 45, 28, 80, 99, 43],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+        strokeWidth: 2, // optional
+      },
+    ],
+    legend: [name + " Dummy Data"], // optional
+  })
+
+  SharedPreferences.getItem("userid", async function(value){
+    console.log("abc--+"+value);
+
+    try {
+      const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_adhd',
+      {
+        "id" : `${value}`
+      });
+      //setGet(response.data);
+      console.log(response.data)
+
+      if(response.data.length >0){
+
+        let aqLabel1=[]
+        let aqScore1=[]
+        let x= response.data
+       x.map(async (item, idx)=>{
+  
+        console.log(extractDate(item.date)+ item.score)
+        aqLabel1.push(extractDate(item.date))
+        aqScore1.push(parseFloat(item.score))
+  
+    
+  
+  
+  
+        })
+  
+        setAQf(response.data)
+  
+        setAqLabel(aqLabel1)
+        setAqScore(aqScore1)
+        console.log("aq---"+aqLabel1);
+  console.log("aq"+aqScore1);
+  
+        setdata1( {
+            labels:  aqLabel1,
+            datasets: [
+              {
+                data:  aqScore1,
+                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+                strokeWidth: 2, // optional
+              },
+            ],
+            legend: [name], // optional
+          })
+      }
+      else{
+        setdata1({
+          labels:  ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
+          datasets: [
+            {
+              data:  [20, 45, 28, 80, 99, 43],
+              color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+              strokeWidth: 2, // optional
+            },
+          ],
+          legend: [name + " Dummy Data"], // optional
+        })  
+      }
+    
+   
+
+    } catch (error) {
+     console.log(error)
+    }
+  
+  
+  })
+}
+
+
+// model 
+
+const fetctModel = (name)=>{
+  setdata1({
+    labels:  ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
+    datasets: [
+      {
+        data:  [20, 45, 28, 80, 99, 43],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+        strokeWidth: 2, // optional
+      },
+    ],
+    legend: [name + " Dummy Data"], // optional
+  })
+  
+
+  SharedPreferences.getItem("userid", async function(value){
+    console.log("abc--+"+value);
+
+    try {
+      const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_model',
+      {
+        "id" : `${value}`
+      });
+      //setGet(response.data);
+      console.log(response.data)
+
+      if(response.data.length >0){
+
+        let aqLabel1=[]
+        let aqScore1=[]
+        let x= response.data
+       x.map(async (item, idx)=>{
+  
+        console.log(extractDate(item.date)+ item.score)
+        aqLabel1.push(extractDate(item.date))
+        aqScore1.push(parseFloat(item.score))
+  
+    
+  
+  
+  
+        })
+  
+        setAQf(response.data)
+  
+        setAqLabel(aqLabel1)
+        setAqScore(aqScore1)
+        console.log("aq---"+aqLabel1);
+  console.log("aq"+aqScore1);
+  
+        setdata1( {
+            labels:  aqLabel1,
+            datasets: [
+              {
+                data:  aqScore1,
+                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+                strokeWidth: 2, // optional
+              },
+            ],
+            legend: [name], // optional
+          })
+      }
+      else{
+        setdata1({
+          labels:  ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
+          datasets: [
+            {
+              data:  [20, 45, 28, 80, 99, 43],
+              color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+              strokeWidth: 2, // optional
+            },
+          ],
+          legend: [name + " Dummy Data"], // optional
+        })  
+      }
+    
+   
+
+    } catch (error) {
+     console.log(error)
+    }
+  
+  
+  })
+}
+
+
+
+
   const chartConfig = {
     backgroundGradientFrom: '#DDCAE3',
     backgroundGradientFromOpacity: 20,
@@ -50,17 +400,31 @@ function Dashboard({navigation}) {
     useShadowColorFromDataset: false, // optional
   };
 
-  const data = {
-    labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-    datasets: [
-      {
-        data: [20, 45, 28, 80, 99, 43],
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-        strokeWidth: 2, // optional
-      },
-    ],
-    legend: [graphButtonT], // optional
-  };
+  // const data = {
+  //   labels:  ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
+  //   datasets: [
+  //     {
+  //       data:  [20, 45, 28, 80, 99, 43],
+  //       color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+  //       strokeWidth: 2, // optional
+  //     },
+  //   ],
+  //   legend: [graphButtonT], // optional
+  // };
+
+
+  // const data1 = {
+  //   labels:  aqLabel,
+  //   datasets: [
+  //     {
+  //       data:  aqScore,
+  //       color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+  //       strokeWidth: 2, // optional
+  //     },
+  //   ],
+  //   legend: [graphButtonT], // optional
+  // };
+
 
   const handleCardPress = cardNumber => {
     setPressedCard(cardNumber);
@@ -76,80 +440,80 @@ function Dashboard({navigation}) {
       setListDisp('none');
     }
   };
-  const fetchADHD = async () => {
-    let id=""
-    SharedPreferences.getItem("userEmail", function(value){
-      console.log("abc--+"+value);
-      id =value
-    });
+  // const fetchADHD = async () => {
+  //   let id=""
+  //   SharedPreferences.getItem("userEmail", function(value){
+  //     console.log("abc--+"+value);
+  //     id =value
+  //   });
 
 
 
-    try {
-      const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_adhd',
-      {
-        "id" : `${id}`
-      });
-      //setGet(response.data);
-      console.log(response.data)
-      setAdhd(response.data)
+  //   try {
+  //     const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_adhd',
+  //     {
+  //       "id" : `${id}`
+  //     });
+  //     //setGet(response.data);
+  //     console.log(response.data)
+  //     setAdhd(response.data)
      
       
-    } catch (error) {
-     console.log(error)
-    } finally {
-      console.log("error")
-    }
-  };
+  //   } catch (error) {
+  //    console.log(error)
+  //   } finally {
+  //     console.log("error")
+  //   }
+  // };
 
-  const fetchAQ_10 = async () => {
-    let id=""
-    SharedPreferences.getItem("userEmail", function(value){
-      console.log("abc--+"+value);
-      id =value
-    });
+  // const fetchAQ_10 = async () => {
+  //   let id=""
+  //   SharedPreferences.getItem("userEmail", function(value){
+  //     console.log("abc--+"+value);
+  //     id =value
+  //   });
 
-    try {
-      const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_aq_10',
-      {
-        "id" : `${id}`
-      });
-      //setGet(response.data);
-      console.log(response.data)
-      setAQf(response.data)
+  //   try {
+  //     const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_aq_10',
+  //     {
+  //       "id" : `${id}`
+  //     });
+  //     //setGet(response.data);
+  //     console.log(response.data)
+  //     setAQf(response.data)
      
-      console.log(AQf.length === 0)
+  //     console.log(AQf.length === 0)
       
-    } catch (error) {
-     console.log(error)
-    } finally {
-      console.log("error")
-    }
-  };
+  //   } catch (error) {
+  //    console.log(error)
+  //   } finally {
+  //     console.log("error")
+  //   }
+  // };
 
 
-  const fetchModel = async () => {
+  // const fetchModel = async () => {
 
-    let id=""
-    SharedPreferences.getItem("userEmail", function(value){
-      console.log("abc--+"+value);
-      id =value
-    });
-    try {
-      const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_model',
-      {
-        "id" : `${id}`
-      });
-      //setGet(response.data);
-      console.log(response.data)
-      setMod(response.data)
+  //   let id=""
+  //   SharedPreferences.getItem("userEmail", function(value){
+  //     console.log("abc--+"+value);
+  //     id =value
+  //   });
+  //   try {
+  //     const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_model',
+  //     {
+  //       "id" : `${id}`
+  //     });
+  //     //setGet(response.data);
+  //     console.log(response.data)
+  //     setMod(response.data)
      
-    } catch (error) {
-     console.log(error)
-    } finally {
-      console.log("error")
-    }
-  };
+  //   } catch (error) {
+  //    console.log(error)
+  //   } finally {
+  //     console.log("error")
+  //   }
+  // };
 
 
 
@@ -179,7 +543,7 @@ function Dashboard({navigation}) {
               <ImageButtonDashboard nmb={3} styl={styles.userImage} />
             </View>
 
-            <Text style={styles.cardMenuTitle}>Services</Text>
+            <Text style={styles.cardMenuTitle}>Assessments</Text>
             <View style={styles.cardMenu}>
               <Animated.View
                 entering={FadeInLeft.delay(150).duration(900)}
@@ -223,7 +587,7 @@ function Dashboard({navigation}) {
                 {/* Graph Starts here */}
                 <Shadow distance={5} offset={[0, 3]}>
                   <LineChart
-                    data={data}
+                    data={data1}
                     width={300}
                     height={220}
                     borderRadius={300}
@@ -270,7 +634,8 @@ function Dashboard({navigation}) {
                       onPress={() => {
                         setGraphButtonT('AQ_10');
                         handlePressList();
-                        fetchAQ_10();
+                        // fetchAQ_10();
+                        fetctAq10("AQ_10");
                       }}>
                       AQ_10
                     </Text>
@@ -279,16 +644,18 @@ function Dashboard({navigation}) {
                       onPress={() => {
                         setGraphButtonT('ADHD');
                         handlePressList();
-                        fetchADHD();
+                        // fetchADHD();
+                        fetctAdhd("ADHD") 
                       }}>
                       ADHD
                     </Text>
                     <Text
                       style={styles.GlistBut}
                       onPress={() => {
-                        setGraphButtonT('SCAN');
+                        setGraphButtonT('Scan');
                         handlePressList();
-                        fetchModel();
+                        // fetchModel();
+                        fetctModel("SCAN"); 
                       }}>
                       SCAN
                     </Text>
@@ -357,6 +724,7 @@ function Dashboard({navigation}) {
               fill={buttSelector === 4 ? '#FDFDFD' : '#6B6E89'}
               onPress={() => {
                 setbuttSelector(4);
+                SharedPreferences.setItem("loginState", "false");
 
                 navigation.navigate('Signin');
                 navigation.reset({

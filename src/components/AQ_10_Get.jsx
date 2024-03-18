@@ -56,9 +56,9 @@ function AQ_10_Get() {
       SharedPreferences.getItem("userid", function(value){
         console.log("abc--+"+value);
         try {
-          const response2 =  axios.post('https://dashborad-autism.netlify.app/.netlify/functions/adhd_ins',
+          const response2 =  axios.post('https://dashborad-autism.netlify.app/.netlify/functions/aq_10_ins',
           {
-            "id" : `${value}}`,
+            "id" : `${value}`,
             "date":`${today}`,
             "score":`${hold}`,
             "state":`${"Severe"}`
