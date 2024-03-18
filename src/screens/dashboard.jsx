@@ -19,6 +19,7 @@ import {
   ContributionGraph,
   StackedBarChart,
 } from 'react-native-chart-kit';
+var SharedPreferences = require('react-native-shared-preferences');
 
 import {Shadow} from 'react-native-shadow-2';
 import ImageButtonDashboard from '../components/ImageDashboard';
@@ -27,6 +28,7 @@ import HomeSVG from '../assets/images/homeSVG';
 import Animated, {FadeInLeft, FadeInRight} from 'react-native-reanimated';
 import ProfileScreen from './ProfileScreen';
 import HistoryScreen from './HistoryScreen';
+import axios from "axios";
 
 function Dashboard({navigation}) {
   const [pressedCard, setPressedCard] = useState(null);
@@ -35,6 +37,9 @@ function Dashboard({navigation}) {
   const [buttSelector, setbuttSelector] = useState(1);
   const [selectScreen, setScreen] = useState(1);
   const [Disindex, setDisindx] = useState(10);
+  const [AQf, setAQf] = useState([]);
+  const [adhd, setAdhd] = useState([]);  
+  const [Mod, setMod] = useState([]);
   const chartConfig = {
     backgroundGradientFrom: '#DDCAE3',
     backgroundGradientFromOpacity: 20,
@@ -59,6 +64,9 @@ function Dashboard({navigation}) {
 
   const handleCardPress = cardNumber => {
     setPressedCard(cardNumber);
+    SharedPreferences.getItem("userEmail", function(value){
+      console.log("abc--+"+value);
+    });
   };
 
   const handlePressList = () => {
@@ -68,6 +76,82 @@ function Dashboard({navigation}) {
       setListDisp('none');
     }
   };
+  const fetchADHD = async () => {
+    let id=""
+    SharedPreferences.getItem("userEmail", function(value){
+      console.log("abc--+"+value);
+      id =value
+    });
+
+
+
+    try {
+      const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_adhd',
+      {
+        "id" : `${id}`
+      });
+      //setGet(response.data);
+      console.log(response.data)
+      setAdhd(response.data)
+     
+      
+    } catch (error) {
+     console.log(error)
+    } finally {
+      console.log("error")
+    }
+  };
+
+  const fetchAQ_10 = async () => {
+    let id=""
+    SharedPreferences.getItem("userEmail", function(value){
+      console.log("abc--+"+value);
+      id =value
+    });
+
+    try {
+      const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_aq_10',
+      {
+        "id" : `${id}`
+      });
+      //setGet(response.data);
+      console.log(response.data)
+      setAQf(response.data)
+     
+      console.log(AQf.length === 0)
+      
+    } catch (error) {
+     console.log(error)
+    } finally {
+      console.log("error")
+    }
+  };
+
+
+  const fetchModel = async () => {
+
+    let id=""
+    SharedPreferences.getItem("userEmail", function(value){
+      console.log("abc--+"+value);
+      id =value
+    });
+    try {
+      const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_model',
+      {
+        "id" : `${id}`
+      });
+      //setGet(response.data);
+      console.log(response.data)
+      setMod(response.data)
+     
+    } catch (error) {
+     console.log(error)
+    } finally {
+      console.log("error")
+    }
+  };
+
+
 
   return (
     <View style={styles.fullPage}>
@@ -186,6 +270,7 @@ function Dashboard({navigation}) {
                       onPress={() => {
                         setGraphButtonT('AQ_10');
                         handlePressList();
+                        fetchAQ_10();
                       }}>
                       AQ_10
                     </Text>
@@ -194,6 +279,7 @@ function Dashboard({navigation}) {
                       onPress={() => {
                         setGraphButtonT('ADHD');
                         handlePressList();
+                        fetchADHD();
                       }}>
                       ADHD
                     </Text>
@@ -202,6 +288,7 @@ function Dashboard({navigation}) {
                       onPress={() => {
                         setGraphButtonT('SCAN');
                         handlePressList();
+                        fetchModel();
                       }}>
                       SCAN
                     </Text>
@@ -272,6 +359,10 @@ function Dashboard({navigation}) {
                 setbuttSelector(4);
 
                 navigation.navigate('Signin');
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: 'Signin' }],
+                });
               }}
               bColor={buttSelector === 4 ? '#F59481' : 'white'}
               svgN={4}

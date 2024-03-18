@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState,useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -14,6 +14,7 @@ import AuthenticationButton from '../components/AuthenticationButton';
 
 import Realm from 'realm';
 import {useApp} from '@realm/react';
+var SharedPreferences = require('react-native-shared-preferences');
 
 const {height, width} = Dimensions.get('window');
 
@@ -21,6 +22,31 @@ const SignInScreen = ({navigation}: any) => {
   const realmApp = useApp();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  
+  useEffect(() => {
+    let state =""
+
+ 
+
+    SharedPreferences.getItem("loginState", function(value:string)
+    {
+      state=value
+      console.log("abc--+"+value);
+    });
+
+    if (state === "true"){
+
+      navigation.navigate('Dashboard');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Dashboard' }],
+      });
+    }
+
+
+  })
+
 
   const login = useCallback(
     async (newEmail: string, newPassword: string) => {
@@ -33,8 +59,17 @@ const SignInScreen = ({navigation}: any) => {
         // Attempt to sign in
         const user = await realmApp.logIn(credentials);
         console.log('Successfully logged in:', user.id);
+        SharedPreferences.setItem("userid", user.id);
+      
+        SharedPreferences.setItem("userEmail", newEmail);
+        SharedPreferences.setItem("loginState", "true");
+
         navigation.navigate('Dashboard');
-      } catch (signInError: any) {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Dashboard' }],
+        });
+          } catch (signInError: any) {
         // If sign in fails, handle the error
         console.log('Sign In Error:', signInError);
         Alert.alert('ERROR', signInError.message);

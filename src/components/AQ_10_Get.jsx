@@ -12,9 +12,10 @@ import AQtest from '../components/AQ_10.json';
 import CustomButton from './CustomButton';
 import nextArrow from '../assets/images/arrowNext.png';
 import backArrow from '../assets/images/backArrow.png';
-
+import axios from "axios";
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
+var SharedPreferences = require('react-native-shared-preferences');
 
 function AQ_10_Get() {
   const questions = Object.keys(AQtest);
@@ -48,14 +49,55 @@ function AQ_10_Get() {
       hold=hold+holdAns[x]
 
     }
+    const today = new Date()
 
     if(hold>=6){
       alert(`Score:${hold}\n You need to visit a doctor`);
+      SharedPreferences.getItem("userid", function(value){
+        console.log("abc--+"+value);
+        try {
+          const response2 =  axios.post('https://dashborad-autism.netlify.app/.netlify/functions/adhd_ins',
+          {
+            "id" : `${value}}`,
+            "date":`${today}`,
+            "score":`${hold}`,
+            "state":`${"Severe"}`
+            
+          });
+          //setGet(response.data);
+          console.log(response2.data)
+   
+      
+          
+        } catch (error) {
+         console.log(error)
+        } 
+      });
     
     }
     else{
 
       alert(`Score:${hold}\n You do not need to visit a doctor`);
+      SharedPreferences.getItem("userid", function(value){
+        console.log("abc--+"+value);
+        try {
+          const response2 =  axios.post('https://dashborad-autism.netlify.app/.netlify/functions/adhd_ins',
+          {
+            "id" : `${value}}`,
+            "date":`${today}`,
+            "score":`${prob1}`,
+            "state":`${"Normal"}`
+            
+          });
+          //setGet(response.data);
+          console.log(response2.data)
+   
+      
+          
+        } catch (error) {
+         console.log(error)
+        } 
+      });
     
     }
     console.log(holdAns)

@@ -13,18 +13,20 @@ import {
 } from 'react-native';
 
 import { launchImageLibrary } from 'react-native-image-picker';
-import { flags } from 'realm';
-
+import axios from "axios";
+var SharedPreferences = require('react-native-shared-preferences');
 function ScanScreen() {
  
- const [a,Ua] = useState(true) // to  stop the animation
+  const a = React.useRef(false);
  const [st,Ust] = useState(true)
   const [selectedImage, setSelectedImage] = useState(null);
-  let scanLineY = React.useRef(new Animated.Value(50)).current;
+  let scanLineY = React.useRef(new Animated.Value(0)).current;
   const [lineShow, setline] = useState("none");
 const [result,SetResult]=useState("");
 const [probs,SetProbs]=useState("");
 const [cache,SetCache]=useState(true);
+
+const [id,Setid]=useState("");
   let scanLineAnimation;
 
   const startScanLineAnimation = () => {
@@ -41,14 +43,22 @@ const [cache,SetCache]=useState(true);
         useNativeDriver: false,
       }),
     ]);
-  
- if(a)
+
+ if(a.current )
       {  
-   
+        scanLineAnimation.reset(() => {startScanLineAnimation()});
         scanLineAnimation.start(() => {startScanLineAnimation();
       
         });
       }
+  else{
+
+
+    
+    scanLineAnimation.stop(() => {startScanLineAnimation();
+      
+    });
+  }
 
   };
   
@@ -61,7 +71,7 @@ const [cache,SetCache]=useState(true);
     //192.168.100.212:3000/uploadfile/
     const webReq = async () => {
       console.log("asd");
-    
+
       if (!selectedImage) {
         console.warn('No image selected');
         return;
@@ -78,17 +88,18 @@ const [cache,SetCache]=useState(true);
         });
     
         // Send the FormData in the request
-        const response = await fetch("http://192.168.100.200:3000/uploadfile/", {
-          method: 'POST',
+        const config = {
           headers: {
-            // No need to set 'Content-Type' for FormData, it will be set automatically
-            // Add any additional headers if needed
-            // 'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
-          },
-          body: formData,
-        });
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+
+
+        const response = await axios.post("http://192.168.100.212:3000/uploadfile/",formData,config);
+
+      
     
-        const rresult = await response.json();
+        const rresult = await response.data;
         console.log(rresult);
         const lt= (rresult[0]).split("--[[")
         const valuesArray = lt[1].split(" ");
@@ -97,13 +108,71 @@ const [cache,SetCache]=useState(true);
         
         const prob2 = parseFloat(valuesArray[1])*100
 
+        
+       SharedPreferences.getItem("userid", function(value){
+          console.log("abc--+"+value);
+        Setid(value)
+        });
+
+        console.log("id--+"+id);
+        const today = new Date();
+        console.log("Date--"+today);
+
         if(prob1>prob2){
           SetProbs(prob1)    
+
+             
+       SharedPreferences.getItem("userid", function(value){
+        console.log("abc--+"+value);
+        try {
+          const response2 =  axios.post('https://dashborad-autism.netlify.app/.netlify/functions/model_ins',
+          {
+            "id" : `${value}}`,
+            "date":`${today}`,
+            "score":`${prob1}`,
+            "state":`${lt[0]}`
+            
+          });
+          //setGet(response.data);
+          console.log(response2.data)
+   
+      
+          
+        } catch (error) {
+         console.log(error)
+        } 
+      });
+       
+         
 
         }
         else{
           
           SetProbs(prob2) 
+
+          
+                    
+       SharedPreferences.getItem("userid", function(value){
+        console.log("abc--+"+value);
+        try {
+          const response2 =  axios.post('https://dashborad-autism.netlify.app/.netlify/functions/model_ins',
+          {
+            "id" : `${value}`,
+            "date":`${today}`,
+            "score":`${prob2}`,
+            "state":`${lt[0]}`
+            
+          });
+          //setGet(response.data);
+          console.log(response2.data)
+   
+      
+          
+        } catch (error) {
+         console.log(error)
+        } 
+      });
+       
           }
 
         // Convert each substring to a float and filter out any non-numeric values
@@ -114,12 +183,17 @@ const [cache,SetCache]=useState(true);
        //  SetProbs(floatValues)      
 
         SetCache(true);
-        Ua(false)
-        setline("none");
+        a.current =false
+        
+        console.log("aa--"+ a.current)
+        // setline("none");
 
       } catch (error) {
-        console.error('Error sending image:', error);
+        console.log('Error sending image:', error);
+        webReq();
       }
+   
+      
     };
     
     
@@ -131,6 +205,7 @@ if(cache === true)
       startScanLineAnimation();
       webReq();
       SetCache(false);
+      a.current =false
     
 }
 else{
@@ -146,9 +221,10 @@ else{
 
       if (response.didCancel) {
         console.log('User cancelled image picker');
-        Ua(false)
+        a.current =false
+        setSelectedImage(null);
         
-        //setline("none")
+        setline("none")
        // st=1
 
 
@@ -156,17 +232,20 @@ else{
       } else if (response.error) {
         console.error('ImagePicker Error: ', response.error);
       } else if (response.assets && response.assets.length > 0) {
+      
         const selectedImageUri = response.assets[0].uri;
         setSelectedImage(selectedImageUri);
         console.log('Selected Image:', selectedImageUri);
-
+        SetCache(true);
+        SetProbs("")
+        SetResult("")
         
-        Ua(true)
+        a.current =false
         setline("block")
        // st=0
       } else {
         console.warn('No image selected');
-        Ua(false)
+        a.current =false
         setline("none")
 
        // st=0
@@ -238,7 +317,7 @@ else{
         </View>
 
         <View style={styles.buttonBottom}>
-          <Text style={{ color: 'white', marginBottom: 0 } } onPress={()=>{ setline("block");callAnimation();    }}>Scan Image</Text>
+          <Text style={{ color: 'white', marginBottom: 0 } } onPress={()=>{       a.current =true;setline("block");callAnimation();    }}>Scan Image</Text>
         </View>
       </View>
     </View>
