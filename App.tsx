@@ -45,6 +45,7 @@ import {
 } from 'react-native-orientation-locker';
 
 import {AppProvider, RealmProvider, UserProvider} from '@realm/react';
+import ADHD from './src/screens/ADHD';
 
 function App(): JSX.Element {
   const Stack = createNativeStackNavigator();
@@ -92,8 +93,13 @@ function App(): JSX.Element {
           component={AQ_10}
           options={{animation: 'slide_from_right'}}
         />
+        <Stack.Screen
+          name="ADHD"
+          component={ADHD}
+          options={{animation: 'slide_from_right'}}
+        />
 
-<Stack.Screen
+        <Stack.Screen
           name="Scan"
           component={ScanScreen}
           options={{animation: 'slide_from_right'}}
@@ -107,9 +113,9 @@ function AppWrapper() {
   return (
     <AppProvider id={'asd-tvtdw'}>
       {/* <UserProvider fallback={SignInScreen}> */}
-        {/* <RealmProvider> */}
-          <App />
-        {/* </RealmProvider> */}
+      {/* <RealmProvider> */}
+      <App />
+      {/* </RealmProvider> */}
       {/* </UserProvider> */}
     </AppProvider>
   );

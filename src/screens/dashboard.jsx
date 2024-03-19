@@ -28,7 +28,7 @@ import HomeSVG from '../assets/images/homeSVG';
 import Animated, {FadeInLeft, FadeInRight} from 'react-native-reanimated';
 import ProfileScreen from './ProfileScreen';
 import HistoryScreen from './HistoryScreen';
-import axios from "axios";
+import axios from 'axios';
 
 function Dashboard({navigation}) {
   const [pressedCard, setPressedCard] = useState(null);
@@ -38,357 +38,308 @@ function Dashboard({navigation}) {
   const [selectScreen, setScreen] = useState(1);
   const [Disindex, setDisindx] = useState(10);
   const [AQf, setAQf] = useState([]);
-  const [adhd, setAdhd] = useState([]);  
+  const [adhd, setAdhd] = useState([]);
   const [Mod, setMod] = useState([]);
-  const [aqLabel, setAqLabel] = useState(['Jan', 'Feb', 'March', 'April', 'May', 'June']);
+  const [aqLabel, setAqLabel] = useState([
+    'Jan',
+    'Feb',
+    'March',
+    'April',
+    'May',
+    'June',
+  ]);
   const [aqScore, setAqScore] = useState([20, 45, 28, 80, 99, 43]);
- 
-  const [data1 ,setdata1] =useState({
-    labels:  ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
+
+  const [data1, setdata1] = useState({
+    labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
     datasets: [
       {
-        data:  [20, 45, 28, 80, 99, 43],
+        data: [20, 45, 28, 80, 99, 43],
         color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
         strokeWidth: 2, // optional
       },
     ],
-    legend: [graphButtonT + " Dummy Data"], // optional
-  })  
-  const extractDate = (fullDate) => {
+    legend: [graphButtonT + ' Dummy Data'], // optional
+  });
+  const extractDate = fullDate => {
     const dateObj = new Date(fullDate);
     return dateObj.toString().substring(4, 7); // Extracting "Sun Mar 17 2024"
   };
 
-useEffect(()=>{
+  useEffect(() => {
+    const fetchAd = async () => {
+      SharedPreferences.getItem('userid', async function (value) {
+        console.log('abc--+' + value);
 
-const fetchAd= async ()=>{
+        try {
+          const response = await axios.post(
+            'https://dashborad-autism.netlify.app/.netlify/functions/display_aq_10',
+            {
+              id: `${value}`,
+            },
+          );
+          //setGet(response.data);
+          console.log(response.data);
 
-      
-  SharedPreferences.getItem("userid", async function(value){
-    console.log("abc--+"+value);
+          if (response.data.length > 0) {
+            let aqLabel1 = [];
+            let aqScore1 = [];
+            let x = response.data;
+            x.map(async (item, idx) => {
+              console.log(extractDate(item.date) + item.score);
+              aqLabel1.push(extractDate(item.date));
+              aqScore1.push(parseFloat(item.score));
+            });
 
-    try {
-      const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_aq_10',
-      {
-        "id" : `${value}`
+            setAQf(response.data);
+
+            setAqLabel(aqLabel1);
+            setAqScore(aqScore1);
+            console.log('aq---' + aqLabel1);
+            console.log('aq' + aqScore1);
+
+            setdata1({
+              labels: aqLabel1,
+              datasets: [
+                {
+                  data: aqScore1,
+                  color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+                  strokeWidth: 2, // optional
+                },
+              ],
+              legend: [graphButtonT], // optional
+            });
+          }
+        } catch (error) {
+          console.log(error);
+        }
       });
-      //setGet(response.data);
-      console.log(response.data)
+    };
 
-      if(response.data.length >0){
+    fetchAd();
+  }, []);
 
-        let aqLabel1=[]
-        let aqScore1=[]
-        let x= response.data
-       x.map(async (item, idx)=>{
-  
-        console.log(extractDate(item.date)+ item.score)
-        aqLabel1.push(extractDate(item.date))
-        aqScore1.push(parseFloat(item.score))
-  
-    
-  
-  
-  
-        })
-  
-        setAQf(response.data)
-  
-        setAqLabel(aqLabel1)
-        setAqScore(aqScore1)
-        console.log("aq---"+aqLabel1);
-  console.log("aq"+aqScore1);
-  
-        setdata1( {
-            labels:  aqLabel1,
+  const fetctAq10 = name => {
+    setdata1({
+      labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
+      datasets: [
+        {
+          data: [20, 45, 28, 80, 99, 43],
+          color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+          strokeWidth: 2, // optional
+        },
+      ],
+      legend: [name + ' Dummy Data'], // optional
+    });
+
+    SharedPreferences.getItem('userid', async function (value) {
+      console.log('abc--+' + value);
+
+      try {
+        const response = await axios.post(
+          'https://dashborad-autism.netlify.app/.netlify/functions/display_aq_10',
+          {
+            id: `${value}`,
+          },
+        );
+        //setGet(response.data);
+        console.log(response.data);
+
+        if (response.data.length > 0) {
+          let aqLabel1 = [];
+          let aqScore1 = [];
+          let x = response.data;
+          x.map(async (item, idx) => {
+            console.log(extractDate(item.date) + item.score);
+            aqLabel1.push(extractDate(item.date));
+            aqScore1.push(parseFloat(item.score));
+          });
+
+          setAQf(response.data);
+
+          setAqLabel(aqLabel1);
+          setAqScore(aqScore1);
+          console.log('aq---' + aqLabel1);
+          console.log('aq' + aqScore1);
+
+          setdata1({
+            labels: aqLabel1,
             datasets: [
               {
-                data:  aqScore1,
-                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-                strokeWidth: 2, // optional
-              },
-            ],
-            legend: [graphButtonT], // optional
-          })
-      }
-    
-   
-
-    } catch (error) {
-     console.log(error)
-    }
-  
-  
-  })
-
-}
-
-fetchAd()
-
-},[]);
-
-
-
-const fetctAq10 = (name)=>{
-  setdata1({
-    labels:  ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-    datasets: [
-      {
-        data:  [20, 45, 28, 80, 99, 43],
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-        strokeWidth: 2, // optional
-      },
-    ],
-    legend: [name + " Dummy Data"], // optional
-  })
-
-  SharedPreferences.getItem("userid", async function(value){
-    console.log("abc--+"+value);
-
-    try {
-      const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_aq_10',
-      {
-        "id" : `${value}`
-      });
-      //setGet(response.data);
-      console.log(response.data)
-
-      if(response.data.length >0){
-
-        let aqLabel1=[]
-        let aqScore1=[]
-        let x= response.data
-       x.map(async (item, idx)=>{
-  
-        console.log(extractDate(item.date)+ item.score)
-        aqLabel1.push(extractDate(item.date))
-        aqScore1.push(parseFloat(item.score))
-  
-    
-  
-  
-  
-        })
-  
-        setAQf(response.data)
-  
-        setAqLabel(aqLabel1)
-        setAqScore(aqScore1)
-        console.log("aq---"+aqLabel1);
-  console.log("aq"+aqScore1);
-  
-        setdata1( {
-            labels:  aqLabel1,
-            datasets: [
-              {
-                data:  aqScore1,
+                data: aqScore1,
                 color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
                 strokeWidth: 2, // optional
               },
             ],
             legend: [name], // optional
-          })
-      }
-      else{
-        setdata1({
-          labels:  ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-          datasets: [
-            {
-              data:  [20, 45, 28, 80, 99, 43],
-              color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-              strokeWidth: 2, // optional
-            },
-          ],
-          legend: [name + " Dummy Data"], // optional
-        })  
-      }
-    
-   
-
-    } catch (error) {
-     console.log(error)
-    }
-  
-  
-  })
-}
-
-
-// adhd
-const fetctAdhd = (name)=>{
-  setdata1({
-    labels:  ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-    datasets: [
-      {
-        data:  [20, 45, 28, 80, 99, 43],
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-        strokeWidth: 2, // optional
-      },
-    ],
-    legend: [name + " Dummy Data"], // optional
-  })
-
-  SharedPreferences.getItem("userid", async function(value){
-    console.log("abc--+"+value);
-
-    try {
-      const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_adhd',
-      {
-        "id" : `${value}`
-      });
-      //setGet(response.data);
-      console.log(response.data)
-
-      if(response.data.length >0){
-
-        let aqLabel1=[]
-        let aqScore1=[]
-        let x= response.data
-       x.map(async (item, idx)=>{
-  
-        console.log(extractDate(item.date)+ item.score)
-        aqLabel1.push(extractDate(item.date))
-        aqScore1.push(parseFloat(item.score))
-  
-    
-  
-  
-  
-        })
-  
-        setAQf(response.data)
-  
-        setAqLabel(aqLabel1)
-        setAqScore(aqScore1)
-        console.log("aq---"+aqLabel1);
-  console.log("aq"+aqScore1);
-  
-        setdata1( {
-            labels:  aqLabel1,
+          });
+        } else {
+          setdata1({
+            labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
             datasets: [
               {
-                data:  aqScore1,
+                data: [20, 45, 28, 80, 99, 43],
+                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+                strokeWidth: 2, // optional
+              },
+            ],
+            legend: [name + ' Dummy Data'], // optional
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  };
+
+  // adhd
+  const fetctAdhd = name => {
+    setdata1({
+      labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
+      datasets: [
+        {
+          data: [20, 45, 28, 80, 99, 43],
+          color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+          strokeWidth: 2, // optional
+        },
+      ],
+      legend: [name + ' Dummy Data'], // optional
+    });
+
+    SharedPreferences.getItem('userid', async function (value) {
+      console.log('abc--+' + value);
+
+      try {
+        const response = await axios.post(
+          'https://dashborad-autism.netlify.app/.netlify/functions/display_adhd',
+          {
+            id: `${value}`,
+          },
+        );
+        //setGet(response.data);
+        console.log(response.data);
+
+        if (response.data.length > 0) {
+          let aqLabel1 = [];
+          let aqScore1 = [];
+          let x = response.data;
+          x.map(async (item, idx) => {
+            console.log(extractDate(item.date) + item.score);
+            aqLabel1.push(extractDate(item.date));
+            aqScore1.push(parseFloat(item.score));
+          });
+
+          setAQf(response.data);
+
+          setAqLabel(aqLabel1);
+          setAqScore(aqScore1);
+          console.log('aq---' + aqLabel1);
+          console.log('aq' + aqScore1);
+
+          setdata1({
+            labels: aqLabel1,
+            datasets: [
+              {
+                data: aqScore1,
                 color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
                 strokeWidth: 2, // optional
               },
             ],
             legend: [name], // optional
-          })
-      }
-      else{
-        setdata1({
-          labels:  ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-          datasets: [
-            {
-              data:  [20, 45, 28, 80, 99, 43],
-              color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-              strokeWidth: 2, // optional
-            },
-          ],
-          legend: [name + " Dummy Data"], // optional
-        })  
-      }
-    
-   
-
-    } catch (error) {
-     console.log(error)
-    }
-  
-  
-  })
-}
-
-
-// model 
-
-const fetctModel = (name)=>{
-  setdata1({
-    labels:  ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-    datasets: [
-      {
-        data:  [20, 45, 28, 80, 99, 43],
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-        strokeWidth: 2, // optional
-      },
-    ],
-    legend: [name + " Dummy Data"], // optional
-  })
-  
-
-  SharedPreferences.getItem("userid", async function(value){
-    console.log("abc--+"+value);
-
-    try {
-      const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_model',
-      {
-        "id" : `${value}`
-      });
-      //setGet(response.data);
-      console.log(response.data)
-
-      if(response.data.length >0){
-
-        let aqLabel1=[]
-        let aqScore1=[]
-        let x= response.data
-       x.map(async (item, idx)=>{
-  
-        console.log(extractDate(item.date)+ item.score)
-        aqLabel1.push(extractDate(item.date))
-        aqScore1.push(parseFloat(item.score))
-  
-    
-  
-  
-  
-        })
-  
-        setAQf(response.data)
-  
-        setAqLabel(aqLabel1)
-        setAqScore(aqScore1)
-        console.log("aq---"+aqLabel1);
-  console.log("aq"+aqScore1);
-  
-        setdata1( {
-            labels:  aqLabel1,
+          });
+        } else {
+          setdata1({
+            labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
             datasets: [
               {
-                data:  aqScore1,
+                data: [20, 45, 28, 80, 99, 43],
+                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+                strokeWidth: 2, // optional
+              },
+            ],
+            legend: [name + ' Dummy Data'], // optional
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  };
+
+  // model
+
+  const fetctModel = name => {
+    setdata1({
+      labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
+      datasets: [
+        {
+          data: [20, 45, 28, 80, 99, 43],
+          color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+          strokeWidth: 2, // optional
+        },
+      ],
+      legend: [name + ' Dummy Data'], // optional
+    });
+
+    SharedPreferences.getItem('userid', async function (value) {
+      console.log('abc--+' + value);
+
+      try {
+        const response = await axios.post(
+          'https://dashborad-autism.netlify.app/.netlify/functions/display_model',
+          {
+            id: `${value}`,
+          },
+        );
+        //setGet(response.data);
+        console.log(response.data);
+
+        if (response.data.length > 0) {
+          let aqLabel1 = [];
+          let aqScore1 = [];
+          let x = response.data;
+          x.map(async (item, idx) => {
+            console.log(extractDate(item.date) + item.score);
+            aqLabel1.push(extractDate(item.date));
+            aqScore1.push(parseFloat(item.score));
+          });
+
+          setAQf(response.data);
+
+          setAqLabel(aqLabel1);
+          setAqScore(aqScore1);
+          console.log('aq---' + aqLabel1);
+          console.log('aq' + aqScore1);
+
+          setdata1({
+            labels: aqLabel1,
+            datasets: [
+              {
+                data: aqScore1,
                 color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
                 strokeWidth: 2, // optional
               },
             ],
             legend: [name], // optional
-          })
+          });
+        } else {
+          setdata1({
+            labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
+            datasets: [
+              {
+                data: [20, 45, 28, 80, 99, 43],
+                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+                strokeWidth: 2, // optional
+              },
+            ],
+            legend: [name + ' Dummy Data'], // optional
+          });
+        }
+      } catch (error) {
+        console.log(error);
       }
-      else{
-        setdata1({
-          labels:  ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-          datasets: [
-            {
-              data:  [20, 45, 28, 80, 99, 43],
-              color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-              strokeWidth: 2, // optional
-            },
-          ],
-          legend: [name + " Dummy Data"], // optional
-        })  
-      }
-    
-   
-
-    } catch (error) {
-     console.log(error)
-    }
-  
-  
-  })
-}
-
-
-
+    });
+  };
 
   const chartConfig = {
     backgroundGradientFrom: '#DDCAE3',
@@ -412,7 +363,6 @@ const fetctModel = (name)=>{
   //   legend: [graphButtonT], // optional
   // };
 
-
   // const data1 = {
   //   labels:  aqLabel,
   //   datasets: [
@@ -425,11 +375,10 @@ const fetctModel = (name)=>{
   //   legend: [graphButtonT], // optional
   // };
 
-
   const handleCardPress = cardNumber => {
     setPressedCard(cardNumber);
-    SharedPreferences.getItem("userEmail", function(value){
-      console.log("abc--+"+value);
+    SharedPreferences.getItem('userEmail', function (value) {
+      console.log('abc--+' + value);
     });
   };
 
@@ -447,8 +396,6 @@ const fetctModel = (name)=>{
   //     id =value
   //   });
 
-
-
   //   try {
   //     const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_adhd',
   //     {
@@ -457,8 +404,7 @@ const fetctModel = (name)=>{
   //     //setGet(response.data);
   //     console.log(response.data)
   //     setAdhd(response.data)
-     
-      
+
   //   } catch (error) {
   //    console.log(error)
   //   } finally {
@@ -481,16 +427,15 @@ const fetctModel = (name)=>{
   //     //setGet(response.data);
   //     console.log(response.data)
   //     setAQf(response.data)
-     
+
   //     console.log(AQf.length === 0)
-      
+
   //   } catch (error) {
   //    console.log(error)
   //   } finally {
   //     console.log("error")
   //   }
   // };
-
 
   // const fetchModel = async () => {
 
@@ -507,15 +452,13 @@ const fetctModel = (name)=>{
   //     //setGet(response.data);
   //     console.log(response.data)
   //     setMod(response.data)
-     
+
   //   } catch (error) {
   //    console.log(error)
   //   } finally {
   //     console.log("error")
   //   }
   // };
-
-
 
   return (
     <View style={styles.fullPage}>
@@ -563,7 +506,7 @@ const fetctModel = (name)=>{
                 imgNmb={5}
                 textCard={'ADHD'}
                 nav={navigation}
-                nvb={1}
+                nvb={2}
                 imgIcon={styles.card1}
                 onPress={() => handleCardPress(5)}
               />
@@ -635,7 +578,7 @@ const fetctModel = (name)=>{
                         setGraphButtonT('AQ_10');
                         handlePressList();
                         // fetchAQ_10();
-                        fetctAq10("AQ_10");
+                        fetctAq10('AQ_10');
                       }}>
                       AQ_10
                     </Text>
@@ -645,7 +588,7 @@ const fetctModel = (name)=>{
                         setGraphButtonT('ADHD');
                         handlePressList();
                         // fetchADHD();
-                        fetctAdhd("ADHD") 
+                        fetctAdhd('ADHD');
                       }}>
                       ADHD
                     </Text>
@@ -655,7 +598,7 @@ const fetctModel = (name)=>{
                         setGraphButtonT('Scan');
                         handlePressList();
                         // fetchModel();
-                        fetctModel("SCAN"); 
+                        fetctModel('SCAN');
                       }}>
                       SCAN
                     </Text>
@@ -724,12 +667,12 @@ const fetctModel = (name)=>{
               fill={buttSelector === 4 ? '#FDFDFD' : '#6B6E89'}
               onPress={() => {
                 setbuttSelector(4);
-                SharedPreferences.setItem("loginState", "false");
+                SharedPreferences.setItem('loginState', 'false');
 
                 navigation.navigate('Signin');
                 navigation.reset({
                   index: 0,
-                  routes: [{ name: 'Signin' }],
+                  routes: [{name: 'Signin'}],
                 });
               }}
               bColor={buttSelector === 4 ? '#F59481' : 'white'}
