@@ -229,10 +229,10 @@ function Dashboard({navigation}) {
             aqScore1.push(parseFloat(item.score));
           });
 
-          setAQf(response.data);
+          // setAQf(response.data);
 
-          setAqLabel(aqLabel1);
-          setAqScore(aqScore1);
+          // setAqLabel(aqLabel1);
+          // setAqScore(aqScore1);
           console.log('aq---' + aqLabel1);
           console.log('aq' + aqScore1);
 

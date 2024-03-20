@@ -14,7 +14,7 @@ function ADHD_Get() {
   const questions = Object.keys(ADHDtest);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedKeys, setSelectedKeys] = useState({});
-  const [holdAns, setHoldAns] = useState(Array(18).fill(0));
+  const [holdAns, setHoldAns] = useState(Array(18).fill(-1));
 
   const updateHoldAns = (index, optionKey) => {
     let score = 0;
@@ -23,9 +23,9 @@ function ADHD_Get() {
     if (optionKey === 'a') {
       score = 0;
     } else if (optionKey === 'b') {
-      score = 0.5;
-    } else if (optionKey === 'c') {
       score = 1;
+    } else if (optionKey === 'c') {
+      score = 1.5;
     }
     console.log(optionKey);
 
@@ -47,35 +47,139 @@ function ADHD_Get() {
   };
 
   const submitButton = () => {
-    console.log('Questionnaire submitted!');
-    const totalScore = holdAns.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0,
-    );
+let checker = false;
+holdAns.map((itm,idx)=>{
 
-    console.log(`Total Score: ${totalScore}`);
-    alert(`Total Score: ${totalScore}`);
+
+  if(itm===-1)
+  {
+    checker=true
+
+
+
+
+  }
+})
+
+if(checker){    alert(`Select All options Please!`); return;}
+
+    console.log('Questionnaire submitted!');
+    // const totalScore = holdAns.reduce(
+    //   (accumulator, currentValue) => accumulator + currentValue,
+    //   0,
+    // );
+
+    const inattenion = 0
+    const HyperActiveImpusibity = 0
+
+    let i=0
+    let  j=7
+    let p=0
+    let o=0
+    while(i<7){
+      p=p+holdAns[i];
+      i++
+
+
+    }
+
+    while(j<18){
+      
+      o=o+holdAns[j];
+      j++
+
+
+    }
 
     const today = new Date();
+    if(p >=6 || 0 >=6){
+      alert(`Total Score: ${o+p}`);
 
-    SharedPreferences.getItem('userid', function (value) {
-      console.log('abc--+' + value);
-      try {
-        const response = axios.post(
-          'https://dashborad-autism.netlify.app/.netlify/functions/adhd_ins',
-          {
-            id: `${value}}`,
-            date: `${today}`,
-            score: `${totalScore}`,
-            state: `${'Normal'}`,
-          },
-        );
-        //setGet(response.data);
-        console.log('response data: ' + response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    });
+  
+      SharedPreferences.getItem('userid', function (value) {
+        console.log('abc--+' + value);
+        try {
+          const response = axios.post(
+            'https://dashborad-autism.netlify.app/.netlify/functions/adhd_ins',
+            {
+              id: `${value}`,
+              date: `${today}`,
+              score: `${o+p}`,
+              state: `${'Severe'}`,
+            },
+          );
+          //setGet(response.data);
+          console.log('response data: ' + response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      });
+
+    }
+    else{
+
+      alert(`Total Score: ${o+p}`);
+      SharedPreferences.getItem('userid', function (value) {
+        console.log('abc--+' + value);
+        try {
+          const response = axios.post(
+            'https://dashborad-autism.netlify.app/.netlify/functions/adhd_ins',
+            {
+              id: `${value}`,
+              date: `${today}`,
+              score: `${o+p}`,
+              state: `${'Normal'}`,
+            },
+          );
+          //setGet(response.data);
+          console.log('response data: ' + response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      });
+
+
+
+
+    }
+
+
+
+
+
+    
+
+
+
+
+    
+    console.log(holdAns)
+
+
+
+    // console.log(`Total Score: ${totalScore}`);
+    // alert(`Total Score: ${totalScore}`);
+
+    // const today = new Date();
+
+    // SharedPreferences.getItem('userid', function (value) {
+    //   console.log('abc--+' + value);
+    //   try {
+    //     const response = axios.post(
+    //       'https://dashborad-autism.netlify.app/.netlify/functions/adhd_ins',
+    //       {
+    //         id: `${value}`,
+    //         date: `${today}`,
+    //         score: `${totalScore}`,
+    //         state: `${'Normal'}`,
+    //       },
+    //     );
+    //     //setGet(response.data);
+    //     console.log('response data: ' + response.data);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // });
   };
 
   const question = ADHDtest[questions[currentQuestion]];

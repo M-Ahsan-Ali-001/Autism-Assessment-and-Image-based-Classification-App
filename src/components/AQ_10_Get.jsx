@@ -21,7 +21,7 @@ function AQ_10_Get() {
   const questions = Object.keys(AQtest);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedKeys, setSelectedKeys] = useState({});
-  const [holdAns, setHoldAns] = useState(Array(10).fill(0));
+  const [holdAns, setHoldAns] = useState(Array(10).fill(-1));
 
   const updateHoldAns = (index, value) => {
     // Create a new array to avoid mutating the state directly
@@ -43,6 +43,22 @@ function AQ_10_Get() {
   };
 
   const submitButton = () => {
+
+    let checker = false;
+holdAns.map((itm,idx)=>{
+
+
+  if(itm===-1)
+  {
+    checker=true
+
+
+
+
+  }
+})
+
+if(checker){    alert(`Select All options Please!`); return;}
     console.log('Questionnaire submitted!');
     let hold = 0;
     for (x = 0; x < 10; x++) {
