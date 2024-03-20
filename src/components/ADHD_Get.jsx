@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 import {
-  ScrollView,
   StyleSheet,
   Text,
   View,
-  Button,
   Dimensions,
 } from 'react-native';
 import {RadioButton} from 'react-native-paper';
@@ -23,8 +21,16 @@ function ADHD_Get() {
   const [selectedKeys, setSelectedKeys] = useState({});
   const [holdAns, setHoldAns] = useState(Array(18).fill(0));
 
-  const updateHoldAns = (index, value) => {
-    // Create a new array to avoid mutating the state directly
+  const updateHoldAns = (index, optionKey) => {
+    let value = 0;
+    if (optionKey === 'Not at All') {
+      value = 0;
+    } else if (optionKey === 'Sometimes') {
+      value = 0.5;
+    } else if (optionKey === 'Frequently') {
+      value = 1;
+    }
+
     const newHoldAns = [...holdAns];
     newHoldAns[index] = value;
     setHoldAns(newHoldAns);
@@ -44,11 +50,37 @@ function ADHD_Get() {
 
   const submitButton = () => {
     console.log('Questionnaire submitted!');
-    let hold = 0;
-    for (x = 0; x < 18; x++) {
-      hold = hold + holdAns[x];
-    }
+
+    // Calculate total score by summing up the values in holdAns array
+    const totalScore = holdAns.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0,
+    );
+
+    // Display the total score in an alert
+    alert(`Total Score: ${totalScore}`);
+
     const today = new Date();
+
+    // TODO: different state per totalScore
+    SharedPreferences.getItem('userid', function (value) {
+      console.log('abc--+' + value);
+      try {
+        const response3 = axios.post(
+          'https://dashborad-autism.netlify.app/.netlify/functions/adhd_ins',
+          {
+            id: `${value}}`,
+            date: `${today}`,
+            score: `${totalScore}`,
+            state: `${'Normal'}`,
+          },
+        );
+        //setGet(response.data);
+        console.log(response3.data);
+      } catch (error) {
+        console.log(error);
+      }
+    });
   };
 
   const question = ADHDtest[questions[currentQuestion]];
@@ -78,32 +110,7 @@ function ADHD_Get() {
               }
               onPress={() => {
                 console.log('Selected Answer1:', optionKey);
-                if (
-                  currentQuestion === 0 ||
-                  currentQuestion === 4 ||
-                  currentQuestion === 6 ||
-                  currentQuestion === 9
-                ) {
-                  if (optionKey === 'a' || optionKey === 'b') {
-                    console.log('INC');
-                    updateHoldAns(currentQuestion, 1);
-                    console.log(holdAns);
-                  } else {
-                    console.log('Dec');
-                    updateHoldAns(currentQuestion, 0);
-                    console.log(holdAns);
-                  }
-                } else {
-                  if (optionKey === 'c' || optionKey === 'd') {
-                    console.log('INC');
-                    updateHoldAns(currentQuestion, 1);
-                    console.log(holdAns);
-                  } else {
-                    console.log('Dec');
-                    updateHoldAns(currentQuestion, 0);
-                    console.log(holdAns);
-                  }
-                }
+                updateHoldAns(currentQuestion, optionKey); // Call the function here
                 setSelectedKeys({
                   ...selectedKeys,
                   [questions[currentQuestion]]: optionKey,

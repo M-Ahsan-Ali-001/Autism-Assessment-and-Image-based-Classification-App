@@ -76,11 +76,11 @@ function AQ_10_Get() {
         console.log('abc--+' + value);
         try {
           const response2 = axios.post(
-            'https://dashborad-autism.netlify.app/.netlify/functions/adhd_ins',
+            'https://dashborad-autism.netlify.app/.netlify/functions/aq_10_ins',
             {
               id: `${value}}`,
               date: `${today}`,
-              score: `${prob1}`,
+              score: `${hold}`,
               state: `${'Normal'}`,
             },
           );
