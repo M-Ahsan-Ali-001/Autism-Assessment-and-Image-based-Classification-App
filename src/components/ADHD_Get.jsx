@@ -1,10 +1,5 @@
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-} from 'react-native';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {RadioButton} from 'react-native-paper';
 import ADHDtest from '../components/ADHD.json';
 import CustomButton from './CustomButton';
@@ -22,17 +17,20 @@ function ADHD_Get() {
   const [holdAns, setHoldAns] = useState(Array(18).fill(0));
 
   const updateHoldAns = (index, optionKey) => {
-    let value = 0;
-    if (optionKey === 'Not at All') {
-      value = 0;
-    } else if (optionKey === 'Sometimes') {
-      value = 0.5;
-    } else if (optionKey === 'Frequently') {
-      value = 1;
+    let score = 0;
+    console.log(optionKey);
+
+    if (optionKey === 'a') {
+      score = 0;
+    } else if (optionKey === 'b') {
+      score = 0.5;
+    } else if (optionKey === 'c') {
+      score = 1;
     }
+    console.log(optionKey);
 
     const newHoldAns = [...holdAns];
-    newHoldAns[index] = value;
+    newHoldAns[index] = score;
     setHoldAns(newHoldAns);
   };
 
@@ -50,19 +48,16 @@ function ADHD_Get() {
 
   const submitButton = () => {
     console.log('Questionnaire submitted!');
-
-    // Calculate total score by summing up the values in holdAns array
     const totalScore = holdAns.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
       0,
     );
 
-    // Display the total score in an alert
+    console.log(`Total Score: ${totalScore}`);
     alert(`Total Score: ${totalScore}`);
 
     const today = new Date();
 
-    // TODO: different state per totalScore
     SharedPreferences.getItem('userid', function (value) {
       console.log('abc--+' + value);
       try {
@@ -110,7 +105,7 @@ function ADHD_Get() {
               }
               onPress={() => {
                 console.log('Selected Answer1:', optionKey);
-                updateHoldAns(currentQuestion, optionKey); // Call the function here
+                updateHoldAns(currentQuestion, optionKey); 
                 setSelectedKeys({
                   ...selectedKeys,
                   [questions[currentQuestion]]: optionKey,
@@ -129,32 +124,8 @@ function ADHD_Get() {
               ]}
               onPress={() => {
                 console.log('Selected Answer:', optionKey);
-                if (
-                  currentQuestion === 0 ||
-                  currentQuestion === 4 ||
-                  currentQuestion === 6 ||
-                  currentQuestion === 9
-                ) {
-                  if (optionKey === 'a' || optionKey === 'b') {
-                    console.log('INC');
-                    updateHoldAns(currentQuestion, 1);
-                    console.log(holdAns);
-                  } else {
-                    console.log('Dec');
-                    updateHoldAns(currentQuestion, 0);
-                    console.log(holdAns);
-                  }
-                } else {
-                  if (optionKey === 'c' || optionKey === 'd') {
-                    console.log('INC');
-                    updateHoldAns(currentQuestion, 1);
-                    console.log(holdAns);
-                  } else {
-                    console.log('Dec');
-                    updateHoldAns(currentQuestion, 0);
-                    console.log(holdAns);
-                  }
-                }
+                updateHoldAns(currentQuestion, optionKey);
+
                 isSelected = true;
                 setSelectedKeys({
                   ...selectedKeys,
