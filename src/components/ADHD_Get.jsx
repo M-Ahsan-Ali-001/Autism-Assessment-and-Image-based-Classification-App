@@ -61,7 +61,7 @@ function ADHD_Get() {
     SharedPreferences.getItem('userid', function (value) {
       console.log('abc--+' + value);
       try {
-        const response3 = axios.post(
+        const response = axios.post(
           'https://dashborad-autism.netlify.app/.netlify/functions/adhd_ins',
           {
             id: `${value}}`,
@@ -71,7 +71,7 @@ function ADHD_Get() {
           },
         );
         //setGet(response.data);
-        console.log(response3.data);
+        console.log('response data: ' + response.data);
       } catch (error) {
         console.log(error);
       }
@@ -105,7 +105,7 @@ function ADHD_Get() {
               }
               onPress={() => {
                 console.log('Selected Answer1:', optionKey);
-                updateHoldAns(currentQuestion, optionKey); 
+                updateHoldAns(currentQuestion, optionKey);
                 setSelectedKeys({
                   ...selectedKeys,
                   [questions[currentQuestion]]: optionKey,
