@@ -13,6 +13,9 @@ import CustomButton from './CustomButton';
 import nextArrow from '../assets/images/arrowNext.png';
 import backArrow from '../assets/images/backArrow.png';
 import axios from 'axios';
+
+import CustomPopup from './CustomPopUp';
+
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 var SharedPreferences = require('react-native-shared-preferences');
@@ -20,11 +23,21 @@ var SharedPreferences = require('react-native-shared-preferences');
 function AQ_10_Get() {
   const questions = Object.keys(AQtest);
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState(0);
+  const [popupVisible, setPopupVisible] = useState(false);
   const [selectedKeys, setSelectedKeys] = useState({});
   const [holdAns, setHoldAns] = useState(Array(10).fill(-1));
+  const [message, setMessage] = useState('');
+
+  const handleOpenPopup = () => {
+    setPopupVisible(true);
+  };
+
+  const handleClosePopup = () => {
+    setPopupVisible(false);
+  };
 
   const updateHoldAns = (index, value) => {
-    // Create a new array to avoid mutating the state directly
     const newHoldAns = [...holdAns];
     newHoldAns[index] = value;
     setHoldAns(newHoldAns);
@@ -43,31 +56,30 @@ function AQ_10_Get() {
   };
 
   const submitButton = () => {
-
     let checker = false;
-holdAns.map((itm,idx)=>{
+    holdAns.map((itm, idx) => {
+      if (itm === -1) {
+        checker = true;
+      }
+    });
 
-
-  if(itm===-1)
-  {
-    checker=true
-
-
-
-
-  }
-})
-
-if(checker){    alert(`Select All options Please!`); return;}
-    console.log('Questionnaire submitted!');
-    let hold = 0;
-    for (x = 0; x < 10; x++) {
-      hold = hold + holdAns[x];
+    if (checker) {
+      // alert(`Select All options Please!`);
+      handleOpenPopup()
+      setMessage(`Please select all options for full assessment!`)
+      return;
     }
+    console.log('Questionnaire submitted!');
+
+    let totalScore = 0;
+    for (let x = 0; x < 10; x++) {
+      totalScore = totalScore + holdAns[x];
+    }
+    setScore(totalScore);
     const today = new Date();
 
-    if (hold >= 6) {
-      alert(`Score:${hold}\n You need to visit a doctor`);
+    if (totalScore >= 6) {
+      handleOpenPopup();
       SharedPreferences.getItem('userid', function (value) {
         console.log('abc--+' + value);
         try {
@@ -76,18 +88,18 @@ if(checker){    alert(`Select All options Please!`); return;}
             {
               id: `${value}`,
               date: `${today}`,
-              score: `${hold}`,
+              score: `${totalScore}`,
               state: `${'Severe'}`,
             },
           );
-          //setGet(response.data);
           console.log(response2.data);
         } catch (error) {
           console.log(error);
         }
       });
+      setMessage(`Score: ${totalScore}\n You need to visit a doctor`);
     } else {
-      alert(`Score:${hold}\n You do not need to visit a doctor`);
+      handleOpenPopup();
       SharedPreferences.getItem('userid', function (value) {
         console.log('abc--+' + value);
         try {
@@ -96,17 +108,17 @@ if(checker){    alert(`Select All options Please!`); return;}
             {
               id: `${value}}`,
               date: `${today}`,
-              score: `${hold}`,
+              score: `${totalScore}`,
               state: `${'Normal'}`,
             },
           );
-          //setGet(response.data);
           console.log(response2.data);
         } catch (error) {
           console.log(error);
         }
       });
     }
+    setMessage(`Score: ${totalScore}\n You dont need to visit a doctor`);
     console.log(holdAns);
   };
 
@@ -249,6 +261,12 @@ if(checker){    alert(`Select All options Please!`); return;}
           />
         )}
       </View>
+      <CustomPopup
+        visible={popupVisible}
+        label={"Result"}
+        message={message}
+        onClose={handleClosePopup}
+      />
     </View>
   );
 }

@@ -1,24 +1,29 @@
 import React from 'react';
-import { TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
+import {TouchableOpacity, Image, Text, StyleSheet} from 'react-native';
 
 const CustomButton = ({
   onPress,
   disabled,
   label,
+  labelColor = '#DE9181',
   imageSource,
   backgroundColor,
   borderColor,
   isBackArrow,
+  BorderRadius,
 }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled}
-      style={[styles.buttonContainer, { backgroundColor, borderColor }]}>
+      style={[
+        styles.buttonContainer,
+        {backgroundColor, borderColor, borderRadius: BorderRadius},
+      ]}>
       {isBackArrow && imageSource && (
         <Image source={imageSource} style={styles.backButtonImage} />
       )}
-      <Text style={styles.buttonText}>{label}</Text>
+      <Text style={[styles.buttonText, {color: labelColor}]}>{label}</Text>
       {!isBackArrow && imageSource && (
         <Image source={imageSource} style={styles.buttonImage} />
       )}
@@ -53,7 +58,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#DE9181',
   },
 });
 
