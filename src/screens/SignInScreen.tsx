@@ -1,4 +1,4 @@
-import React, {useCallback, useState,useEffect} from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,49 +8,51 @@ import {
   Dimensions,
   Alert,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
-import Animated, {FadeIn, FadeInDown, FadeInUp} from 'react-native-reanimated';
+import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
 import AuthenticationButton from '../components/AuthenticationButton';
 
 import Realm from 'realm';
-import {useApp} from '@realm/react';
+import { useApp } from '@realm/react';
 var SharedPreferences = require('react-native-shared-preferences');
 
-const {height, width} = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 
-const SignInScreen = ({navigation}: any) => {
+const SignInScreen = ({ navigation }: any) => {
   const realmApp = useApp();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  
+
+
   useEffect(() => {
-  const check =()=>{
+    const check = () => {
 
-    let state =""
+      let state = ""
 
- 
+      SharedPreferences.getItem("loginState", function (value: string) {
+        state = value
+        console.log("abc--+" + value);
 
-    SharedPreferences.getItem("loginState", function(value:string)
-    {
-      state=value
-      console.log("abc--+"+value);
-      
-    if (value === "true"){
+        setLoading(false);
 
-      navigation.navigate('Dashboard');
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Dashboard' }],
+        if (value === "true") {
+
+          navigation.navigate('Dashboard');
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Dashboard' }],
+          });
+        }
       });
+
     }
-    });
-
-  }
-  check();
+    check();
 
 
-  },[])
+  }, [])
 
 
   const login = useCallback(
@@ -65,7 +67,7 @@ const SignInScreen = ({navigation}: any) => {
         const user = await realmApp.logIn(credentials);
         console.log('Successfully logged in:', user.id);
         SharedPreferences.setItem("userid", user.id);
-      
+
         SharedPreferences.setItem("userEmail", newEmail);
         SharedPreferences.setItem("loginState", "true");
 
@@ -74,7 +76,7 @@ const SignInScreen = ({navigation}: any) => {
           index: 0,
           routes: [{ name: 'Dashboard' }],
         });
-          } catch (signInError: any) {
+      } catch (signInError: any) {
         // If sign in fails, handle the error
         console.log('Sign In Error:', signInError);
         Alert.alert('ERROR', signInError.message);
@@ -107,6 +109,18 @@ const SignInScreen = ({navigation}: any) => {
   };
 
   const logo = require('../assets/images/Logo.png');
+
+  // Render loading indicator while loading SharedPreferences data
+  if (loading) {
+    return (
+      <View style={{flex: 1, backgroundColor: '#FDFDFD', padding: 12}}>
+        <ActivityIndicator
+          size="large"
+          color="black"
+          style={{ marginTop: '100%' }} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -159,8 +173,8 @@ const SignInScreen = ({navigation}: any) => {
 
       <TouchableOpacity onPress={goToSignUpScreen}>
         <Text style={styles.signUpText}>
-          <Text style={{color: 'gray'}}>Don't have an account?</Text>{' '}
-          <Text style={{color: '#F59481'}}>Sign up</Text>
+          <Text style={{ color: 'gray' }}>Don't have an account?</Text>{' '}
+          <Text style={{ color: '#F59481' }}>Sign up</Text>
         </Text>
       </TouchableOpacity>
 
@@ -168,8 +182,8 @@ const SignInScreen = ({navigation}: any) => {
         style={styles.termsAndServicesContainer}
         entering={FadeIn.delay(200).duration(900)}>
         <Text style={styles.termsAndServices}>
-          <Text style={{color: 'gray'}}>By continuing, you agree to</Text>{' '}
-          <Text style={{color: '#F59481'}}>Terms and conditions</Text>
+          <Text style={{ color: 'gray' }}>By continuing, you agree to</Text>{' '}
+          <Text style={{ color: '#F59481' }}>Terms and conditions</Text>
         </Text>
       </Animated.View>
     </View>
