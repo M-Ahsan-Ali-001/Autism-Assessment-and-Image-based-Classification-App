@@ -5,7 +5,6 @@
  * @format
  */
 
-import React from 'react';
 import type {PropsWithChildren} from 'react';
 import Svg, {Circle} from 'react-native-svg';
 import {
@@ -47,8 +46,65 @@ import {
 import {AppProvider, RealmProvider, UserProvider} from '@realm/react';
 import ADHD from './src/screens/ADHD';
 
+import React, { useState, useEffect ,useRef} from 'react';
+import { AppState} from 'react-native';
+type SectionProps = PropsWithChildren<{
+  title: string;
+}>;
 function App(): JSX.Element {
   const Stack = createNativeStackNavigator();
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
+  const activeTime = useRef<number>(0);
+  const backgroundTime = useRef<number>(0);
+  const hold = useRef<number>(0);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        console.log('App has come to the foreground!');
+        console.log(new Date().getMinutes())
+        activeTime.current = new Date().getMinutes()
+      }
+
+
+
+      if (
+        appState.current.match(/active/) &&
+        nextAppState === 'inactive' || nextAppState === 'background'
+      ) {
+        backgroundTime.current = new Date().getMinutes()
+        hold.current = activeTime.current - backgroundTime.current
+        console.log('App has come to the closed!',hold.current);
+      }
+
+      // if (
+      //   appState.current.match(/active/)){
+      //     console.log('App YEs!');
+     
+      //   }
+
+
+      //   if (
+      //     appState.current.match(/background|inactive/)){
+      //       console.log('App Gone!');
+       
+      //     }
+      
+
+      appState.current = nextAppState;
+      setAppStateVisible(appState.current);
+      // console.log('AppState', appState.current);
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
 
   return (
     <NavigationContainer>

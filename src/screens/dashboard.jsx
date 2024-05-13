@@ -11,14 +11,9 @@ import {
   Alert,
   TouchableOpacity,
 } from 'react-native';
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart,
-} from 'react-native-chart-kit';
+
+
+
 var SharedPreferences = require('react-native-shared-preferences');
 
 import {Shadow} from 'react-native-shadow-2';
@@ -31,448 +26,60 @@ import HistoryScreen from './HistoryScreen';
 import axios from 'axios';
 
 function Dashboard({navigation}) {
-  const [pressedCard, setPressedCard] = useState(null);
-  const [graphButtonT, setGraphButtonT] = useState('AQ_10');
-  const [listDisp, setListDisp] = useState('none');
+
   const [buttSelector, setbuttSelector] = useState(1);
   const [selectScreen, setScreen] = useState(1);
-  const [Disindex, setDisindx] = useState(10);
-  const [AQf, setAQf] = useState([]);
-  const [adhd, setAdhd] = useState([]);
-  const [Mod, setMod] = useState([]);
-  const [aqLabel, setAqLabel] = useState([
-    'Jan',
-    'Feb',
-    'March',
-    'April',
-    'May',
-    'June',
-  ]);
-  const [aqScore, setAqScore] = useState([20, 45, 28, 80, 99, 43]);
+  const Q1='../assets/images/Q1.png'
+  const Q2='../assets/images/Q2.png'
+  const Scan='../assets/images/faceScan.png'
+  const Exc='../assets/images/excla.png'
+ 
+ function Boxes (props){
+    return(
+      
+    <View>
+    <Text style={styles.cardMenuTitle}>{props.name}</Text>
+ <View style={styles.boxHolder}>
+ 
+<TouchableOpacity onPress={()=>{console.log('Clicked')}}>
 
-  const [data1, setdata1] = useState({
-    labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-    datasets: [
-      {
-        data: [20, 45, 28, 80, 99, 43],
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-        strokeWidth: 2, // optional
-      },
-    ],
-    legend: [graphButtonT + ' Dummy Data'], // optional
-  });
-  const extractDate = fullDate => {
-    const dateObj = new Date(fullDate);
-    return dateObj.toString().substring(4, 7); // Extracting "Sun Mar 17 2024"
-  };
+  
+<View style={styles.smallBox} >
 
-  useEffect(() => {
-    const fetchAd = async () => {
-      SharedPreferences.getItem('userid', async function (value) {
-        console.log('abc--+' + value);
+<Image source={require( Exc)} style={{ height:30,width:30}}/>
 
-        try {
-          const response = await axios.post(
-            'https://dashborad-autism.netlify.app/.netlify/functions/display_aq_10',
-            {
-              id: `${value}`,
-            },
-          );
-          //setGet(response.data);
-          console.log(response.data);
 
-          if (response.data.length > 0) {
-            let aqLabel1 = [];
-            let aqScore1 = [];
-            let x = response.data;
-            x.map(async (item, idx) => {
-              console.log(extractDate(item.date) + item.score);
-              aqLabel1.push(extractDate(item.date));
-              aqScore1.push(parseFloat(item.score));
-            });
+<Text style={styles.textinBox} >Instructions</Text>
+</View>
+</TouchableOpacity>
+<TouchableOpacity onPress={()=>{navigation.navigate(props.nav)}}>
+<View style={styles.smallBox}>
+  {props.imgpath ===1 ?(
+      <Image source={require(Q1)} style={{ height:50,width:50}}/>
+      
+):props.imgpath ===2?(
+  <Image source={require(Q2)} style={{ height:50,width:50}}/>
+      
+):props.imgpath ===3?(
+  <Image source={require(Scan)} style={{ height:50,width:50}}/>
+      
+):null}
 
-            setAQf(response.data);
+<Text style={styles.textinBox} >{props.name2}</Text>
 
-            setAqLabel(aqLabel1);
-            setAqScore(aqScore1);
-            console.log('aq---' + aqLabel1);
-            console.log('aq' + aqScore1);
+</View>
+</TouchableOpacity>
+ </View>
 
-            setdata1({
-              labels: aqLabel1,
-              datasets: [
-                {
-                  data: aqScore1,
-                  color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-                  strokeWidth: 2, // optional
-                },
-              ],
-              legend: [graphButtonT], // optional
-            });
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      });
-    };
 
-    fetchAd();
-  }, []);
+</View>
+    )
 
-  const fetctAq10 = name => {
-    setdata1({
-      labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-      datasets: [
-        {
-          data: [20, 45, 28, 80, 99, 43],
-          color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-          strokeWidth: 2, // optional
-        },
-      ],
-      legend: [name + ' Dummy Data'], // optional
-    });
+  }
 
-    SharedPreferences.getItem('userid', async function (value) {
-      console.log('abc--+' + value);
-
-      try {
-        const response = await axios.post(
-          'https://dashborad-autism.netlify.app/.netlify/functions/display_aq_10',
-          {
-            id: `${value}`,
-          },
-        );
-        //setGet(response.data);
-        console.log(response.data);
-
-        if (response.data.length > 0) {
-          let aqLabel1 = [];
-          let aqScore1 = [];
-          let x = response.data;
-          x.map(async (item, idx) => {
-            console.log(extractDate(item.date) + item.score);
-            aqLabel1.push(extractDate(item.date));
-            aqScore1.push(parseFloat(item.score));
-          });
-
-          setAQf(response.data);
-
-          setAqLabel(aqLabel1);
-          setAqScore(aqScore1);
-          console.log('aq---' + aqLabel1);
-          console.log('aq' + aqScore1);
-
-          setdata1({
-            labels: aqLabel1,
-            datasets: [
-              {
-                data: aqScore1,
-                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-                strokeWidth: 2, // optional
-              },
-            ],
-            legend: [name], // optional
-          });
-        } else {
-          setdata1({
-            labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-            datasets: [
-              {
-                data: [20, 45, 28, 80, 99, 43],
-                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-                strokeWidth: 2, // optional
-              },
-            ],
-            legend: [name + ' Dummy Data'], // optional
-          });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    });
-  };
-
-  // adhd
-  const fetctAdhd = name => {
-    setdata1({
-      labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-      datasets: [
-        {
-          data: [20, 45, 28, 80, 99, 43],
-          color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-          strokeWidth: 2, // optional
-        },
-      ],
-      legend: [name + ' Dummy Data'], // optional
-    });
-
-    SharedPreferences.getItem('userid', async function (value) {
-      console.log('abc--+' + value);
-
-      try {
-        const response = await axios.post(
-          'https://dashborad-autism.netlify.app/.netlify/functions/display_adhd',
-          {
-            id: `${value}`,
-          },
-        );
-        //setGet(response.data);
-        console.log(response.data);
-
-        if (response.data.length > 0) {
-          let aqLabel1 = [];
-          let aqScore1 = [];
-          let x = response.data;
-          x.map(async (item, idx) => {
-            console.log(extractDate(item.date) + item.score);
-            aqLabel1.push(extractDate(item.date));
-            aqScore1.push(parseFloat(item.score));
-          });
-
-          // setAQf(response.data);
-
-          // setAqLabel(aqLabel1);
-          // setAqScore(aqScore1);
-          console.log('aq---' + aqLabel1);
-          console.log('aq' + aqScore1);
-
-          setdata1({
-            labels: aqLabel1,
-            datasets: [
-              {
-                data: aqScore1,
-                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-                strokeWidth: 2, // optional
-              },
-            ],
-            legend: [name], // optional
-          });
-        } else {
-          setdata1({
-            labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-            datasets: [
-              {
-                data: [20, 45, 28, 80, 99, 43],
-                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-                strokeWidth: 2, // optional
-              },
-            ],
-            legend: [name + ' Dummy Data'], // optional
-          });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    });
-  };
-
-  // model
-
-  const fetctModel = name => {
-    setdata1({
-      labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-      datasets: [
-        {
-          data: [20, 45, 28, 80, 99, 43],
-          color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-          strokeWidth: 2, // optional
-        },
-      ],
-      legend: [name + ' Dummy Data'], // optional
-    });
-
-    SharedPreferences.getItem('userid', async function (value) {
-      console.log('abc--+' + value);
-
-      try {
-        const response = await axios.post(
-          'https://dashborad-autism.netlify.app/.netlify/functions/display_model',
-          {
-            id: `${value}`,
-          },
-        );
-        //setGet(response.data);
-        console.log(response.data);
-
-        if (response.data.length > 0) {
-          let aqLabel1 = [];
-          let aqScore1 = [];
-          let x = response.data;
-          x.map(async (item, idx) => {
-            console.log(extractDate(item.date) + item.score);
-            aqLabel1.push(extractDate(item.date));
-            aqScore1.push(parseFloat(item.score));
-          });
-
-          setAQf(response.data);
-
-          setAqLabel(aqLabel1);
-          setAqScore(aqScore1);
-          console.log('aq---' + aqLabel1);
-          console.log('aq' + aqScore1);
-
-          setdata1({
-            labels: aqLabel1,
-            datasets: [
-              {
-                data: aqScore1,
-                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-                strokeWidth: 2, // optional
-              },
-            ],
-            legend: [name], // optional
-          });
-        } else {
-          setdata1({
-            labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-            datasets: [
-              {
-                data: [20, 45, 28, 80, 99, 43],
-                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-                strokeWidth: 2, // optional
-              },
-            ],
-            legend: [name + ' Dummy Data'], // optional
-          });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    });
-  };
-
-  const chartConfig = {
-    backgroundGradientFrom: '#DDCAE3',
-    backgroundGradientFromOpacity: 20,
-    backgroundGradientTo: '#DDCAE3',
-    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-    strokeWidth: 2, // optional, default 3
-    barPercentage: 0.5,
-    useShadowColorFromDataset: false, // optional
-  };
-
-  // const data = {
-  //   labels:  ['Jan', 'Feb', 'March', 'April', 'May', 'June'],
-  //   datasets: [
-  //     {
-  //       data:  [20, 45, 28, 80, 99, 43],
-  //       color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-  //       strokeWidth: 2, // optional
-  //     },
-  //   ],
-  //   legend: [graphButtonT], // optional
-  // };
-
-  // const data1 = {
-  //   labels:  aqLabel,
-  //   datasets: [
-  //     {
-  //       data:  aqScore,
-  //       color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-  //       strokeWidth: 2, // optional
-  //     },
-  //   ],
-  //   legend: [graphButtonT], // optional
-  // };
-
-  const handleCardPress = cardNumber => {
-    setPressedCard(cardNumber);
-    SharedPreferences.getItem('userEmail', function (value) {
-      console.log('abc--+' + value);
-    });
-  };
-
-  const handlePressList = () => {
-    if (listDisp === 'none') {
-      setListDisp('block');
-    } else {
-      setListDisp('none');
-    }
-  };
-  // const fetchADHD = async () => {
-  //   let id=""
-  //   SharedPreferences.getItem("userEmail", function(value){
-  //     console.log("abc--+"+value);
-  //     id =value
-  //   });
-
-  //   try {
-  //     const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_adhd',
-  //     {
-  //       "id" : `${id}`
-  //     });
-  //     //setGet(response.data);
-  //     console.log(response.data)
-  //     setAdhd(response.data)
-
-  //   } catch (error) {
-  //    console.log(error)
-  //   } finally {
-  //     console.log("error")
-  //   }
-  // };
-
-  // const fetchAQ_10 = async () => {
-  //   let id=""
-  //   SharedPreferences.getItem("userEmail", function(value){
-  //     console.log("abc--+"+value);
-  //     id =value
-  //   });
-
-  //   try {
-  //     const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_aq_10',
-  //     {
-  //       "id" : `${id}`
-  //     });
-  //     //setGet(response.data);
-  //     console.log(response.data)
-  //     setAQf(response.data)
-
-  //     console.log(AQf.length === 0)
-
-  //   } catch (error) {
-  //    console.log(error)
-  //   } finally {
-  //     console.log("error")
-  //   }
-  // };
-
-  // const fetchModel = async () => {
-
-  //   let id=""
-  //   SharedPreferences.getItem("userEmail", function(value){
-  //     console.log("abc--+"+value);
-  //     id =value
-  //   });
-  //   try {
-  //     const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_model',
-  //     {
-  //       "id" : `${id}`
-  //     });
-  //     //setGet(response.data);
-  //     console.log(response.data)
-  //     setMod(response.data)
-
-  //   } catch (error) {
-  //    console.log(error)
-  //   } finally {
-  //     console.log("error")
-  //   }
-  // };
 
   return (
     <View style={styles.fullPage}>
-      {/* <View style={styles.header}>
-        <GestureHandlerRootView>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Signin');
-              console.log('back');
-            }}>
-            <ImageButtonDashboard nmb={1} styl={styles.arrowImage} />
-          </TouchableOpacity>
-        </GestureHandlerRootView>
-      </View> */}
 
       <View style={styles.upperBody}>
         {selectScreen === 1 ? (
@@ -485,127 +92,12 @@ function Dashboard({navigation}) {
               <Text style={styles.greetText}>Welcome Back!</Text>
               <ImageButtonDashboard nmb={3} styl={styles.userImage} />
             </View>
+          <Boxes name='Autism' name2="Quiz" imgpath={1} nav='AQ_10'/>
+          <Boxes name='ADHD' name2="Quiz" imgpath={2} nav='ADHD' />
+          <Boxes name='AI Analysis' name2="Scanner" imgpath={3} nav='Scan'/>
+        
+        
 
-            <Text style={styles.cardMenuTitle}>Assessments</Text>
-            <View style={styles.cardMenu}>
-              <Animated.View
-                entering={FadeInLeft.delay(150).duration(900)}
-                style={styles.indicatorLeft(
-                  pressedCard === 4 || pressedCard === 5,
-                )}
-              />
-              <CardMenu
-                imgNmb={4}
-                textCard={'AQ 10'}
-                nav={navigation}
-                imgIcon={styles.card1}
-                nvb={1}
-                onPress={() => handleCardPress(4)}
-              />
-              <CardMenu
-                imgNmb={5}
-                textCard={'ADHD'}
-                nav={navigation}
-                nvb={2}
-                imgIcon={styles.card1}
-                onPress={() => handleCardPress(5)}
-              />
-              <CardMenu
-                imgNmb={6}
-                textCard={'Scan'}
-                nvb={3}
-                nav={navigation}
-                imgIcon={styles.card1}
-                onPress={() => handleCardPress(6)}
-              />
-              <Animated.View
-                entering={FadeInRight.delay(150).duration(900)}
-                style={styles.indicatorRight(
-                  pressedCard === 6 || pressedCard === 5,
-                )}
-              />
-            </View>
-            <View>
-              <View style={styles.graphCont}>
-                {/* Graph Starts here */}
-                <Shadow distance={5} offset={[0, 3]}>
-                  <LineChart
-                    data={data1}
-                    width={300}
-                    height={220}
-                    borderRadius={300}
-                    chartConfig={chartConfig}
-                    style={styles.graph}
-                  />
-                </Shadow>
-              </View>
-              <View style={styles.History_Area}>
-                {/* History and button Area  */}
-
-                <Text style={styles.cardMenuTitle}>History</Text>
-
-                <View>
-                  <TouchableOpacity onPress={handlePressList}>
-                    <Shadow distance={1} offset={[1, 2]}>
-                      <View style={styles.buttonGraph}>
-                        {/* Graph button Area  */}
-
-                        <Text>{graphButtonT} </Text>
-                        <Image
-                          source={require('../assets/images/downArrow.png')}
-                        />
-                      </View>
-                    </Shadow>
-                  </TouchableOpacity>
-
-                  <View
-                    style={{
-                      display: listDisp,
-                      maxHeight: 150,
-                      maxWidth: 80,
-                      left: 1,
-                      top: 3,
-                      borderRadius: 10,
-                      backgroundColor: '#F2F2F2',
-                      alignItems: 'center',
-                      zIndex: Disindex,
-                    }}>
-                    {/* Graph button Drop Down List  */}
-
-                    <Text
-                      style={styles.GlistBut}
-                      onPress={() => {
-                        setGraphButtonT('AQ_10');
-                        handlePressList();
-                        // fetchAQ_10();
-                        fetctAq10('AQ_10');
-                      }}>
-                      AQ_10
-                    </Text>
-                    <Text
-                      style={styles.GlistBut}
-                      onPress={() => {
-                        setGraphButtonT('ADHD');
-                        handlePressList();
-                        // fetchADHD();
-                        fetctAdhd('ADHD');
-                      }}>
-                      ADHD
-                    </Text>
-                    <Text
-                      style={styles.GlistBut}
-                      onPress={() => {
-                        setGraphButtonT('Scan');
-                        handlePressList();
-                        // fetchModel();
-                        fetctModel('SCAN');
-                      }}>
-                      SCAN
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </View>
           </View>
         ) : selectScreen === 2 ? (
           <ProfileScreen />
@@ -695,7 +187,14 @@ const styles = StyleSheet.create({
   pinkColor: {
     color: '#F59481',
   },
+  textinBox:{
+    fontSize:16,
+    color:'black',
+    fontWeight:'800',
+    marginTop:10
 
+  }
+,
   fullPage: {
     backgroundColor: '#FDFDFD',
     flex: 1,
@@ -739,9 +238,10 @@ const styles = StyleSheet.create({
 
   cardMenuTitle: {
     // marginHorizontal: 14,
-    marginLeft: 30,
+    marginLeft: 18,
     marginBottom: 8,
-    fontSize: 22,
+    fontWeight:'900',
+    fontSize: 18,
     // fontStyle: 'italic',
     color: 'black',
     textAlign: 'justify',
@@ -755,6 +255,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     // borderWidth: 1,
+  },
+  boxHolder:{
+
+flexDirection:'row',
+justifyContent:'space-around',
+padding:2
+
+  },
+  smallBox:{
+
+
+    height:130,
+ 
+
+    width:130,
+    backgroundColor:'#DCDCDC',
+    borderRadius:15,
+    alignItems:'center',
+    justifyContent:'center'
   },
 
   card1: {
