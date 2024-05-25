@@ -1,32 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Image,
-  Text,
-  useColorScheme,
-  View,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import {StyleSheet, Image, Text, View, TouchableOpacity} from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart,
-} from 'react-native-chart-kit';
+import {LineChart} from 'react-native-chart-kit';
 import axios from 'axios';
 import ImageButtonDashboard from '../components/ImageDashboard';
 var SharedPreferences = require('react-native-shared-preferences');
@@ -48,43 +23,34 @@ function ProfileScreen(props) {
   ]);
   const [aqScore, setAqScore] = useState([20, 45, 28, 80, 99, 43]);
 
-
   useEffect(() => {
-    const FtData= async ()=>{
-
- ;
-      SharedPreferences.getItem("userEmail", function(value){
-        console.log("abc--+"+value);
-        SetEmail(value)
-      
-      
+    const FtData = async () => {
+      SharedPreferences.getItem('userEmail', function (value) {
+        console.log('abc--+' + value);
+        SetEmail(value);
       });
 
+      SharedPreferences.getItem('userid', async function (value) {
+        console.log('abc--+' + value);
 
-      SharedPreferences.getItem("userid",  async function(value){
-        console.log("abc--+"+value);
-           
         try {
-          const response =  await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_aq_10',
-          {
-            "id" : `${value}`
-          });
+          const response = await axios.post(
+            'https://dashborad-autism.netlify.app/.netlify/functions/display_aq_10',
+            {
+              id: `${value}`,
+            },
+          );
           //setGet(response.data);
-          console.log(response.data)
-          SetAQ(response.data)
-  
+          console.log(response.data);
+          SetAQ(response.data);
         } catch (error) {
-         console.log(error)
+          console.log(error);
         }
-      
-      
-      })
-
-
+      });
 
       // SharedPreferences.getItem("userid",  async function(value){
       //   console.log("abc--+"+value);
-           
+
       //   try {
       //     const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_adhd',
       //     {
@@ -93,18 +59,16 @@ function ProfileScreen(props) {
       //     //setGet(response.data);
       //     console.log(response.data)
       //     SetAD(response.data)
-  
+
       //   } catch (error) {
       //    console.log(error)
       //   }
-      
-      
+
       // })
 
-      
       // SharedPreferences.getItem("userid", async function(value){
       //   console.log("abc--+"+value);
-           
+
       //   try {
       //     const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_model',
       //     {
@@ -113,17 +77,13 @@ function ProfileScreen(props) {
       //     //setGet(response.data);
       //     console.log(response.data)
       //     SetModel(response.data)
-  
+
       //   } catch (error) {
       //    console.log(error)
       //   }
-      
-      
+
       // })
-
-
-
-    }
+    };
 
     const fetchAd = async () => {
       SharedPreferences.getItem('userid', async function (value) {
@@ -151,14 +111,9 @@ function ProfileScreen(props) {
 
             setAQf(response.data);
 
+            setAqLabel(aqLabel1);
+            setAqScore(aqScore1);
 
-              setAqLabel(aqLabel1);
-              setAqScore(aqScore1);
-
-          
-  
-
-           
             console.log('aq---' + aqLabel1);
             console.log('aq' + aqScore1);
 
@@ -182,8 +137,7 @@ function ProfileScreen(props) {
 
     fetchAd();
     FtData();
-  },[])
-
+  }, []);
 
   const fetctAq10 = name => {
     setdata1({
@@ -223,11 +177,9 @@ function ProfileScreen(props) {
 
           setAQf(response.data);
 
+          setAqLabel(aqLabel1);
+          setAqScore(aqScore1);
 
-            setAqLabel(aqLabel1);
-            setAqScore(aqScore1);
-
-          
           console.log('aq---' + aqLabel1);
           console.log('aq' + aqScore1);
 
@@ -447,7 +399,10 @@ function ProfileScreen(props) {
   return (
     <View style={styles.body}>
       <View style={styles.TopBox}>
-        <ImageButtonDashboard nmb={3} styl={{height:45,width:45, borderRadius:25}} />
+        <ImageButtonDashboard
+          nmb={3}
+          styl={{height: 45, width: 45, borderRadius: 25}}
+        />
 
         <View style={styles.mail}>
           <Text style={styles.tHead}>{email}</Text>
@@ -455,91 +410,87 @@ function ProfileScreen(props) {
       </View>
 
       <View>
-              <View style={styles.graphCont}>
-                {/* Graph Starts here */}
-                <Shadow distance={5} offset={[0, 3]}>
-                  <LineChart
-                    data={data1}
-                    width={300}
-                    height={220}
-                    borderRadius={300}
-                    chartConfig={chartConfig}
-                    style={styles.graph}
-                  />
-                </Shadow>
-              </View>
-              <View style={styles.History_Area}>
-                {/* History and button Area  */}
+        <View style={styles.graphCont}>
+          {/* Graph Starts here */}
+          <Shadow distance={5} offset={[0, 3]}>
+            <LineChart
+              data={data1}
+              width={300}
+              height={220}
+              borderRadius={300}
+              chartConfig={chartConfig}
+              style={styles.graph}
+            />
+          </Shadow>
+        </View>
+        <View style={styles.History_Area}>
+          {/* History and button Area  */}
 
-                <Text style={styles.cardMenuTitle}>History</Text>
+          <Text style={styles.cardMenuTitle}>History</Text>
 
-                <View>
-                  <TouchableOpacity onPress={handlePressList}>
-                    <Shadow distance={1} offset={[1, 2]}>
-                      <View style={styles.buttonGraph}>
-                        {/* Graph button Area  */}
+          <View>
+            <TouchableOpacity onPress={handlePressList}>
+              <Shadow distance={1} offset={[1, 2]}>
+                <View style={styles.buttonGraph}>
+                  {/* Graph button Area  */}
 
-                        <Text>{graphButtonT} </Text>
-                        <Image
-                          source={require('../assets/images/downArrow.png')}
-                        />
-                      </View>
-                    </Shadow>
-                  </TouchableOpacity>
-
-                  <View
-                    style={{
-                      display: listDisp,
-                      maxHeight: 150,
-                      maxWidth: 80,
-                      left: 1,
-                      top: 3,
-                      borderRadius: 10,
-                      backgroundColor: '#F2F2F2',
-                      alignItems: 'center',
-                      zIndex: Disindex,
-                    }}>
-                    {/* Graph button Drop Down List  */}
-
-                    <Text
-                      style={styles.GlistBut}
-                      onPress={() => {
-                        setGraphButtonT('AQ_10');
-                        handlePressList();
-                        // fetchAQ_10();
-                        fetctAq10('AQ_10');
-                      }}>
-                      AQ_10
-                    </Text>
-                    <Text
-                      style={styles.GlistBut}
-                      onPress={() => {
-                        setGraphButtonT('ADHD');
-                        handlePressList();
-                        // fetchADHD();
-                        fetctAdhd('ADHD');
-                      }}>
-                      ADHD
-                    </Text>
-                    <Text
-                      style={styles.GlistBut}
-                      onPress={() => {
-                        setGraphButtonT('Scan');
-                        handlePressList();
-                        // fetchModel();
-                        fetctModel('SCAN');
-                      }}>
-                      SCAN
-                    </Text>
-                  </View>
+                  <Text>{graphButtonT} </Text>
+                  <Image source={require('../assets/images/downArrow.png')} />
                 </View>
-              </View>
-            </View>
+              </Shadow>
+            </TouchableOpacity>
 
+            <View
+              style={{
+                display: listDisp,
+                maxHeight: 150,
+                maxWidth: 80,
+                left: 1,
+                top: 3,
+                borderRadius: 10,
+                backgroundColor: '#F2F2F2',
+                alignItems: 'center',
+                zIndex: Disindex,
+              }}>
+              {/* Graph button Drop Down List  */}
+
+              <Text
+                style={styles.GlistBut}
+                onPress={() => {
+                  setGraphButtonT('AQ_10');
+                  handlePressList();
+                  // fetchAQ_10();
+                  fetctAq10('AQ_10');
+                }}>
+                AQ_10
+              </Text>
+              <Text
+                style={styles.GlistBut}
+                onPress={() => {
+                  setGraphButtonT('ADHD');
+                  handlePressList();
+                  // fetchADHD();
+                  fetctAdhd('ADHD');
+                }}>
+                ADHD
+              </Text>
+              <Text
+                style={styles.GlistBut}
+                onPress={() => {
+                  setGraphButtonT('Scan');
+                  handlePressList();
+                  // fetchModel();
+                  fetctModel('SCAN');
+                }}>
+                SCAN
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   text: {
@@ -564,8 +515,6 @@ const styles = StyleSheet.create({
     width: 70,
     borderRadius: 100,
 
-   
-
     // borderRadius: 100,
   },
   mail: {
@@ -582,62 +531,45 @@ const styles = StyleSheet.create({
     marginRight: 16,
     marginTop: 3,
     marginBottom: 5,
-    color:'white',
-   
+    color: 'white',
   },
-  bottomBoxx:{
+  bottomBoxx: {
     flex: 0.7,
-    justifyContent:'space-around',
-    padding:25
-
-
+    justifyContent: 'space-around',
+    padding: 25,
   },
-  box1:{
-
-    flex:0.29,
-    backgroundColor:"#488AAF",
+  box1: {
+    flex: 0.29,
+    backgroundColor: '#488AAF',
     borderRadius: 21,
     alignItems: 'center',
     justifyContent: 'center',
-
   },
-  box2:{
-
-    flex:0.29,
-    backgroundColor:"#6B3DCD",
+  box2: {
+    flex: 0.29,
+    backgroundColor: '#6B3DCD',
     borderRadius: 21,
     alignItems: 'center',
     justifyContent: 'center',
-
   },
-  box3:{
-
-    flex:0.29,
-    backgroundColor:"#A0EECC",
+  box3: {
+    flex: 0.29,
+    backgroundColor: '#A0EECC',
     borderRadius: 21,
     alignItems: 'center',
     justifyContent: 'center',
-
   },
-  boxSt:{
-    fontSize:38,
-    fontWeight:"bold",
-    color:'white',
-
-
-
-
+  boxSt: {
+    fontSize: 38,
+    fontWeight: 'bold',
+    color: 'white',
   },
 
-  boxSt2:{
-    fontSize:16,
-    fontWeight:"bold",
-    color:'white',
-    marginTop:15
-
-
-
-
+  boxSt2: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'white',
+    marginTop: 15,
   },
   pinkColor: {
     color: '#F59481',
@@ -793,7 +725,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 8,
     borderBottomLeftRadius: 8,
     marginTop: -40,
-  })
+  }),
 });
 
 export default ProfileScreen;

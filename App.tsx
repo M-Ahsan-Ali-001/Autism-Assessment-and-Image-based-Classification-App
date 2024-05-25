@@ -6,25 +6,8 @@
  */
 
 import type {PropsWithChildren} from 'react';
-import Svg, {Circle} from 'react-native-svg';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Image,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {StyleSheet} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import IntroScreen from './src/screens/IntroScrn';
 import IntroScreen2 from './src/screens/introScrn2';
 import {NavigationContainer} from '@react-navigation/native';
@@ -37,17 +20,13 @@ import AQ_10 from './src/screens/AQ_10';
 import SignInScreen from './src/screens/SignInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import ScanScreen from './src/screens/ScanScreen';
-import {
-  OrientationLocker,
-  PORTRAIT,
-  LANDSCAPE,
-} from 'react-native-orientation-locker';
+import {OrientationLocker, PORTRAIT} from 'react-native-orientation-locker';
 
-import {AppProvider, RealmProvider, UserProvider} from '@realm/react';
+import {AppProvider} from '@realm/react';
 import ADHD from './src/screens/ADHD';
 
-import React, { useState, useEffect ,useRef} from 'react';
-import { AppState} from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import {AppState} from 'react-native';
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -66,34 +45,30 @@ function App(): JSX.Element {
         nextAppState === 'active'
       ) {
         console.log('App has come to the foreground!');
-        console.log(new Date().getMinutes())
-        activeTime.current = new Date().getMinutes()
+        console.log(new Date().getMinutes());
+        activeTime.current = new Date().getMinutes();
       }
 
-
-
       if (
-        appState.current.match(/active/) &&
-        nextAppState === 'inactive' || nextAppState === 'background'
+        (appState.current.match(/active/) && nextAppState === 'inactive') ||
+        nextAppState === 'background'
       ) {
-        backgroundTime.current = new Date().getMinutes()
-        hold.current = activeTime.current - backgroundTime.current
-        console.log('App has come to the closed!',hold.current);
+        backgroundTime.current = new Date().getMinutes();
+        hold.current = activeTime.current - backgroundTime.current;
+        console.log('App has come to the closed!', hold.current);
       }
 
       // if (
       //   appState.current.match(/active/)){
       //     console.log('App YEs!');
-     
-      //   }
 
+      //   }
 
       //   if (
       //     appState.current.match(/background|inactive/)){
       //       console.log('App Gone!');
-       
+
       //     }
-      
 
       appState.current = nextAppState;
       setAppStateVisible(appState.current);
@@ -104,7 +79,6 @@ function App(): JSX.Element {
       subscription.remove();
     };
   }, []);
-
 
   return (
     <NavigationContainer>
