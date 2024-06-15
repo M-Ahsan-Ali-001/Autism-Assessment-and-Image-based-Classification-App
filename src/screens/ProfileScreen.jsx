@@ -5,8 +5,11 @@ import {LineChart} from 'react-native-chart-kit';
 import axios from 'axios';
 import ImageButtonDashboard from '../components/ImageDashboard';
 var SharedPreferences = require('react-native-shared-preferences');
+
+import Avatar from 'react-native-boring-avatars';
+
 function ProfileScreen(props) {
-  const [email, SetEmail] = useState('tt@gmail.com');
+  const [email, SetEmail] = useState('');
   const [idd, SetID] = useState('');
   const [aq_10, SetAQ] = useState([]);
   const [adhd, SetAD] = useState([]);
@@ -47,42 +50,6 @@ function ProfileScreen(props) {
           console.log(error);
         }
       });
-
-      // SharedPreferences.getItem("userid",  async function(value){
-      //   console.log("abc--+"+value);
-
-      //   try {
-      //     const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_adhd',
-      //     {
-      //       "id" : `${value}`
-      //     });
-      //     //setGet(response.data);
-      //     console.log(response.data)
-      //     SetAD(response.data)
-
-      //   } catch (error) {
-      //    console.log(error)
-      //   }
-
-      // })
-
-      // SharedPreferences.getItem("userid", async function(value){
-      //   console.log("abc--+"+value);
-
-      //   try {
-      //     const response = await axios.post('https://dashborad-autism.netlify.app/.netlify/functions/display_model',
-      //     {
-      //       "id" : `${value}`
-      //     });
-      //     //setGet(response.data);
-      //     console.log(response.data)
-      //     SetModel(response.data)
-
-      //   } catch (error) {
-      //    console.log(error)
-      //   }
-
-      // })
     };
 
     const fetchAd = async () => {
@@ -399,10 +366,14 @@ function ProfileScreen(props) {
   return (
     <View style={styles.body}>
       <View style={styles.TopBox}>
-        <ImageButtonDashboard
-          nmb={3}
-          styl={{height: 45, width: 45, borderRadius: 25}}
-        />
+        <View style={styles.userImageContainer}>
+          <Avatar
+            size={80}
+            name={email}
+            variant="beam"
+            colors={['#9E6B7C', '#F87887', '#92CCB6', '#F3D597', '#B6D89C']}
+          />
+        </View>
 
         <View style={styles.mail}>
           <Text style={styles.tHead}>{email}</Text>
@@ -686,46 +657,19 @@ const styles = StyleSheet.create({
     flex: 0.9,
     height: '100%',
   },
-  bottomNAV: {
-    flex: 0.1,
-
-    height: 50,
-    width: 300,
-    borderRadius: 300,
-    marginTop: 0,
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignSelf: 'center',
-
-    alignItems: 'flex-end',
-  },
-
-  bottomNAVO: {
-    height: 60,
-    width: 300,
-    borderRadius: 300,
+  
+  userImageContainer: {
+    width: 90,
+    height: 90,
+    borderColor: '#F59595',
+    borderRadius: 100,
     backgroundColor: 'white',
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: 'black',
+    elevation: 3,
   },
-  indicatorLeft: isSelected => ({
-    width: 15,
-    height: 85,
-    backgroundColor: isSelected ? '#F59481' : '#F2F2F2',
-    borderTopRightRadius: 8,
-    borderBottomRightRadius: 8,
-    marginTop: -40,
-  }),
-
-  indicatorRight: isSelected => ({
-    width: 15,
-    height: 85,
-    backgroundColor: isSelected ? '#F59481' : '#F2F2F2',
-    borderTopLeftRadius: 8,
-    borderBottomLeftRadius: 8,
-    marginTop: -40,
-  }),
 });
 
 export default ProfileScreen;

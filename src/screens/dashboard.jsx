@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import ImageButtonDashboard from '../components/ImageDashboard';
 import ProfileScreen from './ProfileScreen';
@@ -6,9 +6,31 @@ import HistoryScreen from './HistoryScreen';
 import CardButton from '../components/CardButton';
 import BottomNavigation from '../components/BottomNavigation';
 
+import Avatar from 'react-native-boring-avatars';
+
+import SharedPreferences from 'react-native-shared-preferences';
+
 function Dashboard({navigation}) {
   const [buttSelector, setbuttSelector] = useState(1);
   const [selectScreen, setScreen] = useState(1);
+  const [email, SetEmail] = useState('');
+
+  useEffect(() => {
+    const FtData = async () => {
+      SharedPreferences.getItem('userEmail', function (value) {
+        SetEmail(value);
+      });
+    };
+    FtData();
+  });
+
+  const removeDomain = (email) => {
+    const atIndex = email.indexOf('@');
+    if (atIndex !== -1) {
+      return email.substring(0, atIndex);
+    }
+    return email;
+  };
 
   return (
     <View style={styles.fullPage}>
@@ -18,11 +40,22 @@ function Dashboard({navigation}) {
             <View style={styles.greetTextContainer}>
               <Text>
                 <Text style={styles.greetText}>Hey, </Text>
-                <Text style={[styles.greetText, styles.pinkColor]}>User</Text>
+                <Text style={[styles.greetText, styles.pinkColor]}>{removeDomain(email)}</Text>
                 <Text style={styles.greetText}>{'\n'}Welcome Back!</Text>
               </Text>
               <View style={styles.userImageContainer}>
-                <ImageButtonDashboard nmb={3} styl={styles.userImage} />
+                <Avatar
+                  size={80}
+                  name={email}
+                  variant="beam"
+                  colors={[
+                    '#9E6B7C',
+                    '#F87887',
+                    '#92CCB6',
+                    '#F3D597',
+                    '#B6D89C',
+                  ]}
+                />
               </View>
             </View>
             <CardButton
@@ -75,8 +108,8 @@ const styles = StyleSheet.create({
     margin: 45,
     display: 'flex',
     flexDirection: 'row',
-    // borderWidth: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   greetText: {
     fontFamily: 'Inter-Medium',
@@ -89,21 +122,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   userImageContainer: {
-    padding: 15,
-    // borderWidth: 2,
+    width: 90,
+    height: 90,
+    borderColor: '#F59595',
+    borderRadius: 100,
     backgroundColor: 'white',
-    borderRadius: 50,
-    marginLeft: 10,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     shadowColor: '#F59595',
-    elevation: 3
-  },
-  userImage: {
-    height: 50,
-    width: 50,
-    resizeMode: 'contain',
-    // padding: 30,
-    borderRadius: 50,
-    borderWidth: 2,
+    elevation: 3,
+    marginLeft: 60,
   },
   upperBody: {
     flex: 0.9,
