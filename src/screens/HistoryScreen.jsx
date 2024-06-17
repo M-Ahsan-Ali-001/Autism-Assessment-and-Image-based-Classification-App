@@ -19,11 +19,15 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import axios from 'axios';
+import QuestionMark from '../assets/images/QuestionMark';
+import InsPopup from '../components/Instructionspopup';
 var SharedPreferences = require('react-native-shared-preferences');
 function HistoryScreen(props) {
   const [aq_10, SetAQ] = useState([]);
   const [adhd, SetAD] = useState([]);
   const [mode, SetModel] = useState([]);
+  const [insPop,seinsPop] = useState(false)
+  const [insPopPG,seinsPopPG] = useState(0)
 
   let a1 = '';
   let a2 = '';
@@ -101,6 +105,8 @@ function HistoryScreen(props) {
   };
   return (
     <View style={styles.body}>
+          <InsPopup insPop={insPop}   seinsPop={seinsPop} insPopPG={insPopPG}/>
+         <QuestionMark  onPress={()=>{seinsPop(true); seinsPopPG(('3'))}}/>
       {(aq_10.length === 0) & (mode.length === 0) & (adhd.length === 0) ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Text style={{color: 'black'}}>No Data to Show !</Text>

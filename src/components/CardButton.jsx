@@ -10,7 +10,7 @@ import {
 
 import QuestionMark from '../assets/images/QuestionMark';
 
-const CardButton = ({name, action, imgpath, nav, navigation}) => {
+const CardButton = ({name, action, imgpath, nav, navigation,seinsPop, insNO, seinsPopPG}) => {
   const images = {
     1: require('../assets/images/quizIcon.png'),
     2: require('../assets/images/scanner.png'),
@@ -24,10 +24,10 @@ const CardButton = ({name, action, imgpath, nav, navigation}) => {
     <View>
       <Text style={styles.sectionTitle}>{name}</Text>
       <TouchableOpacity onPress={() => log()} style={styles.help}>
-        <QuestionMark style={styles.helpIcon} />
+        <QuestionMark style={styles.helpIcon}  onPress={()=>{seinsPop(true); seinsPopPG((insNO))}}/>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate(nav)}
+        onPress={() => navigation.navigate(nav,{navigation:navigation})}
         style={styles.card}>
         <View style={styles.cardContent}>
           <Image source={images[imgpath]} style={styles.cardImage} />

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, Modal,} from 'react-native';
 import ImageButtonDashboard from '../components/ImageDashboard';
 import ProfileScreen from './ProfileScreen';
 import HistoryScreen from './HistoryScreen';
@@ -9,12 +9,14 @@ import BottomNavigation from '../components/BottomNavigation';
 import Avatar from 'react-native-boring-avatars';
 
 import SharedPreferences from 'react-native-shared-preferences';
+import InsPopup from '../components/Instructionspopup';
 
 function Dashboard({navigation}) {
   const [buttSelector, setbuttSelector] = useState(1);
   const [selectScreen, setScreen] = useState(1);
   const [email, SetEmail] = useState('');
-
+  const [insPop,seinsPop] = useState(false)
+  const [insPopPG,seinsPopPG] = useState(0)
   useEffect(() => {
     const FtData = async () => {
       SharedPreferences.getItem('userEmail', function (value) {
@@ -34,6 +36,7 @@ function Dashboard({navigation}) {
 
   return (
     <View style={styles.fullPage}>
+       <InsPopup insPop={insPop}   seinsPop={seinsPop} insPopPG={insPopPG}/>
       <View style={styles.upperBody}>
         {selectScreen === 1 ? (
           <View>
@@ -64,6 +67,9 @@ function Dashboard({navigation}) {
               imgpath={1}
               nav="AQ_10"
               navigation={navigation}
+              seinsPop={seinsPop}
+              seinsPopPG={seinsPopPG}
+              insNO={'0'}
             />
             <CardButton
               name="ADHD"
@@ -71,13 +77,19 @@ function Dashboard({navigation}) {
               imgpath={1}
               nav="ADHD"
               navigation={navigation}
+              seinsPop={seinsPop}
+              seinsPopPG={seinsPopPG}
+              insNO={'1'}
             />
             <CardButton
               name="AI Analysis"
               action="Scanner"
               imgpath={2}
               nav="Scan"
+              seinsPop={seinsPop}
               navigation={navigation}
+              seinsPopPG={seinsPopPG}
+              insNO={'2'}
             />
           </View>
         ) : selectScreen === 2 ? (
@@ -92,6 +104,7 @@ function Dashboard({navigation}) {
         setScreen={setScreen}
         navigation={navigation}
       />
+     
     </View>
   );
 }

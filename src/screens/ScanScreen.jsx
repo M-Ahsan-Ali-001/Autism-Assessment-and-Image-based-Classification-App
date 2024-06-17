@@ -12,11 +12,15 @@ import {
   Animated,
 } from 'react-native';
 
+import QuestionMark from '../assets/images/QuestionMark';
+import InsPopup from '../components/Instructionspopup';
+
 import { launchImageLibrary } from 'react-native-image-picker';
 import axios from "axios";
 var SharedPreferences = require('react-native-shared-preferences');
-function ScanScreen() {
- 
+function ScanScreen({navigation}) {
+  const [insPop,seinsPop] = useState(false)
+  const [insPopPG,seinsPopPG] = useState(0)
   const a = React.useRef(false);
  const [st,Ust] = useState(true)
   const [selectedImage, setSelectedImage] = useState(null);
@@ -95,7 +99,7 @@ const [id,Setid]=useState("");
         }
 
 
-        const response = await axios.post("http://192.168.100.212:3000/uploadfile/",formData,config);
+        const response = await axios.post("http://192.168.100.200:3000/uploadfile/",formData,config);
 
       
     
@@ -259,10 +263,15 @@ else{
 
   return (
     <View style={styles.mainbody}>
+     
+     <InsPopup insPop={insPop}   seinsPop={seinsPop} insPopPG={insPopPG}/>
       <View style={styles.upperbody}>
         <Image source={require("../assets/images/leftArrow.png")} />
-        <Text style={styles.buttonArrow}>Back</Text>
-      </View>
+        <Text style={styles.buttonArrow} onPress={()=>{navigation.navigate('Dashboard')}}>Back</Text>
+        <QuestionMark style={styles.helpIcon}  onPress={()=>{seinsPop(true); seinsPopPG(('4'))}}/>
+              </View>
+  
+    
 
       <View style={styles.midBody}>
         {selectedImage ? (
@@ -373,6 +382,11 @@ const styles = StyleSheet.create({
     zIndex: 2,
 
   },
+  helpIcon:{
+
+ left:'160%'
+  }
+
 });
 
 export default ScanScreen;
