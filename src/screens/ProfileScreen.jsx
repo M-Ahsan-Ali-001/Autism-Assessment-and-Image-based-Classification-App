@@ -7,7 +7,8 @@ import ImageButtonDashboard from '../components/ImageDashboard';
 var SharedPreferences = require('react-native-shared-preferences');
 
 import Avatar from 'react-native-boring-avatars';
-
+import QuestionMark from '../assets/images/QuestionMark';
+import InsPopup from '../components/Instructionspopup';
 function ProfileScreen(props) {
   const [email, SetEmail] = useState('');
   const [idd, SetID] = useState('');
@@ -15,6 +16,8 @@ function ProfileScreen(props) {
   const [adhd, SetAD] = useState([]);
   const [mode, SetModel] = useState([]);
   const [AQf, setAQf] = useState([]);
+  const [insPop,seinsPop] = useState(false)
+  const [insPopPG,seinsPopPG] = useState(0)
   const [Mod, setMod] = useState([]);
   const [aqLabel, setAqLabel] = useState([
     'Jan',
@@ -365,6 +368,8 @@ function ProfileScreen(props) {
   };
   return (
     <View style={styles.body}>
+       <InsPopup insPop={insPop}   seinsPop={seinsPop} insPopPG={insPopPG}/>
+      
       <View style={styles.TopBox}>
         <View style={styles.userImageContainer}>
           <Avatar
@@ -394,10 +399,14 @@ function ProfileScreen(props) {
             />
           </Shadow>
         </View>
+        
         <View style={styles.History_Area}>
           {/* History and button Area  */}
 
-          <Text style={styles.cardMenuTitle}>History</Text>
+          <Text style={styles.cardMenuTitle}>History
+          </Text>
+  
+          <QuestionMark onPress={()=>{seinsPop(true); seinsPopPG(('5'))}}/>
 
           <View>
             <TouchableOpacity onPress={handlePressList}>
@@ -410,6 +419,7 @@ function ProfileScreen(props) {
                 </View>
               </Shadow>
             </TouchableOpacity>
+            
 
             <View
               style={{

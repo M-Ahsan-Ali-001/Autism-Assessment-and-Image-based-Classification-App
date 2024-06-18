@@ -212,6 +212,21 @@ Austism/Model  </Text>
   there  are two possibilities in this case Autistic and none Autistic, it is given from its name Autistic means  your are autistic and vice versa.
  </Text>
 </ScrollView>
+):insPopPG === '5'?(
+  <ScrollView style={styles.scroller}> 
+  <Text style={styles.answerH}>
+  History section contain a button where user can check the recent five results of ADHD, AQ_10 and Scan(Model)  results in graphical form.  </Text>
+  <Text style={styles.answer}>
+ <Text style={styles.answerH}>Score/Percentage:  </Text> 
+ The Y axis  numbers show the score or percentage of test scores.
+ 
+ </Text>
+ <Text style={styles.answer}>
+ <Text style={styles.answerH}>Months:  </Text> 
+The X axis shows the month in which test was taken.
+ </Text>
+  
+  </ScrollView>
 ):null}
 
 
