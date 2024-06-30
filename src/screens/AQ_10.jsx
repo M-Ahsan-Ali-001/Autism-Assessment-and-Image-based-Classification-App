@@ -1,4 +1,5 @@
 import React, {State, Suspense, lazy} from 'react';
+import { LogBox } from 'react-native';
 import {
   SafeAreaView,
   ScrollView,
@@ -19,7 +20,9 @@ function AQ_10() {
   // console.log(correctAns)
   const [selectedKeys, setSelectedKeys] = React.useState({});
   const AQ_test = lazy(() => import('../components/AQ_10_Get'));
-
+  LogBox.ignoreLogs([
+    'Non-serializable values were found in the navigation state',
+  ]);
   return (
     <View style={{flex: 1, backgroundColor: '#FDFDFD', padding: 12}}>
       <Suspense

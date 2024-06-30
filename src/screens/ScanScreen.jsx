@@ -1,4 +1,5 @@
 import React, { useState, useEffect,useRef } from 'react';
+import { LogBox } from 'react-native';
 import {
   SafeAreaView,
   ScrollView,
@@ -259,7 +260,9 @@ else{
     }
   };
 
-
+  LogBox.ignoreLogs([
+    'Non-serializable values were found in the navigation state',
+  ]);
 
   return (
     <View style={styles.mainbody}>
