@@ -105,66 +105,34 @@ const [id,Setid]=useState("");
       
     
         const rresult = await response.data;
-        console.log(rresult);
-        const lt= (rresult[0]).split("--[[")
-        const valuesArray = lt[1].split(" ");
-        console.log("AA"+lt[1]);
-        const prob1 = parseFloat(valuesArray[0])*100
-        
-        const prob2 = parseFloat(valuesArray[1])*100
+         console.log('rr'+rresult);
+         const lt= (rresult[0]).split("--")
+         console.log('lt1'+lt[0]);
+      
+         console.log('lt2'+lt[1]);
 
-        
+
+
+         
        SharedPreferences.getItem("userid", function(value){
           console.log("abc--+"+value);
         Setid(value)
         });
 
-        console.log("id--+"+id);
+
+           console.log("id--+"+id);
         const today = new Date();
         console.log("Date--"+today);
 
-        if(prob1>prob2){
-          SetProbs(prob1)    
 
-             
-       SharedPreferences.getItem("userid", function(value){
-        console.log("abc--+"+value);
-        try {
-          const response2 =  axios.post('https://dashborad-autism.netlify.app/.netlify/functions/model_ins',
-          {
-            "id" : `${value}}`,
-            "date":`${today}`,
-            "score":`${prob1}`,
-            "state":`${lt[0]}`
-            
-          });
-          //setGet(response.data);
-          console.log(response2.data)
-   
-      
-          
-        } catch (error) {
-         console.log(error)
-        } 
-      });
-       
-         
-
-        }
-        else{
-          
-          SetProbs(prob2) 
-
-          
-                    
-       SharedPreferences.getItem("userid", function(value){
+         SharedPreferences.getItem("userid", function(value){
         console.log("abc--+"+value);
         try {
           const response2 =  axios.post('https://dashborad-autism.netlify.app/.netlify/functions/model_ins',
           {
             "id" : `${value}`,
             "date":`${today}`,
-            "score":`${prob2}`,
+            "score":`${lt[1]}`,
             "state":`${lt[0]}`
             
           });
@@ -177,21 +145,16 @@ const [id,Setid]=useState("");
          console.log(error)
         } 
       });
-       
-          }
-
-        // Convert each substring to a float and filter out any non-numeric values
-    //    const floatValues = valuesArray.map(value => parseFloat(value)).filter(value => !isNaN(value));
     
     
-        SetResult(lt[0])
-       //  SetProbs(floatValues)      
+         SetResult(lt[0])
+         SetProbs(lt[1])      
 
         SetCache(true);
         a.current =false
         
-        console.log("aa--"+ a.current)
-        // setline("none");
+        console.log("value of a : "+ a.current)
+        setline("none");
 
       } catch (error) {
         console.log('Error sending image:', error);
