@@ -1,8 +1,13 @@
 import React from 'react';
-import {View, Text, Modal, Button, StyleSheet} from 'react-native';
+import {View, Text, Modal, Button, StyleSheet,Image,Linking} from 'react-native';
 import CustomButton from './CustomButton';
 
-const CustomPopup = ({visible, label, message, onClose}) => {
+const CustomPopup = ({visible, label, message, onClose,imageCheck,urlcheck}) => {
+  const pathStop= "../assets/images/stopPic.png"
+  const pathSubmmited= "../assets/images/tickLogo.png"
+  const urlAQ='https://autismhampshire.org.uk/assets/uploads/AQ10-Child.pdf'
+  const urlADHD = 'https://www.hbinetwork.com/wp-content/uploads/2018/06/ADHD_Screening_Tool.pdf'
+
   return (
     <Modal
       animationType="fade"
@@ -12,8 +17,21 @@ const CustomPopup = ({visible, label, message, onClose}) => {
       <View style={styles.container}>
         <View style={styles.popup}>
           <Text style={styles.heading}>{label}</Text>
+          {imageCheck ==='1'?(
+            <Image source={require(pathStop)}
+           
+            style={{height:100,width:100}}
+            />
+          ):imageCheck ==='2'?(
+            <Image source={require(pathSubmmited)}
+           
+            style={{height:100,width:100}}
+            />
+          ):null}
           <Text style={styles.text}>{message}</Text>
           {/* <Button title="Close" onPress={onClose} /> */}
+
+          {urlcheck==='1'?(<Text style={styles.url} onPress={()=>{Linking.openURL(urlAQ)}} > Go to AQ_10</Text>):urlcheck==='2'?(<Text style={styles.url} onPress={()=>{Linking.openURL(urlADHD)}}> Goto ADHD</Text>):null}
           <CustomButton
             style={styles.button}
             backgroundColor={'white'}
@@ -60,6 +78,12 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     textAlign: 'justify',
   },
+  url:{
+    color:'blue',
+    fontSize:19,
+    margin:10,
+    textDecorationLine:'underline'    
+  }
 });
 
 export default CustomPopup;

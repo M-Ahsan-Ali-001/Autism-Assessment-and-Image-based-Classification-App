@@ -28,7 +28,9 @@ function AQ_10_Get() {
   const [selectedKeys, setSelectedKeys] = useState({});
   const [holdAns, setHoldAns] = useState(Array(10).fill(-1));
   const [message, setMessage] = useState('');
-
+  const [imageNumber, setImageNumber] = useState('0');
+  const [urlN, setUrlN] = useState('0');
+  
   const handleOpenPopup = () => {
     setPopupVisible(true);
   };
@@ -67,6 +69,7 @@ function AQ_10_Get() {
       // alert(`Select All options Please!`);
       handleOpenPopup()
       setMessage(`Please select all options for full assessment!`)
+      setImageNumber('1')
       return;
     }
     console.log('Questionnaire submitted!');
@@ -97,7 +100,9 @@ function AQ_10_Get() {
           console.log(error);
         }
       });
-      setMessage(`Score: ${totalScore}\n You need to visit a doctor`);
+      setMessage(`Score: ${totalScore}\nYou need to visit a doctor`);
+      setImageNumber('2')
+      setUrlN('1')
     } else {
       handleOpenPopup();
       SharedPreferences.getItem('userid', function (value) {
@@ -119,7 +124,10 @@ function AQ_10_Get() {
       });
     }
     setMessage(`Score: ${totalScore}\n You dont need to visit a doctor`);
+    setImageNumber('2')
+    setUrlN('1')
     console.log(holdAns);
+    setHoldAns(Array(10).fill(-1));
   };
 
   const question = AQtest[questions[currentQuestion]];
@@ -266,6 +274,9 @@ function AQ_10_Get() {
         label={"Result"}
         message={message}
         onClose={handleClosePopup}
+        imageCheck={imageNumber}
+        urlcheck={urlN}
+    
       />
     </View>
   );

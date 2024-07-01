@@ -6,6 +6,7 @@ import CustomButton from './CustomButton';
 import nextArrow from '../assets/images/arrowNext.png';
 import backArrow from '../assets/images/backArrow.png';
 import axios from 'axios';
+import CustomPopup from './CustomPopUp';
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 var SharedPreferences = require('react-native-shared-preferences');
@@ -15,6 +16,18 @@ function ADHD_Get() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedKeys, setSelectedKeys] = useState({});
   const [holdAns, setHoldAns] = useState(Array(18).fill(-1));
+  const [popupVisible, setPopupVisible] = useState(false);
+  const [message, setMessage] = useState('');
+  const [imageNumber, setImageNumber] = useState('0');
+  const [urlN, setUrlN] = useState('0');
+  
+  const handleOpenPopup = () => {
+    setPopupVisible(true);
+  };
+
+  const handleClosePopup = () => {
+    setPopupVisible(false);
+  };
 
   const updateHoldAns = (index, optionKey) => {
     let score = 0;
@@ -61,7 +74,13 @@ holdAns.map((itm,idx)=>{
   }
 })
 
-if(checker){    alert(`Select All options Please!`); return;}
+if(checker){    
+  
+  handleOpenPopup()
+  setMessage(`Please select all options for full assessment!`)
+  setImageNumber('1')
+  
+  return;}
 
     console.log('Questionnaire submitted!');
     // const totalScore = holdAns.reduce(
@@ -93,9 +112,11 @@ if(checker){    alert(`Select All options Please!`); return;}
 
     const today = new Date();
     if(p >=6 || 0 >=6){
-      alert(`Total Score: ${o+p}`);
+      handleOpenPopup()
 
-  
+      setMessage(`Score: ${o+p}\nYou need to visit a doctor`);
+      setImageNumber('2')
+      setUrlN('2')
       SharedPreferences.getItem('userid', function (value) {
         console.log('abc--+' + value);
         try {
@@ -118,7 +139,11 @@ if(checker){    alert(`Select All options Please!`); return;}
     }
     else{
 
-      alert(`Total Score: ${o+p}`);
+      handleOpenPopup()
+
+      setMessage(`Score: ${o+p}\nYou need to visit a doctor`);
+      setImageNumber('2')
+      setUrlN('2')
       SharedPreferences.getItem('userid', function (value) {
         console.log('abc--+' + value);
         try {
@@ -264,6 +289,15 @@ if(checker){    alert(`Select All options Please!`); return;}
           />
         )}
       </View>
+      <CustomPopup
+        visible={popupVisible}
+        label={"Result"}
+        message={message}
+        onClose={handleClosePopup}
+        imageCheck={imageNumber}
+        urlcheck={urlN}
+    
+      />
     </View>
   );
 }
