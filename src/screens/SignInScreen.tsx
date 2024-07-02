@@ -22,6 +22,7 @@ const SignInScreen = ({navigation}: any) => {
   const realmApp = useApp();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const emailRegex = /^.*@.*\.com$/;
 
   
   useEffect(() => {
@@ -55,6 +56,11 @@ const SignInScreen = ({navigation}: any) => {
 
   const login = useCallback(
     async (newEmail: string, newPassword: string) => {
+
+      if(emailRegex.test(newEmail)===false){
+        Alert.alert('wrong Email!')
+        return;
+      }
       const credentials = Realm.Credentials.emailPassword(
         newEmail,
         newPassword,

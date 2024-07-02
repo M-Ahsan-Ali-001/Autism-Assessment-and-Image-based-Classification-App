@@ -26,9 +26,16 @@ const SignUpScreen = ({navigation}: any) => {
   const realmApp = useApp();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const emailRegex = /^.*@.*\.com$/;
 
   const SignUp = useCallback(
     async (newEmail: string, newPassword: string) => {
+
+      
+      if(emailRegex.test(newEmail)===false){
+        Alert.alert('wrong Email!')
+        return;
+      }
       try {
         // Attempt to register the user
         const newUser = await realmApp.emailPasswordAuth.registerUser({

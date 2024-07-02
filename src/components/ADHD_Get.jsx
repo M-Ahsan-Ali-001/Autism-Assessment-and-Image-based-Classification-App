@@ -114,7 +114,7 @@ if(checker){
     if(p >=6 || 0 >=6){
       handleOpenPopup()
 
-      setMessage(`Score: ${o+p}\nYou need to visit a doctor`);
+      setMessage(`Score: ${o+p}\nYou need to visit a doctor. This is not a full diagnosis consult a doctor`);
       setImageNumber('2')
       setUrlN('2')
       SharedPreferences.getItem('userid', function (value) {
@@ -141,7 +141,7 @@ if(checker){
 
       handleOpenPopup()
 
-      setMessage(`Score: ${o+p}\nYou need to visit a doctor`);
+      setMessage(`Score: ${o+p}\nYou need to visit a doctor. This is not a full diagnosis consult a doctor`);
       setImageNumber('2')
       setUrlN('2')
       SharedPreferences.getItem('userid', function (value) {

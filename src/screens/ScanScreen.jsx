@@ -100,9 +100,10 @@ const [id,Setid]=useState("");
         }
 
 
-        const response = await axios.post("http://192.168.100.200:3000/uploadfile/",formData,config);
+        // const response = await axios.post("http://192.168.100.200:3000/uploadfile/",formData,config);
 
-      
+        const response = await axios.post("https://da045680-9472-4326-842a-22d289790e66-00-27lc5w6klpzyx.sisko.replit.dev/uploadfile/",formData,config);
+
     
         const rresult = await response.data;
          console.log('rr'+rresult);

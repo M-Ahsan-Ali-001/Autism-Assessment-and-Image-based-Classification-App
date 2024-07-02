@@ -100,7 +100,7 @@ function AQ_10_Get() {
           console.log(error);
         }
       });
-      setMessage(`Score: ${totalScore}\nYou need to visit a doctor`);
+      setMessage(`Score: ${totalScore}\nYou need to visit a doctor. This is not a full diagnosis consult a doctor`);
       setImageNumber('2')
       setUrlN('1')
     } else {
@@ -123,7 +123,7 @@ function AQ_10_Get() {
         }
       });
     }
-    setMessage(`Score: ${totalScore}\n You dont need to visit a doctor`);
+    setMessage(`Score: ${totalScore}\n You dont need to visit a doctor. This is not a full diagnosis consult a doctor`);
     setImageNumber('2')
     setUrlN('1')
     console.log(holdAns);

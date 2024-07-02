@@ -10,13 +10,17 @@ import Avatar from 'react-native-boring-avatars';
 import SharedPreferences from 'react-native-shared-preferences';
 import InsPopup from '../components/Instructionspopup';
 
-const countries = ["pakistan", "Canada", "UK", "Australia", "india","china"];
+const countries = ["pakistan", "Canada", "UK", "Australia", "india", "china"];
 
 const CustomPicker = ({ data, selectedValue, onValueChange }) => {
   return (
     <ScrollView style={styles.pickerContainer}>
       {data.map((item) => (
-        <TouchableOpacity key={item} onPress={() => onValueChange(item)} style={styles.pickerItem}>
+        <TouchableOpacity 
+          key={item} 
+          onPress={() => onValueChange(item)} 
+          style={[styles.pickerItem, selectedValue === item ? styles.selectedPickerItem : null]}
+        >
           <Text style={styles.pickerItemText}>{item}</Text>
         </TouchableOpacity>
       ))}
@@ -33,7 +37,9 @@ function Dashboard({ navigation }) {
   const [countryCheck, setcountryCheck] = useState('0');
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState('');
-const [id_i , setId_i] = useState('');
+  const [id_i , setId_i] = useState('');
+  const [backgroundColor, setBackgroundColor] = useState('white'); // State for background color
+
   useEffect(() => {
     const sleep = (ms) => {
       return new Promise(resolve => setTimeout(resolve, ms));
@@ -48,7 +54,6 @@ const [id_i , setId_i] = useState('');
 
       SharedPreferences.getItem('userid', function (value) {
         setId_i(value);
-
       });
 
       await sleep(2000);
@@ -81,10 +86,10 @@ const [id_i , setId_i] = useState('');
     const req = await axios.post(' https://dashborad-autism.netlify.app/.netlify/functions/user_count_check',
       {
         "id": `${id_i}`,
-        'country':`${countries[selectScreen-1]}`
+        'country': `${countries[selectScreen - 1]}`
       });
 
-      console.log(req.data)
+    console.log(req.data);
   };
 
   const removeDomain = (email) => {
@@ -96,7 +101,7 @@ const [id_i , setId_i] = useState('');
   };
 
   return (
-    <View style={styles.fullPage}>
+    <View style={[styles.fullPage, { backgroundColor }]}>
       <InsPopup insPop={insPop} seinsPop={seinsPop} insPopPG={insPopPG} />
       <Modal
         animationType="slide"
@@ -108,12 +113,14 @@ const [id_i , setId_i] = useState('');
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-        
             <Text style={styles.TopItemText}>Select Your Country and press okay!</Text>
             <CustomPicker
               data={countries}
               selectedValue={selectedCountry}
-              onValueChange={setSelectedCountry}
+              onValueChange={(country) => {
+                setSelectedCountry(country);
+                setBackgroundColor('#E8E8E8'); // Change background color on selection
+              }}
             />
             <TouchableOpacity style={styles.okButton} onPress={handleOkayButton}>
               <Text style={styles.okButtonText}>Okay</Text>
@@ -197,7 +204,6 @@ const styles = StyleSheet.create({
     color: '#F59481',
   },
   fullPage: {
-    backgroundColor: '#F4F4F4',
     flex: 1,
   },
   greetTextContainer: {
@@ -272,6 +278,9 @@ const styles = StyleSheet.create({
   pickerItemText: {
     fontSize: 18,
     color:'black'
+  },
+  selectedPickerItem: {
+    backgroundColor: '#E8E8E8',
   },
   okButton: {
     marginTop: 20,
