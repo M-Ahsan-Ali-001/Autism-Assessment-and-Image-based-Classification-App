@@ -16,7 +16,14 @@ import Avatar from 'react-native-boring-avatars';
 import SharedPreferences from 'react-native-shared-preferences';
 import InsPopup from '../components/Instructionspopup';
 
-const countries = ['Pakistan', 'Canada', 'United Kingdom', 'Australia', 'India', 'China'];
+const countries = [
+  'Pakistan',
+  'Canada',
+  'United Kingdom',
+  'Australia',
+  'India',
+  'China',
+];
 
 const CustomPicker = ({data, selectedValue, onValueChange}) => {
   return (
@@ -225,6 +232,7 @@ const styles = StyleSheet.create({
   },
   greetTextContainer: {
     margin: 45,
+    marginBottom: 0,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
