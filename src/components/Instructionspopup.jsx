@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet, ScrollView, Text, Pressable, View} from 'react-native';
-import { white } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
+import React from 'react';
+import {Modal, StyleSheet, ScrollView, Text, View} from 'react-native';
 import CustomButton from './CustomButton';
 
 export default function InsPopup({insPop,seinsPop, insPopPG}){

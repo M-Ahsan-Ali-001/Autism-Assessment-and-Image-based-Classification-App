@@ -1,12 +1,5 @@
 import React, {useState} from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Dimensions,
-} from 'react-native';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {RadioButton} from 'react-native-paper';
 import AQtest from '../components/AQ_10.json';
 import CustomButton from './CustomButton';
@@ -30,7 +23,7 @@ function AQ_10_Get() {
   const [message, setMessage] = useState('');
   const [imageNumber, setImageNumber] = useState('0');
   const [urlN, setUrlN] = useState('0');
-  
+
   const handleOpenPopup = () => {
     setPopupVisible(true);
   };
@@ -67,9 +60,9 @@ function AQ_10_Get() {
 
     if (checker) {
       // alert(`Select All options Please!`);
-      handleOpenPopup()
-      setMessage(`Please select all options for full assessment!`)
-      setImageNumber('1')
+      handleOpenPopup();
+      setMessage(`Please select all options for full assessment!`);
+      setImageNumber('1');
       return;
     }
     console.log('Questionnaire submitted!');
@@ -100,9 +93,11 @@ function AQ_10_Get() {
           console.log(error);
         }
       });
-      setMessage(`Score: ${totalScore}\nYou need to visit a doctor. This is not a full diagnosis consult a doctor`);
-      setImageNumber('2')
-      setUrlN('1')
+      setMessage(
+        `Score: ${totalScore}\nYou need to visit a doctor. This is not a full diagnosis consult a doctor`,
+      );
+      setImageNumber('2');
+      setUrlN('1');
     } else {
       handleOpenPopup();
       SharedPreferences.getItem('userid', function (value) {
@@ -123,9 +118,11 @@ function AQ_10_Get() {
         }
       });
     }
-    setMessage(`Score: ${totalScore}\n You dont need to visit a doctor. This is not a full diagnosis consult a doctor`);
-    setImageNumber('2')
-    setUrlN('1')
+    setMessage(
+      `Score: ${totalScore}\n You dont need to visit a doctor. This is not a full diagnosis consult a doctor`,
+    );
+    setImageNumber('2');
+    setUrlN('1');
     console.log(holdAns);
     setHoldAns(Array(10).fill(-1));
   };
@@ -135,7 +132,7 @@ function AQ_10_Get() {
   const progress = ((currentQuestion + 1) / questions.length) * 100;
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID='container'>
       <Text style={styles.heading}>AQ-10</Text>
       <View style={styles.progressBarContainer}>
         <View style={[styles.progressBar, {width: `${progress}%`}]} />
@@ -271,12 +268,11 @@ function AQ_10_Get() {
       </View>
       <CustomPopup
         visible={popupVisible}
-        label={"Result"}
+        label={'Result'}
         message={message}
         onClose={handleClosePopup}
         imageCheck={imageNumber}
         urlcheck={urlN}
-    
       />
     </View>
   );

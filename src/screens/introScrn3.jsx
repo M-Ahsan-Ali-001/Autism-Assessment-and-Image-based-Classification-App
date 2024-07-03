@@ -33,7 +33,7 @@ import SpecialButton from '../components/AuthenticationButton';
 
 import ButtonIntro from '../components/ButtonIntro';
 import ArrowButton from '../components/arrowButton';
-import ProGressBar from '../components/progressBAR';
+import ProgressBar from '../components/ProgressBar';
 
 function IntroScreen3({navigation}) {
   const [textFooter, changeTextFooter] = React.useState('AQ 10 question');
@@ -67,7 +67,7 @@ function IntroScreen3({navigation}) {
           </Text>
           {/* <SpecialButton navi={navigation}buttonText="Lets go Nigga!"></SpecialButton> */}
           <ArrowButton w={60} h={60} navi={navigation}></ArrowButton>
-          <ProGressBar select={3}></ProGressBar>
+          <ProgressBar select={3}></ProgressBar>
         </View>
       </PanGestureHandler>
     </GestureHandlerRootView>

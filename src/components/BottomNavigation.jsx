@@ -11,7 +11,7 @@ const BottomNavigation = ({
   navigation,
 }) => {
   return (
-    <View style={styles.bottomNAV}>
+    <View style={styles.bottomNAV} testID='container'>
       <Shadow distance={10} offset={[0, 2]}>
         {
           <View style={styles.bottomNavItems}>

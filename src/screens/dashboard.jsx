@@ -120,7 +120,7 @@ function Dashboard({navigation}) {
   };
 
   return (
-    <View style={[styles.fullPage, {backgroundColor}]}>
+    <View style={[styles.fullPage, {backgroundColor}]} testID="fullBody">
       <InsPopup insPop={insPop} seinsPop={seinsPop} insPopPG={insPopPG} />
       <Modal
         animationType="slide"

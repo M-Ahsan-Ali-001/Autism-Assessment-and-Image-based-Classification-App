@@ -3,7 +3,7 @@ import {StyleSheet, Image, Text, View, TouchableOpacity} from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
 import {LineChart} from 'react-native-chart-kit';
 import axios from 'axios';
-import ImageButtonDashboard from '../components/ImageDashboard';
+import ImageButtonDashboard from '../components/ImageButtonDashboard';
 var SharedPreferences = require('react-native-shared-preferences');
 
 import Avatar from 'react-native-boring-avatars';

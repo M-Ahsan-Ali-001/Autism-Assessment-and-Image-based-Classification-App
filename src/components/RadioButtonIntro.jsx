@@ -1,10 +1,11 @@
-import React, {State} from 'react';
+import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {RadioButton} from 'react-native-paper';
 
 function RadioButtonIntro(prop) {
   return (
     <View
+      testID="radioButton"
       style={{
         justifyContent: 'center',
         alignItems: 'center',
@@ -29,10 +30,7 @@ function RadioButtonIntro(prop) {
 }
 
 const styles = StyleSheet.create({
-  shape: {
-
-  },
-
+  shape: {},
 });
 
 export default RadioButtonIntro;

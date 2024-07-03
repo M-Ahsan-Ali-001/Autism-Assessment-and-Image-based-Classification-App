@@ -11,19 +11,7 @@ import {
   Alert,
   TouchableWithoutFeedback,
 } from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import ImageButtonDashboard from './ImageDashboard';
-// import {
-//   GestureHandlerRootView,
-//   TouchableWithoutFeedback,
-// } from 'react-native-gesture-handler';
+import ImageButtonDashboard from './ImageButtonDashboard';
 
 function CardMenu(props) {
   const [isPressed, setIsPressed] = useState(false);
@@ -45,7 +33,7 @@ function CardMenu(props) {
   };
 
   return (
-    <View style={styles.cardStyle}>
+    <View style={styles.cardStyle} testID='cardMenu'>
       <TouchableWithoutFeedback
         onPressIn={onPressInHandler}
         onPressOut={onPressOutHandler}

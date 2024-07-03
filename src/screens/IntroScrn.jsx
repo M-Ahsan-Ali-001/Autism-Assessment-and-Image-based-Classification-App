@@ -9,7 +9,7 @@ import LogoIntroScreen from '../components/LogoIntroScree';
 import RadioButtonIntro from '../components/RadioButtonIntro';
 import TextIntroScreen from '../components/TextIntroScreen';
 import { ProgressBar } from 'react-native-paper';
-import ProGressBar from '../components/progressBAR';
+import ProgressBar from '../components/ProgressBar';
 
 function IntroScreen({navigation}) {
   const [textFooter, changeTextFooter] = React.useState('AQ 10 question');
@@ -41,7 +41,7 @@ function IntroScreen({navigation}) {
             Built-In algorithm for early intervention and detection of Autism.
           </Text>
           {/* <RadioButtonIntro nmb={1} /> */}
-      <ProGressBar select={1}></ProGressBar>
+      <ProgressBar select={1}></ProgressBar>
         </View>
       </PanGestureHandler>
     </GestureHandlerRootView>

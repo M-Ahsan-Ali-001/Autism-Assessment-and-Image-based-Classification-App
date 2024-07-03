@@ -1,4 +1,4 @@
-import React, {useCallback, useState,useEffect} from 'react';
+import React, {useCallback, useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -24,41 +24,30 @@ const SignInScreen = ({navigation}: any) => {
   const [password, setPassword] = useState('');
   const emailRegex = /^.*@.*\.com$/;
 
-  
   useEffect(() => {
-  const check =()=>{
+    const check = () => {
+      let state = '';
 
-    let state =""
+      SharedPreferences.getItem('loginState', function (value: string) {
+        state = value;
+        console.log('abc--+' + value);
 
- 
-
-    SharedPreferences.getItem("loginState", function(value:string)
-    {
-      state=value
-      console.log("abc--+"+value);
-      
-    if (value === "true"){
-
-      navigation.navigate('Dashboard');
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Dashboard' }],
+        if (value === 'true') {
+          navigation.navigate('Dashboard');
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'Dashboard'}],
+          });
+        }
       });
-    }
-    });
-
-  }
-  check();
-
-
-  },[])
-
+    };
+    check();
+  }, []);
 
   const login = useCallback(
     async (newEmail: string, newPassword: string) => {
-
-      if(emailRegex.test(newEmail)===false){
-        Alert.alert('wrong Email!')
+      if (emailRegex.test(newEmail) === false) {
+        Alert.alert('wrong Email!');
         return;
       }
       const credentials = Realm.Credentials.emailPassword(
@@ -70,17 +59,17 @@ const SignInScreen = ({navigation}: any) => {
         // Attempt to sign in
         const user = await realmApp.logIn(credentials);
         console.log('Successfully logged in:', user.id);
-        SharedPreferences.setItem("userid", user.id);
-      
-        SharedPreferences.setItem("userEmail", newEmail);
-        SharedPreferences.setItem("loginState", "true");
+        SharedPreferences.setItem('userid', user.id);
+
+        SharedPreferences.setItem('userEmail', newEmail);
+        SharedPreferences.setItem('loginState', 'true');
 
         navigation.navigate('Dashboard');
         navigation.reset({
           index: 0,
-          routes: [{ name: 'Dashboard' }],
+          routes: [{name: 'Dashboard'}],
         });
-          } catch (signInError: any) {
+      } catch (signInError: any) {
         // If sign in fails, handle the error
         console.log('Sign In Error:', signInError);
         Alert.alert('ERROR', signInError.message);
@@ -115,7 +104,7 @@ const SignInScreen = ({navigation}: any) => {
   const logo = require('../assets/images/Logo.png');
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="signIn">
       <View style={styles.logoContainer}>
         <Animated.Image
           entering={FadeInDown.delay(150).duration(900)}

@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, Animated } from 'react-native';
 import {
   FadeInDown,
-  createAnimatedComponent,
 } from 'react-native-reanimated';
 
 // Button for Login / Sign Up screens
@@ -11,7 +10,7 @@ function AuthenticationButton(props) {
   const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
   return (
-    <AnimatedTouchable
+    <AnimatedTouchable testID={"AuthBtn"}
       entering={FadeInDown.delay(150).duration(600)}
       onPress={() => onPress && onPress()}>
       <Text style={styles.buttonS}>{buttonText}</Text>

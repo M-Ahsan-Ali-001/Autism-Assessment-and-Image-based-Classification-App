@@ -1,16 +1,18 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-  Alert,
-} from 'react-native';
+import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 
 import QuestionMark from '../assets/images/QuestionMark';
 
-const CardButton = ({name, action, imgpath, nav, navigation,seinsPop, insNO, seinsPopPG}) => {
+const CardButton = ({
+  name,
+  action,
+  imgpath,
+  nav,
+  navigation,
+  seinsPop,
+  insNO,
+  seinsPopPG,
+}) => {
   const images = {
     1: require('../assets/images/quizIcon.png'),
     2: require('../assets/images/scanner.png'),
@@ -21,13 +23,22 @@ const CardButton = ({name, action, imgpath, nav, navigation,seinsPop, insNO, sei
   }
 
   return (
-    <View>
+    <View testID="cardButtons">
       <Text style={styles.sectionTitle}>{name}</Text>
-      <TouchableOpacity onPress={() => log()} style={styles.help}>
-        <QuestionMark style={styles.helpIcon}  onPress={()=>{seinsPop(true); seinsPopPG((insNO))}}/>
+      <TouchableOpacity
+        onPress={() => log()}
+        style={styles.help}
+        testID="helpIcon">
+        <QuestionMark
+          style={styles.helpIcon}
+          onPress={() => {
+            seinsPop(true);
+            seinsPopPG(insNO);
+          }}
+        />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate(nav,{navigation:navigation})}
+        onPress={() => navigation.navigate(nav, {navigation: navigation})}
         style={styles.card}>
         <View style={styles.cardContent}>
           <Image source={images[imgpath]} style={styles.cardImage} />

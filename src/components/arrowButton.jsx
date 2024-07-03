@@ -1,11 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import {TouchableOpacity, Image} from 'react-native';
 import Animated, {
-  FadeIn,
   FadeInDown,
-  FadeInUp,
-  BounceInUp,
-  BounceInDown,
 } from 'react-native-reanimated';
 
 function ArrowButton(props) {
@@ -18,6 +14,7 @@ function ArrowButton(props) {
 
   return (
     <AnimatedTouchable
+      testID="arrowButton"
       entering={FadeInDown.delay(150).duration(600)}
       onPress={() => {
         props.navi.navigate('Signin');
