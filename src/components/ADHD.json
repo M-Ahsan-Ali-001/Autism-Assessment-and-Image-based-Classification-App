@@ -1,0 +1,146 @@
+{
+    "1a": {
+        "Q": "Often fails to give close attention to details or makes careless mistakes in schoolwork, work, or other activities.",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "2a": {
+        "Q": "Often has difficulty sustaining attention in tasks or play activities.",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "3a": {
+        "Q": "Often does not seem to listen when spoken to directly.",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "4a": {
+        "Q": "Often does not follow through on instructions and fails to finish schoolwork, chores, or duties in the workplace (not due to failure to understand directions).",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "5a": {
+        "Q": "Often has difficulty organizing tasks and activities.",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "6a": {
+        "Q": "Often avoids, dislikes, or is reluctant to engage in tasks that require sustained mental effort (such as schoolwork or homework).",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "7a": {
+        "Q": "Often loses things necessary for tasks or activities (e.g., toys, school assignments, pencils, books, tools).",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "8a": {
+        "Q": "Is often easily distracted by extraneous stimuli.",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "9a": {
+        "Q": "Is often forgetful in daily activities.",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "10a": {
+        "Q": "Often fidgets with hands or feet or squirms in seat.",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "11a": {
+        "Q": "Often leaves seat in classroom or in other situations in which remaining seated is expected.",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "12a": {
+        "Q": "Often runs about or climbs excessively in situations in which it is inappropriate (in adolescents or adults, may be limited to subjective feelings or restlessness).",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "13a": {
+        "Q": "Often has difficulty playing or engaging in leisure activities quietly.",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "14a": {
+        "Q": "Is often “on the go” or often acts as if “driven by a motor.”",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "15a": {
+        "Q": "Often talks excessively.",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "16a": {
+        "Q": "Often blurts out answers before questions have been completed.",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "17a": {
+        "Q": "Often has difficulty waiting turn.",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    },
+    "18a": {
+        "Q": "Often interrupts or intrudes on others (i.e., interrupts conversations or games).",
+        "options": {
+            "a": "Not at All",
+            "b": "Sometimes",
+            "c": "Frequently"
+        }
+    }
+}
